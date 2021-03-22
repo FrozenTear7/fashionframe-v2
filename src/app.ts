@@ -1,5 +1,5 @@
 import express from 'express'
-import warframeRoutes from './routes/warframe-routes'
+import warframeRoutes from './routes/warframeRoutes'
 
 const app = express()
 
