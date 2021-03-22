@@ -1,6 +1,6 @@
-import app from './app'
-import config from './config'
-import mongoose from 'mongoose'
+import app from './app';
+import config from './config';
+import mongoose from 'mongoose';
 
 void (async () => {
   await mongoose.connect(config.database.url, {
@@ -8,9 +8,9 @@ void (async () => {
     useUnifiedTopology: true,
     useFindAndModify: false,
     useCreateIndex: true,
-  })
+  });
 
   app.listen(config.port, () => {
-    console.log(`Fashionframe server is running on port ${config.port}`)
-  })
-})()
+    console.log(`Fashionframe server is running on port ${config.port}`);
+  });
+})();

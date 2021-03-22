@@ -10,6 +10,7 @@
     "es6": true
   },
   "rules": {
+    "@typescript-eslint/semi": ["error"],
     "@typescript-eslint/explicit-function-return-type": 0,
     "@typescript-eslint/no-unused-vars": [
       "error",
@@ -23,7 +24,7 @@
       {
         "endOfLine": "auto",
         "singleQuote": true,
-        "semi": false
+        "semi": true
       }
     ],
     "no-fallthrough": 0

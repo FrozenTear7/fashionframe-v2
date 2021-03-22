@@ -1,7 +1,7 @@
-import express from 'express'
+import express from 'express';
 // import User from '../models/User'
 
-const router = express.Router()
+const router = express.Router();
 
 // router.get('/:id', async (req, res) => {
 //   const userId = req.params.id
@@ -10,4 +10,4 @@ const router = express.Router()
 //   res.json(frames)
 // })
 
-export default router
+export default router;

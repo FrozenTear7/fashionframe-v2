@@ -1,6 +1,6 @@
 export interface Config {
-  port: string
+  port: string;
   database: {
-    url: string
-  }
+    url: string;
+  };
 }

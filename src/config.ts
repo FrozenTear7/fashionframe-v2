@@ -1,16 +1,16 @@
-import { isString } from './utils/parseTypes/typeChecks'
-import { Config } from './types'
-import dotenv from 'dotenv'
+import { isString } from './utils/parseTypes/typeChecks';
+import { Config } from './types';
+import dotenv from 'dotenv';
 
-dotenv.config()
+dotenv.config();
 
 // .env config
 
-const { PORT, DB_URL } = process.env
+const { PORT, DB_URL } = process.env;
 
 if (!isString(PORT) || !isString(DB_URL)) {
-  console.log('Please provide a valid .env config')
-  process.exit(0)
+  console.log('Please provide a valid .env config');
+  process.exit(0);
 }
 
 // Options passed to the Twitch client
@@ -20,6 +20,6 @@ const config: Config = {
   database: {
     url: DB_URL,
   },
-}
+};
 
-export default config
+export default config;

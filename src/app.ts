@@ -1,10 +1,10 @@
-import express from 'express'
-import warframeData from './routes/warframeData'
+import express from 'express';
+import warframeData from './routes/warframeData';
 
-const app = express()
+const app = express();
 
-app.use(express.json())
+app.use(express.json());
 
-app.use('/api', warframeData)
+app.use('/api', warframeData);
 
-export default app
+export default app;
