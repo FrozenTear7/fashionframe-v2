@@ -1,10 +1,10 @@
 import express from 'express'
-import warframeRoutes from './routes/warframeRoutes'
+import warframeData from './routes/warframeData'
 
 const app = express()
 
 app.use(express.json())
 
-app.use('/api', warframeRoutes)
+app.use('/api', warframeData)
 
 export default app

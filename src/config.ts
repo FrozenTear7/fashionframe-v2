@@ -6,9 +6,9 @@ dotenv.config()
 
 // .env config
 
-const { PORT } = process.env
+const { PORT, DB_URL } = process.env
 
-if (!isString(PORT)) {
+if (!isString(PORT) || !isString(DB_URL)) {
   console.log('Please provide a valid .env config')
   process.exit(0)
 }
@@ -17,6 +17,9 @@ if (!isString(PORT)) {
 
 const config: Config = {
   port: PORT,
+  database: {
+    url: DB_URL,
+  },
 }
 
 export default config
