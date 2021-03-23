@@ -1,7 +1,6 @@
 import { model, Schema, Model, Document, ObjectId } from 'mongoose';
 
-interface IColorScheme extends Document {
-  setup: ObjectId;
+interface IAttachments extends Document {
   colorScheme: ObjectId;
   chest: string;
   leftArm: string;
@@ -11,8 +10,7 @@ interface IColorScheme extends Document {
   ephemera: string;
 }
 
-const ColorSchemeSchema: Schema = new Schema({
-  setup: { type: Schema.Types.ObjectId, ref: 'Setup', required: true },
+const AttachmentsSchema: Schema = new Schema({
   colorScheme: {
     type: Schema.Types.ObjectId,
     ref: 'ColorScheme',
@@ -26,9 +24,9 @@ const ColorSchemeSchema: Schema = new Schema({
   ephemera: { type: String },
 });
 
-const ColorScheme: Model<IColorScheme> = model(
-  'ColorScheme',
-  ColorSchemeSchema
+const Attachments: Model<IAttachments> = model(
+  'Attachments',
+  AttachmentsSchema
 );
 
-export default ColorScheme;
+export default Attachments;

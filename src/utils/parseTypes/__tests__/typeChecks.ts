@@ -94,7 +94,7 @@ describe('exists', () => {
       ['test'],
       Array(3),
       {},
-      () => {
+      (): void => {
         console.log('test');
       },
     ];

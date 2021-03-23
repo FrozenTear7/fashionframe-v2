@@ -1,7 +1,6 @@
-import { model, Schema, Model, Document, ObjectId } from 'mongoose';
+import { model, Schema, Model, Document } from 'mongoose';
 
 interface IColorScheme extends Document {
-  setup: ObjectId;
   primary: string;
   secondary: string;
   tertiary: string;
@@ -13,7 +12,6 @@ interface IColorScheme extends Document {
 }
 
 const ColorSchemeSchema: Schema = new Schema({
-  setup: { type: Schema.Types.ObjectId, ref: 'Setup', required: true },
   primary: { type: String },
   secondary: { type: String },
   tertiary: { type: String },

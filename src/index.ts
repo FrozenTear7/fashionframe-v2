@@ -2,7 +2,7 @@ import app from './app';
 import config from './config';
 import mongoose from 'mongoose';
 
-void (async () => {
+void (async (): Promise<void> => {
   await mongoose.connect(config.database.url, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
