@@ -1,6 +1,6 @@
 import { model, Schema, Model, Document, ObjectId } from 'mongoose';
 
-interface ISetup extends Document {
+export interface ISetup extends Document {
   user: ObjectId;
   attachments: ObjectId;
   syandana: ObjectId;

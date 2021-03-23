@@ -1,6 +1,6 @@
 import { model, Schema, Model, Document, ObjectId } from 'mongoose';
 
-interface IAttachments extends Document {
+export interface IAttachments extends Document {
   colorScheme: ObjectId;
   chest: string;
   leftArm: string;

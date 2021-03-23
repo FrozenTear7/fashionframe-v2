@@ -1,6 +1,6 @@
 import { model, Schema, Model, Document, ObjectId } from 'mongoose';
 
-interface ISyandana extends Document {
+export interface ISyandana extends Document {
   colorScheme: ObjectId;
   name: string;
 }

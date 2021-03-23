@@ -6,9 +6,14 @@ dotenv.config();
 
 // .env config
 
-const { PORT, DB_URL, SESSION_SECRET } = process.env;
+const { PORT, NODE_ENV, DB_URL, SESSION_SECRET } = process.env;
 
-if (!isString(PORT) || !isString(DB_URL) || !isString(SESSION_SECRET)) {
+if (
+  !isString(PORT) ||
+  !isString(NODE_ENV) ||
+  !isString(DB_URL) ||
+  !isString(SESSION_SECRET)
+) {
   console.log('Please provide a valid .env config');
   process.exit(0);
 }
@@ -17,6 +22,14 @@ if (!isString(PORT) || !isString(DB_URL) || !isString(SESSION_SECRET)) {
 
 const config: Config = {
   port: PORT,
+  apiUrl:
+    NODE_ENV === 'production'
+      ? 'https://fashionframe.herokuapp.com/fashionframe'
+      : 'http://localhost:8000/fashionframe',
+  webUrl:
+    NODE_ENV === 'production'
+      ? 'https://fashionframe.herokuapp.com'
+      : 'http://localhost:8001',
   database: {
     url: DB_URL,
   },

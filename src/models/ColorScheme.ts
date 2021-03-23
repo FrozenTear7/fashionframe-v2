@@ -1,6 +1,6 @@
 import { model, Schema, Model, Document } from 'mongoose';
 
-interface IColorScheme extends Document {
+export interface IColorScheme extends Document {
   primary: string;
   secondary: string;
   tertiary: string;
