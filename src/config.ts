@@ -6,9 +6,9 @@ dotenv.config();
 
 // .env config
 
-const { PORT, DB_URL } = process.env;
+const { PORT, DB_URL, SESSION_SECRET } = process.env;
 
-if (!isString(PORT) || !isString(DB_URL)) {
+if (!isString(PORT) || !isString(DB_URL) || !isString(SESSION_SECRET)) {
   console.log('Please provide a valid .env config');
   process.exit(0);
 }
@@ -19,6 +19,9 @@ const config: Config = {
   port: PORT,
   database: {
     url: DB_URL,
+  },
+  session: {
+    secret: SESSION_SECRET,
   },
 };
 

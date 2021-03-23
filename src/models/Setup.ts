@@ -36,7 +36,7 @@ const SetupSchema: Schema = new Schema({
     ref: 'ColorScheme',
     required: 'ColorScheme is required',
   },
-  name: { type: String, required: 'Name is required' },
+  name: { type: String, required: 'Name is required', unique: true },
   description: { type: String },
   frame: { type: String, required: 'Frame is required' },
   helmet: { type: String, required: 'Helmet is required' },

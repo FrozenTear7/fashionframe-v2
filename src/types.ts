@@ -3,4 +3,7 @@ export interface Config {
   database: {
     url: string;
   };
+  session: {
+    secret: string;
+  };
 }
