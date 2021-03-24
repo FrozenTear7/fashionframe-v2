@@ -58,7 +58,8 @@
     "test": "jest --runInBand --passWithNoTests --no-cache --coverage",
     "test:coverage": "jest --runInBand --passWithNoTests --no-cache --silent --coverage",
     "test:badges": "yarn test:coverage && jest-coverage-badges --input ./coverage/coverage-summary.json --output ./badges",
-    "lint": "eslint --ext .ts . --fix"
+    "lint": "eslint --ext .ts . --fix",
+    "prepare": "husky install"
   },
   "husky": {
     "hooks": {
