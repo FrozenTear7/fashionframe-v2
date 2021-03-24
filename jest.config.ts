@@ -26,6 +26,7 @@ export default {
     '!src/types.ts',
     '!src/testSetup.ts',
     '!src/**/*.d.ts',
+    '!src/seeds/*',
   ],
 
   // The directory where Jest should output its coverage files

@@ -1,9 +1,9 @@
 import { setupDB } from './../../testSetup';
 import ColorScheme from '../ColorScheme';
 
-setupDB(true);
-
 describe('ColorScheme model test', () => {
+  setupDB(true);
+
   test('create & save colorScheme successfully', async () => {
     const colorSchemeData = {
       primary: '#FFFFFF',

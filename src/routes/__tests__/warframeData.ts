@@ -12,9 +12,7 @@ import syandanas from '../../../public/warframe_data/syandanas.json';
 
 const request = supertest(app);
 
-// jest.mock('../../../public/warframe_data/frames.json')
-
-describe('Test the warframe routes', () => {
+describe('Test warframe routes', () => {
   const apiUrl = '/api';
 
   test('frames route should return valid frames json data', async (done) => {

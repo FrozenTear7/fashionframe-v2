@@ -39,7 +39,7 @@ export const getOwnProfile = (
   res: Response,
   _next: NextFunction
 ): void => {
-  res.send(req.user);
+  res.send({ data: req.user, message: 'Successfully fetched profile' });
 };
 
 export const logoutUser = async (

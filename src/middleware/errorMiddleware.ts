@@ -10,7 +10,7 @@ function errorMiddleware(
   const status = err.status || 500;
   const message = err.message || 'Something went wrong';
 
-  console.error(`Received status: ${status}, error: ${message}`);
+  console.log(`Received status: ${status}, error: ${message}`);
 
   res.status(status).send({
     status,

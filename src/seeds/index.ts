@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import fs from 'fs';
 import util from 'util';
 import path from 'path';
-import mongoose from 'mongoose';
+import User from '../models/User';
+import ColorScheme from '../models/ColorScheme';
 
 // https://github.com/zellwk/endpoint-testing-example
 
@@ -13,16 +15,22 @@ const seedDatabase = async (runSaveMiddleware = false): Promise<void> => {
 
   for (const file of seedFiles) {
     const fileName = file.split('.seed.json')[0];
-    const modelName = `${fileName[0].toUpperCase()}${fileName.substr(1)}`;
-    const model = mongoose.models[modelName];
-
-    if (!model) throw new Error(`Cannot find Model '${modelName}'`);
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const fileContents = require(path.join(__dirname, file));
 
-    runSaveMiddleware
-      ? await model.create(fileContents)
-      : await model.insertMany(fileContents);
+    switch (fileName) {
+      case 'ColorScheme':
+        runSaveMiddleware
+          ? await ColorScheme.create(fileContents)
+          : await ColorScheme.insertMany(fileContents);
+        break;
+      case 'User':
+        runSaveMiddleware
+          ? await User.create(fileContents)
+          : await User.insertMany(fileContents);
+        break;
+      default:
+        throw new Error(`Cannot find Model '${fileName}'`);
+    }
   }
 };
 

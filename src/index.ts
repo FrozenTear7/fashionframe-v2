@@ -3,7 +3,7 @@ import config from './config';
 import mongoose from 'mongoose';
 
 void (async (): Promise<void> => {
-  await mongoose.connect(config.database.production, {
+  await mongoose.connect(config.database.url, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
