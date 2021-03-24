@@ -1,4 +1,7 @@
 import { model, Schema, Model, Document, ObjectId } from 'mongoose';
+import Attachments from './Attachments';
+import ColorScheme from './ColorScheme';
+import Syandana from './Syandana';
 
 export interface ISetup extends Document {
   user: ObjectId;
@@ -48,6 +51,14 @@ const SetupSchema: Schema = new Schema({
     required: 'Date of creation is required - defaults to now',
   },
   likes: { type: Number, default: 0, required: 'Likes are required' },
+});
+
+SetupSchema.pre('remove', async function () {
+  const setup = this as ISetup;
+
+  await Attachments.deleteOne({ _id: setup.attachments });
+  await Syandana.deleteOne({ _id: setup.syandana });
+  await ColorScheme.deleteOne({ _id: setup.colorScheme });
 });
 
 const Setup: Model<ISetup> = model('Setup', SetupSchema);

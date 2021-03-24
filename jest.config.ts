@@ -24,6 +24,7 @@ export default {
     'src/**/*.ts',
     '!src/index.ts',
     '!src/types.ts',
+    '!src/testSetup.ts',
     '!src/**/*.d.ts',
   ],
 

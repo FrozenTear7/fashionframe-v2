@@ -1,24 +1,9 @@
-import mongoose from 'mongoose';
+import { setupDB } from './../../testSetup';
 import ColorScheme from '../ColorScheme';
 
+setupDB(true);
+
 describe('ColorScheme model test', () => {
-  beforeAll(async () => {
-    await mongoose.connect(
-      global.__MONGO_URI__,
-      { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true },
-      (err) => {
-        if (err) {
-          console.error(err);
-          process.exit(1);
-        }
-      }
-    );
-  });
-
-  afterAll(async () => {
-    await mongoose.disconnect();
-  });
-
   test('create & save colorScheme successfully', async () => {
     const colorSchemeData = {
       primary: '#FFFFFF',

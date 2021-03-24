@@ -1,4 +1,5 @@
 import { model, Schema, Model, Document, ObjectId } from 'mongoose';
+import ColorScheme from './ColorScheme';
 
 export interface IAttachments extends Document {
   colorScheme: ObjectId;
@@ -22,6 +23,12 @@ const AttachmentsSchema: Schema = new Schema({
   leftLeg: { type: String },
   rightLeg: { type: String },
   ephemera: { type: String },
+});
+
+AttachmentsSchema.pre('remove', async function () {
+  const attachments = this as IAttachments;
+
+  await ColorScheme.deleteOne({ _id: attachments.colorScheme });
 });
 
 const Attachments: Model<IAttachments> = model(
