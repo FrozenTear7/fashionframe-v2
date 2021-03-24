@@ -33,7 +33,7 @@ const dropAllCollections = async (): Promise<void> => {
   }
 };
 
-export const setupDB = (runSaveMiddleware = false): void => {
+export const setupDB = (): void => {
   beforeAll(async () => {
     await mongoose.connect(
       global.__MONGO_URI__,
@@ -52,7 +52,7 @@ export const setupDB = (runSaveMiddleware = false): void => {
   });
 
   beforeEach(async () => {
-    await seedDatabase(runSaveMiddleware);
+    await seedDatabase();
   });
 
   afterEach(async () => {

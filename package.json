@@ -55,10 +55,10 @@
     "tsc": "tsc",
     "start": "node build/src/index.js",
     "dev": "ts-node-dev --watch src/**/* --files src/index.ts",
-    "lint": "eslint --ext .ts . --fix",
     "test": "jest --passWithNoTests --no-cache --coverage",
     "test:coverage": "jest --passWithNoTests --no-cache --silent --coverage",
-    "test:badges": "yarn test:coverage && jest-coverage-badges --input ./coverage/coverage-summary.json --output ./badges"
+    "test:badges": "yarn test:coverage && jest-coverage-badges --input ./coverage/coverage-summary.json --output ./badges",
+    "lint": "eslint --ext .ts . --fix"
   },
   "husky": {
     "hooks": {

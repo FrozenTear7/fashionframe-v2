@@ -2,7 +2,7 @@ import { setupDB } from './../../testSetup';
 import ColorScheme from '../ColorScheme';
 
 describe('ColorScheme model test', () => {
-  setupDB(true);
+  setupDB();
 
   test('create & save colorScheme successfully', async () => {
     const colorSchemeData = {

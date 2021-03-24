@@ -12,13 +12,11 @@ export const createSetup = async (
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  const { user, attachments, syandana, colorScheme, ...setup } = req.body;
+  const { attachments, syandana, colorScheme, ...setup } = req.body;
 
   const session = await mongoose.startSession();
 
   try {
-    const createdUser = new User(user);
-
     const createdAttachmentsColorScheme = new ColorScheme(
       attachments.colorScheme
     );
@@ -36,7 +34,7 @@ export const createSetup = async (
     const createdColorScheme = new ColorScheme(colorScheme);
 
     const createdSetup = new Setup({
-      user: createdUser,
+      user: req.user._id,
       attachments: createdAttachments,
       syandana: createdSyandana,
       colorScheme: createdColorScheme,
@@ -44,7 +42,6 @@ export const createSetup = async (
     });
 
     await session.withTransaction(async () => {
-      await createdUser.save({ session });
       await createdSyandanaColorScheme.save({ session });
       await createdSyandana.save({ session });
       await createdAttachmentsColorScheme.save({ session });

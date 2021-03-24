@@ -6,13 +6,14 @@ import {
   updateSetupById,
 } from './../controllers/setupController';
 import express from 'express';
+import auth from '../middleware/auth';
 
 const router = express.Router();
 
-router.post('/', createSetup);
+router.post('/', auth, createSetup);
 router.get('/user/:userId', getSetupsByUserId);
 router.get('/:id', getSetupById);
-router.put('/:id', updateSetupById);
-router.delete('/:id', deleteSetupById);
+router.put('/:id', auth, updateSetupById);
+router.delete('/:id', auth, deleteSetupById);
 
 export default router;

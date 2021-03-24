@@ -7,8 +7,24 @@ const request = supertest(app);
 
 const authUrl = '/users';
 
+describe('Test auth register route', () => {
+  setupDB();
+
+  test('should register with valid credentials', async (done) => {
+    const res = await request.post(`${authUrl}/`).send({
+      username: 'TestUsername2',
+      email: 'Test2@gmail.com',
+      password: 'TestPassword',
+    });
+
+    expect(res.status).toBe(201);
+    expect(res.body).toHaveProperty('token');
+    done();
+  });
+});
+
 describe('Test auth login route', () => {
-  setupDB(true);
+  setupDB();
 
   test('should login with valid credentials', async (done) => {
     const res = await request.post(`${authUrl}/login`).send({
@@ -47,7 +63,7 @@ describe('Test auth login route', () => {
 });
 
 describe('Test auth own profile route', () => {
-  setupDB(true);
+  setupDB();
 
   test('should return valid profile', async (done) => {
     const loginRes = await request.post(`${authUrl}/login`).send({
@@ -96,7 +112,7 @@ describe('Test auth own profile route', () => {
 });
 
 describe('Test auth logout route', () => {
-  setupDB(true);
+  setupDB();
 
   test('should logout with valid token', async (done) => {
     const loginRes = await request.post(`${authUrl}/login`).send({
