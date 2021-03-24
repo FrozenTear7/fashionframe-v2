@@ -45,21 +45,6 @@ describe('ColorScheme model test', () => {
     expect(savedColorScheme.energy2).toBe(colorSchemeData.energy2);
   });
 
-  // // Test Schema is working!!!
-  // // You shouldn't be able to add in any field that isn't defined in the schema
-  // it('insert user successfully, but the field does not defined in schema should be undefined', async () => {
-  //   const userWithInvalidField = new UserModel({
-  //     name: 'TekLoon',
-  //     gender: 'Male',
-  //     nickname: 'Handsome TekLoon',
-  //   });
-  //   const savedUserWithInvalidField = await userWithInvalidField.save();
-  //   expect(savedUserWithInvalidField._id).toBeDefined();
-  //   expect(savedUserWithInvalidField.nickkname).toBeUndefined();
-  // });
-
-  // // Test Validation is working!!!
-  // // It should us told us the errors in on gender field.
   // it('create user without required field should failed', async () => {
   //   const userWithoutRequiredField = new UserModel({ name: 'TekLoon' });
   //   let err;

@@ -9,14 +9,12 @@ describe('config', () => {
     process.env = { ...OLD_ENV };
   });
 
-  test('exits on missing or non-string PORT', () => {
+  test('exits on missing or non-string variables', () => {
     const exitMsg = 'mock process.exit(0)';
     const logSpy = jest.spyOn(global.console, 'log');
     const exitSpy = jest.spyOn(process, 'exit').mockImplementation(() => {
       throw new Error(exitMsg);
     });
-
-    // PORT check
 
     process.env.PORT = undefined;
 
@@ -26,23 +24,23 @@ describe('config', () => {
       expect((e as Error).message).toBe(exitMsg);
     }
 
-    expect(logSpy).toBeCalledTimes(1);
-    expect(logSpy).toBeCalledWith('Please provide a valid .env config');
+    process.env.NODE_ENV = undefined;
 
-    expect(exitSpy).toBeCalledTimes(1);
-    expect(exitSpy).toBeCalledWith(0);
-  });
-
-  test('exits on missing or non-string DB_URL', () => {
-    const exitMsg = 'mock process.exit(0)';
-    const logSpy = jest.spyOn(global.console, 'log');
-    const exitSpy = jest.spyOn(process, 'exit').mockImplementation(() => {
-      throw new Error(exitMsg);
-    });
-
-    // PORT check
+    try {
+      require('../../src/config').default;
+    } catch (e) {
+      expect((e as Error).message).toBe(exitMsg);
+    }
 
     process.env.DB_URL = undefined;
+
+    try {
+      require('../../src/config').default;
+    } catch (e) {
+      expect((e as Error).message).toBe(exitMsg);
+    }
+
+    process.env.JWT_KEY = undefined;
 
     try {
       require('../../src/config').default;
@@ -59,19 +57,39 @@ describe('config', () => {
 
   test('returns valid config', () => {
     const port = '8001';
-    const dbUrl = 'test URL';
+    const apiUrl = 'https://fashionframe.herokuapp.com/fashionframe';
+    const webUrl = 'https://fashionframe.herokuapp.com';
+    const dbUrl = 'test DB URL';
+    const jwtKey = 'TeStJWTKeY';
 
     process.env.PORT = port;
     process.env.DB_URL = dbUrl;
+    process.env.NODE_ENV = 'production';
+    process.env.JWT_KEY = jwtKey;
 
     const config = require('../../src/config').default;
     const configCheck = {
       port: port,
+      apiUrl: apiUrl,
+      webUrl: webUrl,
       database: {
         url: dbUrl,
       },
+      jwtKey: jwtKey,
     };
 
     expect(config).toStrictEqual(configCheck);
+  });
+
+  test('returns valid URLs for development', () => {
+    const apiUrl = 'http://localhost:8000/fashionframe';
+    const webUrl = 'http://localhost:8001';
+
+    process.env.NODE_ENV = 'development';
+
+    const config = require('../../src/config').default;
+
+    expect(config.apiUrl).toBe(apiUrl);
+    expect(config.webUrl).toBe(webUrl);
   });
 });
