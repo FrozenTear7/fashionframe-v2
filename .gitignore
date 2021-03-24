@@ -1,6 +1,7 @@
 # Project
 build
 .env
+globalConfig.json
 
 # OS X
 .DS_Store*
