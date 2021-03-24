@@ -18,5 +18,5 @@
     "resolveJsonModule": true,
     "moduleResolution": "Node"
   },
-  "exclude": ["jest.config.ts", "jest-mongodb-config.ts"]
+  "exclude": ["jest.config.ts"]
 }

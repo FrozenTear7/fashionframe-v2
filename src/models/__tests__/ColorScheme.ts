@@ -1,10 +1,11 @@
 import { setupDB } from './../../testSetup';
 import ColorScheme from '../ColorScheme';
+import mongoose from 'mongoose';
 
 describe('ColorScheme model test', () => {
   setupDB();
 
-  test('create & save colorScheme successfully', async () => {
+  test('create colorScheme successfully', async () => {
     const colorSchemeData = {
       primary: '#FFFFFF',
       secondary: '#FFFFFF',
@@ -16,30 +17,27 @@ describe('ColorScheme model test', () => {
       energy2: '#FFFFFF',
     };
 
-    const validColorScheme = new ColorScheme(colorSchemeData);
-    const savedColorScheme = await validColorScheme.save();
+    const validColorScheme = await ColorScheme.create(colorSchemeData);
 
-    expect(savedColorScheme._id).toBeDefined();
-    expect(savedColorScheme.primary).toBe(colorSchemeData.primary);
-    expect(savedColorScheme.secondary).toBe(colorSchemeData.secondary);
-    expect(savedColorScheme.tertiary).toBe(colorSchemeData.tertiary);
-    expect(savedColorScheme.accents).toBe(colorSchemeData.accents);
-    expect(savedColorScheme.emmissive1).toBe(colorSchemeData.emmissive1);
-    expect(savedColorScheme.emmissive2).toBe(colorSchemeData.emmissive2);
-    expect(savedColorScheme.energy1).toBe(colorSchemeData.energy1);
-    expect(savedColorScheme.energy2).toBe(colorSchemeData.energy2);
+    expect(validColorScheme._id).toBeDefined();
+    expect(validColorScheme.primary).toBe(colorSchemeData.primary);
+    expect(validColorScheme.secondary).toBe(colorSchemeData.secondary);
+    expect(validColorScheme.tertiary).toBe(colorSchemeData.tertiary);
+    expect(validColorScheme.accents).toBe(colorSchemeData.accents);
+    expect(validColorScheme.emmissive1).toBe(colorSchemeData.emmissive1);
+    expect(validColorScheme.emmissive2).toBe(colorSchemeData.emmissive2);
+    expect(validColorScheme.energy1).toBe(colorSchemeData.energy1);
+    expect(validColorScheme.energy2).toBe(colorSchemeData.energy2);
   });
 
-  // it('create user without required field should failed', async () => {
-  //   const userWithoutRequiredField = new UserModel({ name: 'TekLoon' });
-  //   let err;
-  //   try {
-  //     const savedUserWithoutRequiredField = await userWithoutRequiredField.save();
-  //     error = savedUserWithoutRequiredField;
-  //   } catch (error) {
-  //     err = error;
-  //   }
-  //   expect(err).toBeInstanceOf(mongoose.Error.ValidationError);
-  //   expect(err.errors.gender).toBeDefined();
-  // });
+  test('creating colorScheme with an invalid color format should return an error', async () => {
+    try {
+      await ColorScheme.create({
+        primary: 'InvalidFormat',
+      });
+    } catch (e) {
+      expect(e).toBeInstanceOf(mongoose.Error.ValidationError);
+      expect(e.errors.primary).toBeDefined();
+    }
+  });
 });

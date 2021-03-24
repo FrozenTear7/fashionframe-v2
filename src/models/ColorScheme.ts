@@ -1,5 +1,10 @@
 import { model, Schema, Model, Document } from 'mongoose';
 
+const validateColorRGB = (color: string): void => {
+  if (color && !/^#([a-fA-F0-9]{6})$/.test(color))
+    throw new Error('Invalid color hex format');
+};
+
 export interface IColorScheme extends Document {
   primary: string;
   secondary: string;
@@ -12,14 +17,17 @@ export interface IColorScheme extends Document {
 }
 
 const ColorSchemeSchema: Schema = new Schema({
-  primary: { type: String },
-  secondary: { type: String },
-  tertiary: { type: String },
-  accents: { type: String },
-  emmissive1: { type: String },
-  emmissive2: { type: String },
-  energy1: { type: String },
-  energy2: { type: String },
+  primary: {
+    type: String,
+    validate: validateColorRGB,
+  },
+  secondary: { type: String, validate: validateColorRGB },
+  tertiary: { type: String, validate: validateColorRGB },
+  accents: { type: String, validate: validateColorRGB },
+  emmissive1: { type: String, validate: validateColorRGB },
+  emmissive2: { type: String, validate: validateColorRGB },
+  energy1: { type: String, validate: validateColorRGB },
+  energy2: { type: String, validate: validateColorRGB },
 });
 
 const ColorScheme: Model<IColorScheme> = model(
