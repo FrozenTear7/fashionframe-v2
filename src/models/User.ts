@@ -2,6 +2,7 @@ import { model, Schema, Model, Document } from 'mongoose';
 import validator from 'validator';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import config from '../config';
 
 export interface IUser extends Document {
   username: string;
@@ -56,7 +57,7 @@ UserSchema.pre('save', async function (next) {
 
 UserSchema.methods.generateAuthToken = async function (): Promise<string> {
   const user = this as IUser;
-  const token = jwt.sign({ _id: user._id }, 'TEST');
+  const token = jwt.sign({ _id: user._id }, config.jwtKey);
 
   user.tokens = [...user.tokens, { token }];
 

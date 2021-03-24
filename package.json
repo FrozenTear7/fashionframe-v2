@@ -52,7 +52,7 @@
   "scripts": {
     "tsc": "tsc",
     "start": "node build/src/index.js",
-    "dev": "ts-node-dev src/index.ts",
+    "dev": "ts-node-dev --watch src/**/* --files src/index.ts",
     "lint": "eslint --ext .ts . --fix",
     "test": "jest --passWithNoTests --no-cache --coverage",
     "test:coverage": "jest --passWithNoTests --no-cache --silent --coverage",

@@ -6,13 +6,13 @@ dotenv.config();
 
 // .env config
 
-const { PORT, NODE_ENV, DB_URL, SESSION_SECRET } = process.env;
+const { PORT, NODE_ENV, DB_URL, JWT_KEY } = process.env;
 
 if (
   !isString(PORT) ||
   !isString(NODE_ENV) ||
   !isString(DB_URL) ||
-  !isString(SESSION_SECRET)
+  !isString(JWT_KEY)
 ) {
   console.log('Please provide a valid .env config');
   process.exit(0);
@@ -33,9 +33,7 @@ const config: Config = {
   database: {
     url: DB_URL,
   },
-  session: {
-    secret: SESSION_SECRET,
-  },
+  jwtKey: JWT_KEY,
 };
 
 export default config;

@@ -1,3 +1,6 @@
+import { IUser } from './models/User';
+import { Request } from 'express';
+
 export interface Config {
   port: string;
   apiUrl: string;
@@ -5,7 +8,10 @@ export interface Config {
   database: {
     url: string;
   };
-  session: {
-    secret: string;
-  };
+  jwtKey: string;
+}
+
+export interface IGetUserAuthInfoRequest extends Request {
+  user: IUser;
+  token: string;
 }
