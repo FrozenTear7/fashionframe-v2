@@ -1,9 +1,8 @@
-import { IUser } from './../models/User';
 /* eslint-disable @typescript-eslint/no-var-requires */
+import { IUser } from './../models/User';
 import fs from 'fs';
 import util from 'util';
 import path from 'path';
-import mongoose from 'mongoose';
 import User from '../models/User';
 import ColorScheme from '../models/ColorScheme';
 import Setup from '../models/Setup';

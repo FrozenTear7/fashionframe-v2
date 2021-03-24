@@ -7,18 +7,43 @@ const request = supertest(app);
 
 const authUrl = '/users';
 
+describe('Test auth middleware', () => {
+  setupDB();
+
+  test('should return an error for an invalid token', async (done) => {
+    const myProfileRes = await request
+      .get(`${authUrl}/me`)
+      .set({ Authorization: 'Bearer Invalid token' });
+
+    expect(myProfileRes.status).toBe(401);
+    expect(myProfileRes.body.message).toBe('Access forbidden');
+
+    done();
+  });
+
+  test('should return an error for a missing token', async (done) => {
+    const myProfileRes = await request.get(`${authUrl}/me`);
+
+    expect(myProfileRes.status).toBe(401);
+    expect(myProfileRes.body.message).toBe('JWT Token is missing');
+
+    done();
+  });
+});
+
 describe('Test auth register route', () => {
   setupDB();
 
   test('should register with valid credentials', async (done) => {
     const res = await request.post(`${authUrl}/`).send({
-      username: 'TestUsername2',
-      email: 'Test2@gmail.com',
+      username: 'TestUsername3',
+      email: 'Test3@gmail.com',
       password: 'TestPassword',
     });
 
     expect(res.status).toBe(201);
     expect(res.body).toHaveProperty('token');
+
     done();
   });
 });
@@ -34,6 +59,7 @@ describe('Test auth login route', () => {
 
     expect(res.status).toBe(200);
     expect(res.body).toHaveProperty('token');
+
     done();
   });
 
@@ -46,6 +72,7 @@ describe('Test auth login route', () => {
     expect(res.status).toBe(400);
     expect(res.body).toHaveProperty('message');
     expect(res.body.message).toBe('User does not exist');
+
     done();
   });
 
@@ -58,6 +85,7 @@ describe('Test auth login route', () => {
     expect(res.status).toBe(400);
     expect(res.body).toHaveProperty('message');
     expect(res.body.message).toBe('Password do not match');
+
     done();
   });
 });
@@ -89,26 +117,6 @@ describe('Test auth own profile route', () => {
 
     done();
   });
-
-  test('should return an error for an invalid token', async (done) => {
-    const myProfileRes = await request
-      .get(`${authUrl}/me`)
-      .set({ Authorization: 'Bearer Invalid token' });
-
-    expect(myProfileRes.status).toBe(401);
-    expect(myProfileRes.body.message).toBe('Access forbidden');
-
-    done();
-  });
-
-  test('should return an error for a missing token', async (done) => {
-    const myProfileRes = await request.get(`${authUrl}/me`);
-
-    expect(myProfileRes.status).toBe(401);
-    expect(myProfileRes.body.message).toBe('JWT Token is missing');
-
-    done();
-  });
 });
 
 describe('Test auth logout route', () => {
@@ -127,26 +135,6 @@ describe('Test auth logout route', () => {
       .set({ Authorization: `Bearer ${token}` });
 
     expect(logoutRes.status).toBe(200);
-
-    done();
-  });
-
-  test('should return an error for an invalid token', async (done) => {
-    const logoutRes = await request
-      .post(`${authUrl}/me/logout`)
-      .set({ Authorization: `Bearer Invalid Token` });
-
-    expect(logoutRes.status).toBe(401);
-    expect(logoutRes.body.message).toBe('Access forbidden');
-
-    done();
-  });
-
-  test('should return an error for a missing token', async (done) => {
-    const logoutRes = await request.post(`${authUrl}/me/logout`);
-
-    expect(logoutRes.status).toBe(401);
-    expect(logoutRes.body.message).toBe('JWT Token is missing');
 
     done();
   });

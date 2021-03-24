@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { ObjectId } from 'mongoose';
 import { setupDB } from './../../testSetup';
 import supertest from 'supertest';
@@ -23,12 +24,30 @@ describe('Test setups delete route', () => {
 
     const setup = await Setup.findOne({ user: userId });
 
-    const res = await request
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    const deleteRes = await request
       .delete(`${setupsUrl}/${setup?._id}`)
       .set({ Authorization: `Bearer ${token}` });
 
-    expect(res.status).toBe(200);
+    expect(deleteRes.status).toBe(200);
+
+    done();
+  });
+
+  test('should return an error if setup does not exist', async (done) => {
+    const loginRes = await request.post(`${authUrl}/login`).send({
+      username: 'TestUsername',
+      password: 'TestPassword',
+    });
+
+    const token: string = loginRes.body.token;
+
+    const deleteRes = await request
+      .delete(`${setupsUrl}/InvalidId`)
+      .set({ Authorization: `Bearer ${token}` });
+
+    expect(deleteRes.status).toBe(404);
+    expect(deleteRes.body.message).toBe('Error while deleting setup');
+
     done();
   });
 });

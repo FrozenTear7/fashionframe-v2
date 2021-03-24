@@ -1,3 +1,4 @@
+import { setupDB } from './../../testSetup';
 import supertest from 'supertest';
 import app from '../../app';
 import frames from '../../../public/warframe_data/frames.json';
@@ -13,6 +14,8 @@ import syandanas from '../../../public/warframe_data/syandanas.json';
 const request = supertest(app);
 
 describe('Test warframe routes', () => {
+  setupDB();
+
   const apiUrl = '/api';
 
   test('frames route should return valid frames json data', async (done) => {
@@ -20,6 +23,7 @@ describe('Test warframe routes', () => {
 
     expect(res.status).toBe(200);
     expect(res.body).toStrictEqual(frames);
+
     done();
   });
 
@@ -28,6 +32,7 @@ describe('Test warframe routes', () => {
 
     expect(res.status).toBe(200);
     expect(res.body).toStrictEqual(ephemeras);
+
     done();
   });
 
@@ -36,6 +41,7 @@ describe('Test warframe routes', () => {
 
     expect(res.status).toBe(200);
     expect(res.body).toStrictEqual(helmets);
+
     done();
   });
 
@@ -44,6 +50,7 @@ describe('Test warframe routes', () => {
 
     expect(res.status).toBe(200);
     expect(res.body).toStrictEqual(skins);
+
     done();
   });
 
@@ -52,6 +59,7 @@ describe('Test warframe routes', () => {
 
     expect(res.status).toBe(200);
     expect(res.body).toStrictEqual(colorPickers);
+
     done();
   });
 
@@ -60,6 +68,7 @@ describe('Test warframe routes', () => {
 
     expect(res.status).toBe(200);
     expect(res.body).toStrictEqual(chestAttachments);
+
     done();
   });
 
@@ -68,6 +77,7 @@ describe('Test warframe routes', () => {
 
     expect(res.status).toBe(200);
     expect(res.body).toStrictEqual(armAttachments);
+
     done();
   });
 
@@ -76,6 +86,7 @@ describe('Test warframe routes', () => {
 
     expect(res.status).toBe(200);
     expect(res.body).toStrictEqual(legAttachments);
+
     done();
   });
 
@@ -84,6 +95,7 @@ describe('Test warframe routes', () => {
 
     expect(res.status).toBe(200);
     expect(res.body).toStrictEqual(syandanas);
+
     done();
   });
 });
