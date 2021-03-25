@@ -24,15 +24,15 @@ const auth = async (
     });
 
     if (!user) {
-      throw new Error();
+      throw new Error('User does not exist');
     }
 
     req.user = user;
     req.token = token;
 
     next();
-  } catch (error) {
-    next(new HttpException(401, 'Access forbidden'));
+  } catch (e) {
+    next(new HttpException(401, `Access forbidden, ${(e as Error).message}`));
   }
 };
 

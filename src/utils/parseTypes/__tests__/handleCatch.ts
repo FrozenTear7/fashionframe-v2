@@ -34,7 +34,7 @@ describe('handleCatch', () => {
 
     try {
       expect(handleCatch(logMsg, otherError)).toThrowError(otherError);
-    } catch (_e) {
+    } catch (e) {
       expect(logSpy).toBeCalledTimes(0);
     }
   });

@@ -1,14 +1,14 @@
 import { NextFunction, Request, Response } from 'express';
 import HttpException from '../exceptions/HttpException';
 
-function errorMiddleware(
+const errorMiddleware = (
   err: HttpException,
   _req: Request,
   res: Response,
   _next: NextFunction
-): void {
-  const status = err.status || 500;
-  const message = err.message || 'Something went wrong';
+): void => {
+  const status = err.status;
+  const message = err.message;
 
   console.log(`Received status: ${status}, error: ${message}`);
 
@@ -16,6 +16,6 @@ function errorMiddleware(
     status,
     message,
   });
-}
+};
 
 export default errorMiddleware;

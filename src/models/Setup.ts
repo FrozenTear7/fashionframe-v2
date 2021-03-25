@@ -1,4 +1,5 @@
 import { model, Schema, Model, Document, ObjectId } from 'mongoose';
+import validator from 'validator';
 import Attachments from './Attachments';
 import ColorScheme from './ColorScheme';
 import Syandana from './Syandana';
@@ -44,7 +45,14 @@ const SetupSchema: Schema = new Schema({
   frame: { type: String, required: 'Frame is required' },
   helmet: { type: String, required: 'Helmet is required' },
   skin: { type: String, required: 'Skin is required' },
-  screenshot: { type: String },
+  screenshot: {
+    type: String,
+    validate: (value: string): void => {
+      if (value && !validator.isURL(value)) {
+        throw new Error('Invalid screenshot URL');
+      }
+    },
+  },
   createdAt: {
     type: Date,
     default: Date.now,

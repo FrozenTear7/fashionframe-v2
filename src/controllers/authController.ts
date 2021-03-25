@@ -53,7 +53,7 @@ export const logoutUser = async (
 
     await user.save();
     res.sendStatus(200);
-  } catch (error) {
-    next(new HttpException(500, error));
+  } catch (e) {
+    next(new HttpException(500, e));
   }
 };

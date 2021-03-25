@@ -10,17 +10,6 @@ const authUrl = '/users';
 describe('Test auth middleware', () => {
   setupDB();
 
-  test('should return an error for an invalid token', async (done) => {
-    const myProfileRes = await request
-      .get(`${authUrl}/me`)
-      .set({ Authorization: 'Bearer Invalid token' });
-
-    expect(myProfileRes.status).toBe(401);
-    expect(myProfileRes.body.message).toBe('Access forbidden');
-
-    done();
-  });
-
   test('should return an error for a missing token', async (done) => {
     const myProfileRes = await request.get(`${authUrl}/me`);
 

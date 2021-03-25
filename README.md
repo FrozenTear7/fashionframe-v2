@@ -36,7 +36,7 @@ The app also provides endpoints with Warframe data taken from [Warframe Wiki](ht
 
 All data is being served as _.json_, where specific data is put into a json object as:
 
-```
+```json
 {
     "<data_name>": [
         "Record1",
@@ -48,7 +48,7 @@ All data is being served as _.json_, where specific data is put into a json obje
 
 The exception are the Color Pickers where the Json data looks like:
 
-```
+```json
 {
   "colorPickers": {
     "Agony": [
