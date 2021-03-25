@@ -1,15 +1,15 @@
-import { model, Schema, Model, Document, ObjectId } from 'mongoose';
+import { model, Schema, Model, Document, Types } from 'mongoose';
 import validator from 'validator';
 import Attachments from './Attachments';
 import ColorScheme from './ColorScheme';
 import Syandana from './Syandana';
 
 export interface ISetup extends Document {
-  author: ObjectId;
-  likedUsers: ObjectId[];
-  attachments: ObjectId;
-  syandana: ObjectId;
-  colorScheme: ObjectId;
+  author: Types.ObjectId;
+  likedUsers: Types.ObjectId[];
+  attachments: Types.ObjectId;
+  syandana: Types.ObjectId;
+  colorScheme: Types.ObjectId;
   name: string;
   description: string;
   frame: string;
@@ -17,7 +17,6 @@ export interface ISetup extends Document {
   skin: string;
   screenshot: string;
   createdAt: Date;
-  likes: number;
 }
 
 const SetupSchema: Schema = new Schema({
@@ -65,7 +64,6 @@ const SetupSchema: Schema = new Schema({
     default: Date.now,
     required: 'Date of creation is required - defaults to now',
   },
-  likes: { type: Number, default: 0, required: 'Likes are required' },
 });
 
 SetupSchema.pre('remove', async function () {

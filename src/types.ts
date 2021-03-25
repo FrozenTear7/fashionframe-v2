@@ -6,7 +6,8 @@ export interface Config {
   apiUrl: string;
   webUrl: string;
   database: {
-    url: string;
+    production: string;
+    development: string;
   };
   jwtKey: string;
 }

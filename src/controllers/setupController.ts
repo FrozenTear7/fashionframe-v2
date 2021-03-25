@@ -5,7 +5,7 @@ import ColorScheme from '../models/ColorScheme';
 import Setup from '../models/Setup';
 import Syandana from '../models/Syandana';
 import User from '../models/User';
-import mongoose from 'mongoose';
+import mongoose, { Types } from 'mongoose';
 
 export const createSetup = async (
   req: Request,
@@ -190,21 +190,46 @@ export const updateSetupById = async (
   }
 };
 
-// export const likeSetupById = async (
-//   req: Request,
-//   res: Response,
-//   next: NextFunction
-// ): Promise<void> => {
-//   const id = req.params.id;
-//   const userId = req.user._id;
+export const likeSetupById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  const id = req.params.id;
+  const userId: Types.ObjectId = req.user._id;
 
-//   try {
-//     await Setup.findOneAndUpdate({});
-//   } catch (e) {
-//     console.log(e);
-//     next(new HttpException(404, `Error while deleting setup`));
-//   }
-// };
+  const session = await mongoose.startSession();
+
+  try {
+    await session.withTransaction(async () => {
+      await Setup.findByIdAndUpdate(
+        id,
+        {
+          $push: {
+            likedUsers: userId,
+          },
+        },
+        { session }
+      );
+      await User.findByIdAndUpdate(
+        userId,
+        {
+          $push: {
+            likedSetups: mongoose.Types.ObjectId(id),
+          },
+        },
+        { session }
+      );
+    });
+
+    res.sendStatus(200);
+  } catch (e) {
+    console.log(e);
+    next(new HttpException(404, `Error while liking setup`));
+  } finally {
+    session.endSession();
+  }
+};
 
 export const deleteSetupById = async (
   req: Request,

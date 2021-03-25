@@ -1,6 +1,7 @@
 import { isString } from './utils/parseTypes/typeChecks';
 import seedDatabase from './seeds';
 import mongoose from 'mongoose';
+import config from './config';
 
 const removeAllCollections = async (): Promise<void> => {
   const collections = Object.keys(mongoose.connection.collections);
@@ -36,11 +37,12 @@ const dropAllCollections = async (): Promise<void> => {
 export const setupDB = (): void => {
   beforeAll(async () => {
     await mongoose.connect(
-      global.__MONGO_URI__,
+      config.database.development,
       {
         useNewUrlParser: true,
-        useCreateIndex: true,
         useUnifiedTopology: true,
+        useFindAndModify: false,
+        useCreateIndex: true,
       },
       (err) => {
         if (err) {

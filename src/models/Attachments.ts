@@ -1,8 +1,8 @@
-import { model, Schema, Model, Document, ObjectId } from 'mongoose';
+import { model, Schema, Model, Document, Types } from 'mongoose';
 import ColorScheme from './ColorScheme';
 
 export interface IAttachments extends Document {
-  colorScheme: ObjectId;
+  colorScheme: Types.ObjectId;
   chest: string;
   leftArm: string;
   rightArm: string;

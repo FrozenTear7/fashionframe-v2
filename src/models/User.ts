@@ -1,11 +1,11 @@
-import { model, Schema, Model, Document, ObjectId } from 'mongoose';
+import { model, Schema, Model, Document, Types } from 'mongoose';
 import validator from 'validator';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import config from '../config';
 
 export interface IUser extends Document {
-  likedSetups: ObjectId[];
+  likedSetups: Types.ObjectId[];
   username: string;
   email: string;
   password: string;

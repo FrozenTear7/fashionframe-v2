@@ -59,11 +59,13 @@ describe('config', () => {
     const port = '8001';
     const apiUrl = 'https://fashionframe.herokuapp.com/fashionframe';
     const webUrl = 'https://fashionframe.herokuapp.com';
-    const dbUrl = 'test DB URL';
+    const dbUrlProd = 'test DB URL production';
+    const dbUrlDev = 'test DB URL development';
     const jwtKey = 'TeStJWTKeY';
 
     process.env.PORT = port;
-    process.env.DB_URL = dbUrl;
+    process.env.DB_URL_PROD = dbUrlProd;
+    process.env.DB_URL_DEV = dbUrlDev;
     process.env.NODE_ENV = 'production';
     process.env.JWT_KEY = jwtKey;
 
@@ -73,7 +75,8 @@ describe('config', () => {
       apiUrl: apiUrl,
       webUrl: webUrl,
       database: {
-        url: dbUrl,
+        production: dbUrlProd,
+        development: dbUrlDev,
       },
       jwtKey: jwtKey,
     };
