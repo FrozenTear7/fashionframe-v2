@@ -5,7 +5,8 @@ import ColorScheme from './ColorScheme';
 import Syandana from './Syandana';
 
 export interface ISetup extends Document {
-  user: ObjectId;
+  author: ObjectId;
+  likedUsers: ObjectId[];
   attachments: ObjectId;
   syandana: ObjectId;
   colorScheme: ObjectId;
@@ -20,11 +21,17 @@ export interface ISetup extends Document {
 }
 
 const SetupSchema: Schema = new Schema({
-  user: {
+  author: {
     type: Schema.Types.ObjectId,
     ref: 'User',
     required: 'Author is required',
   },
+  likedUsers: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+    },
+  ],
   attachments: {
     type: Schema.Types.ObjectId,
     ref: 'Attachments',

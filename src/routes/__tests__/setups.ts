@@ -22,7 +22,7 @@ describe('Test setups delete route', () => {
     const userId: ObjectId = loginRes.body.user._id;
     const token: string = loginRes.body.token;
 
-    const setup = await Setup.findOne({ user: userId });
+    const setup = await Setup.findOne({ author: userId });
 
     const deleteRes = await request
       .delete(`${setupsUrl}/${setup?._id}`)

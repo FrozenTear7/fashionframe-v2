@@ -42,7 +42,7 @@ const seedDatabase = async (): Promise<void> => {
           const { attachments, syandana, colorScheme, ...setup } = setupContent;
 
           await Setup.create({
-            user: users[0]._id,
+            author: users[0]._id,
             attachments: await Attachments.create({
               ...attachments,
               colorScheme: await ColorScheme.create(attachments.colorScheme),

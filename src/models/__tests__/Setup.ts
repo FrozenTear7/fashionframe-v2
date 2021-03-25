@@ -21,7 +21,7 @@ describe('Setup model test', () => {
     const user = await User.findByCredentials('TestUsername', 'TestPassword');
 
     const validSetup = await Setup.create({
-      user: user?._id,
+      author: user?._id,
       attachments: await Attachments.create({
         colorScheme: await ColorScheme.create({}),
       }),
@@ -46,7 +46,7 @@ describe('Setup model test', () => {
 
     try {
       await Setup.create({
-        user: user?._id,
+        author: user?._id,
         attachments: await Attachments.create({
           colorScheme: await ColorScheme.create({}),
         }),
@@ -67,7 +67,7 @@ describe('Setup model test', () => {
 
     try {
       await Setup.create({
-        user: user?._id,
+        author: user?._id,
         attachments: await Attachments.create({
           colorScheme: await ColorScheme.create({}),
         }),
@@ -88,7 +88,7 @@ describe('Setup model test', () => {
 
     try {
       await Setup.create({
-        user: user?._id,
+        author: user?._id,
         attachments: await Attachments.create({
           colorScheme: await ColorScheme.create({}),
         }),
@@ -109,7 +109,7 @@ describe('Setup model test', () => {
 
     try {
       await Setup.create({
-        user: user?._id,
+        author: user?._id,
         attachments: await Attachments.create({
           colorScheme: await ColorScheme.create({}),
         }),
@@ -133,7 +133,7 @@ describe('Setup model test', () => {
     const user = await User.findByCredentials('TestUsername', 'TestPassword');
 
     const setup = await Setup.create({
-      user: user?._id,
+      author: user?._id,
       attachments: await Attachments.create({
         colorScheme: await ColorScheme.create({}),
       }),
@@ -164,7 +164,7 @@ describe('Setup model test', () => {
 
     try {
       await Setup.create({
-        user: user?._id,
+        author: user?._id,
         attachments: await Attachments.create({
           colorScheme: await ColorScheme.create({}),
         }),

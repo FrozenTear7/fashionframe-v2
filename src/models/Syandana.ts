@@ -10,9 +10,9 @@ const SyandanaSchema: Schema = new Schema({
   colorScheme: {
     type: Schema.Types.ObjectId,
     ref: 'ColorScheme',
-    required: true,
+    required: 'ColorScheme is required',
   },
-  name: { type: String, required: true },
+  name: { type: String, required: 'Name is required' },
 });
 
 SyandanaSchema.pre('remove', async function () {

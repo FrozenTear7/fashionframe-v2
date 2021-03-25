@@ -1,10 +1,11 @@
-import { model, Schema, Model, Document } from 'mongoose';
+import { model, Schema, Model, Document, ObjectId } from 'mongoose';
 import validator from 'validator';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import config from '../config';
 
 export interface IUser extends Document {
+  likedSetups: ObjectId[];
   username: string;
   email: string;
   password: string;
@@ -17,16 +18,22 @@ export interface IUserModel extends Model<IUser> {
 }
 
 const UserSchema: Schema = new Schema({
+  likedSetups: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Setup',
+    },
+  ],
   username: {
     type: String,
-    required: true,
+    required: 'Username is required',
     trim: true,
     unique: true,
     minLength: 3,
   },
   email: {
     type: String,
-    required: true,
+    required: 'Email is required',
     unique: true,
     lowercase: true,
     validate: (value: string): void => {
@@ -35,12 +42,12 @@ const UserSchema: Schema = new Schema({
       }
     },
   },
-  password: { type: String, required: true, minLength: 7 },
+  password: { type: String, required: 'Password is required', minLength: 7 },
   tokens: [
     {
       token: {
         type: String,
-        required: true,
+        required: 'Token is required',
       },
     },
   ],

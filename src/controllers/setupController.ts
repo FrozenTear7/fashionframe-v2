@@ -190,6 +190,22 @@ export const updateSetupById = async (
   }
 };
 
+// export const likeSetupById = async (
+//   req: Request,
+//   res: Response,
+//   next: NextFunction
+// ): Promise<void> => {
+//   const id = req.params.id;
+//   const userId = req.user._id;
+
+//   try {
+//     await Setup.findOneAndUpdate({});
+//   } catch (e) {
+//     console.log(e);
+//     next(new HttpException(404, `Error while deleting setup`));
+//   }
+// };
+
 export const deleteSetupById = async (
   req: Request,
   res: Response,

@@ -15,7 +15,7 @@ const AttachmentsSchema: Schema = new Schema({
   colorScheme: {
     type: Schema.Types.ObjectId,
     ref: 'ColorScheme',
-    required: true,
+    required: 'ColorScheme is required',
   },
   chest: { type: String },
   leftArm: { type: String },
