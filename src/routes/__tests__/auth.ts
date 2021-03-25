@@ -1,7 +1,6 @@
-import { setupDB } from './../../testSetup';
+import { authorizedRequest, setupDB, getTestAuthor } from './../../testSetup';
 import supertest from 'supertest';
 import app from '../../app';
-import User from '../../models/User';
 
 const request = supertest(app);
 
@@ -83,22 +82,11 @@ describe('Test auth own profile route', () => {
   setupDB();
 
   test('should return valid profile', async (done) => {
-    const loginRes = await request.post(`${authUrl}/login`).send({
-      username: 'TestUsername',
-      password: 'TestPassword',
-    });
-
-    const userId: string = loginRes.body.user._id;
-    const token: string = loginRes.body.token;
-
     const myProfileRes = await request
       .get(`${authUrl}/me`)
-      .set({ Authorization: `Bearer ${token}` });
+      .set(await authorizedRequest());
 
-    const user = await User.findOne({
-      _id: userId,
-      'tokens.token': token,
-    });
+    const user = await getTestAuthor();
 
     expect(user).toBeTruthy();
     expect(myProfileRes.status).toBe(200);
@@ -112,16 +100,9 @@ describe('Test auth logout route', () => {
   setupDB();
 
   test('should logout with valid token', async (done) => {
-    const loginRes = await request.post(`${authUrl}/login`).send({
-      username: 'TestUsername',
-      password: 'TestPassword',
-    });
-
-    const token: string = loginRes.body.token;
-
     const logoutRes = await request
       .post(`${authUrl}/me/logout`)
-      .set({ Authorization: `Bearer ${token}` });
+      .set(await authorizedRequest());
 
     expect(logoutRes.status).toBe(200);
 

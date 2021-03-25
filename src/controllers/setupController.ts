@@ -205,7 +205,7 @@ export const likeSetupById = async (
       await Setup.findByIdAndUpdate(
         id,
         {
-          $push: {
+          $addToSet: {
             likedUsers: userId,
           },
         },
@@ -214,7 +214,7 @@ export const likeSetupById = async (
       await User.findByIdAndUpdate(
         userId,
         {
-          $push: {
+          $addToSet: {
             likedSetups: mongoose.Types.ObjectId(id),
           },
         },

@@ -1,7 +1,9 @@
+import jwt from 'jsonwebtoken';
 import { isString } from './utils/parseTypes/typeChecks';
 import seedDatabase from './seeds';
-import mongoose from 'mongoose';
+import mongoose, { Types } from 'mongoose';
 import config from './config';
+import User, { IUser } from './models/User';
 
 const removeAllCollections = async (): Promise<void> => {
   const collections = Object.keys(mongoose.connection.collections);
@@ -32,6 +34,32 @@ const dropAllCollections = async (): Promise<void> => {
       console.log(message);
     }
   }
+};
+
+export const authorizedRequest = async (): Promise<{
+  Authorization: string;
+}> => {
+  const user = await User.findByCredentials('TestUsername', 'TestPassword');
+  const token = jwt.sign({ _id: user._id }, config.jwtKey);
+
+  user.tokens = [...user.tokens, { token }];
+  await user.save();
+
+  return { Authorization: `Bearer ${token}` };
+};
+
+export const getTestAuthor = async (): Promise<IUser> => {
+  const user = await User.findByCredentials('TestUsername', 'TestPassword');
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+  return user;
+};
+
+export const getTestAuthorId = async (): Promise<Types.ObjectId> => {
+  const user = await User.findByCredentials('TestUsername', 'TestPassword');
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+  return user._id;
 };
 
 export const setupDB = (): void => {

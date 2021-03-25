@@ -13,9 +13,9 @@ import Syandana from '../models/Syandana';
 
 const readDir = util.promisify(fs.readdir);
 
-let users: IUser[] = [];
-
 const seedDatabase = async (): Promise<void> => {
+  let users: IUser[] = [];
+
   const dir = await readDir(__dirname);
   const seedFiles = dir
     .filter((f) => f.endsWith('.seed.json'))
