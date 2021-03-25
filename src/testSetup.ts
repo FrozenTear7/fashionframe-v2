@@ -4,6 +4,7 @@ import seedDatabase from './seeds';
 import mongoose, { Types } from 'mongoose';
 import config from './config';
 import User, { IUser } from './models/User';
+import { MongoMemoryReplSet } from 'mongodb-memory-server';
 
 const removeAllCollections = async (): Promise<void> => {
   const collections = Object.keys(mongoose.connection.collections);
@@ -63,9 +64,17 @@ export const getTestAuthorId = async (): Promise<Types.ObjectId> => {
 };
 
 export const setupDB = (): void => {
+  let replSet: MongoMemoryReplSet;
+
   beforeAll(async () => {
+    replSet = new MongoMemoryReplSet({
+      replSet: { storageEngine: 'wiredTiger' },
+    });
+    await replSet.waitUntilRunning();
+    const uri = await replSet.getUri();
+
     await mongoose.connect(
-      config.database.development,
+      uri,
       {
         useNewUrlParser: true,
         useUnifiedTopology: true,
@@ -92,5 +101,6 @@ export const setupDB = (): void => {
   afterAll(async () => {
     await dropAllCollections();
     await mongoose.disconnect();
+    await replSet.stop();
   });
 };

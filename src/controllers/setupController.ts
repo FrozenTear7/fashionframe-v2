@@ -72,16 +72,12 @@ export const getSetupsByUserId = async (
   try {
     const user = await User.findById(userId);
 
-    if (user) {
-      const setups = await Setup.find({ user: user._id });
+    const setups = await Setup.find({ user: user?._id });
 
-      res.send({
-        data: setups,
-        message: `Successfully fetched setups`,
-      });
-    } else {
-      next(new HttpException(404, `User does not exist`));
-    }
+    res.send({
+      data: setups,
+      message: `Successfully fetched setups`,
+    });
   } catch (e) {
     console.log(e);
     next(new HttpException(404, `Error while fetching setups`));
@@ -102,14 +98,10 @@ export const getSetupById = async (
       .populate('colorScheme')
       .populate('syandana');
 
-    if (setup) {
-      res.send({
-        data: setup,
-        message: `Successfully fetched setup`,
-      });
-    } else {
-      next(new HttpException(404, `Setup does not exist`));
-    }
+    res.send({
+      data: setup,
+      message: `Successfully fetched setup`,
+    });
   } catch (e) {
     console.log(e);
     next(new HttpException(404, `Error while fetching setup`));
@@ -135,12 +127,14 @@ export const updateSetupById = async (
     await session.withTransaction(async () => {
       const updatedSetup = await Setup.findByIdAndUpdate(id, setup, {
         session,
+        runValidators: true,
       });
       const updatedAttachments = await Attachments.findByIdAndUpdate(
         updatedSetup?.attachments,
         attachments,
         {
           session,
+          runValidators: true,
         }
       );
       await ColorScheme.findByIdAndUpdate(
@@ -148,6 +142,7 @@ export const updateSetupById = async (
         attachmentsColorScheme,
         {
           session,
+          runValidators: true,
         }
       );
       const updatedSyandana = await Syandana.findByIdAndUpdate(
@@ -155,6 +150,7 @@ export const updateSetupById = async (
         syandana,
         {
           session,
+          runValidators: true,
         }
       );
       await ColorScheme.findByIdAndUpdate(
@@ -162,6 +158,7 @@ export const updateSetupById = async (
         syandanaColorScheme,
         {
           session,
+          runValidators: true,
         }
       );
       await ColorScheme.findByIdAndUpdate(
@@ -169,6 +166,7 @@ export const updateSetupById = async (
         colorScheme,
         {
           session,
+          runValidators: true,
         }
       );
     });
@@ -177,6 +175,8 @@ export const updateSetupById = async (
       .populate('attachments')
       .populate('syandana')
       .populate('colorScheme');
+
+    console.log(updatedSetup2);
 
     res.send({
       data: updatedSetup2,
@@ -209,7 +209,7 @@ export const likeSetupById = async (
             likedUsers: userId,
           },
         },
-        { session }
+        { session, runValidators: true }
       );
       await User.findByIdAndUpdate(
         userId,
@@ -218,7 +218,7 @@ export const likeSetupById = async (
             likedSetups: mongoose.Types.ObjectId(id),
           },
         },
-        { session }
+        { session, runValidators: true }
       );
     });
 
@@ -239,18 +239,13 @@ export const deleteSetupById = async (
   const id = req.params.id;
 
   try {
-    const setup = await Setup.findByIdAndDelete(id);
+    await Setup.findByIdAndDelete(id);
 
-    if (setup) {
-      res.send({
-        data: setup,
-        message: `Successfully deleted setup`,
-      });
-    } else {
-      next(new HttpException(404, `Setup does not exist`));
-    }
+    res.status(200).send({
+      message: `Successfully deleted setup`,
+    });
   } catch (e) {
     console.log(e);
-    next(new HttpException(404, `Error while deleting setup`));
+    next(new HttpException(400, `Error while deleting setup`));
   }
 };

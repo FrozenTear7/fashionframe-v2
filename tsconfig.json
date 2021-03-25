@@ -16,6 +16,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "resolveJsonModule": true,
+    "esModuleInterop": true,
     "moduleResolution": "Node"
   },
   "exclude": ["jest.config.ts"]
