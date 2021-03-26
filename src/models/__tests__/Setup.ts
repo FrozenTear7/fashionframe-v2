@@ -1,10 +1,10 @@
+import { getTestAuthorId } from './../../testSetup';
 import { setupDB } from '../../testSetup';
 import ColorScheme from '../ColorScheme';
 import mongoose from 'mongoose';
 import Syandana from '../Syandana';
 import Setup from '../Setup';
 import Attachments from '../Attachments';
-import User from '../User';
 
 describe('Setup model test', () => {
   setupDB();
@@ -18,10 +18,9 @@ describe('Setup model test', () => {
       skin: 'Test',
       screenshot: 'test.com',
     };
-    const user = await User.findByCredentials('TestUsername', 'TestPassword');
 
     const validSetup = await Setup.create({
-      author: user?._id,
+      author: await getTestAuthorId(),
       attachments: await Attachments.create({
         colorScheme: await ColorScheme.create({}),
       }),
@@ -42,11 +41,11 @@ describe('Setup model test', () => {
   });
 
   test('creating setup without required fields should return an error', async () => {
-    const user = await User.findByCredentials('TestUsername', 'TestPassword');
+    const userId = await getTestAuthorId();
 
     try {
       await Setup.create({
-        author: user?._id,
+        author: userId,
         attachments: await Attachments.create({
           colorScheme: await ColorScheme.create({}),
         }),
@@ -61,13 +60,14 @@ describe('Setup model test', () => {
         skin: 'Test',
       });
     } catch (e) {
+      console.log(e);
       expect(e).toBeInstanceOf(mongoose.Error.ValidationError);
       expect(e.errors.name).toBeDefined();
     }
 
     try {
       await Setup.create({
-        author: user?._id,
+        author: userId,
         attachments: await Attachments.create({
           colorScheme: await ColorScheme.create({}),
         }),
@@ -82,13 +82,14 @@ describe('Setup model test', () => {
         skin: 'Test',
       });
     } catch (e) {
+      console.log(e);
       expect(e).toBeInstanceOf(mongoose.Error.ValidationError);
       expect(e.errors.frame).toBeDefined();
     }
 
     try {
       await Setup.create({
-        author: user?._id,
+        author: userId,
         attachments: await Attachments.create({
           colorScheme: await ColorScheme.create({}),
         }),
@@ -103,13 +104,14 @@ describe('Setup model test', () => {
         skin: 'Test',
       });
     } catch (e) {
+      console.log(e);
       expect(e).toBeInstanceOf(mongoose.Error.ValidationError);
       expect(e.errors.helmet).toBeDefined();
     }
 
     try {
       await Setup.create({
-        author: user?._id,
+        author: userId,
         attachments: await Attachments.create({
           colorScheme: await ColorScheme.create({}),
         }),
@@ -124,16 +126,15 @@ describe('Setup model test', () => {
         helmet: 'Test',
       });
     } catch (e) {
+      console.log(e);
       expect(e).toBeInstanceOf(mongoose.Error.ValidationError);
       expect(e.errors.skin).toBeDefined();
     }
   });
 
   test('deleting setup also deletes attachments, syandana and colorScheme', async () => {
-    const user = await User.findByCredentials('TestUsername', 'TestPassword');
-
     const setup = await Setup.create({
-      author: user?._id,
+      author: await getTestAuthorId(),
       attachments: await Attachments.create({
         colorScheme: await ColorScheme.create({}),
       }),
@@ -160,11 +161,9 @@ describe('Setup model test', () => {
   });
 
   test('creating setup with an invalid screenshot should return an error', async () => {
-    const user = await User.findByCredentials('TestUsername', 'TestPassword');
-
     try {
       await Setup.create({
-        author: user?._id,
+        author: await getTestAuthorId(),
         attachments: await Attachments.create({
           colorScheme: await ColorScheme.create({}),
         }),
@@ -180,8 +179,32 @@ describe('Setup model test', () => {
         screenshot: 'InvalidScreenshotURL',
       });
     } catch (e) {
+      console.log(e);
       expect(e).toBeInstanceOf(mongoose.Error.ValidationError);
       expect(e.errors.screenshot).toBeDefined();
+    }
+  });
+
+  test('creating setup with an existing name should return an error', async () => {
+    try {
+      await Setup.create({
+        author: await getTestAuthorId(),
+        attachments: await Attachments.create({
+          colorScheme: await ColorScheme.create({}),
+        }),
+        syandana: await Syandana.create({
+          name: 'Test',
+          colorScheme: await ColorScheme.create({}),
+        }),
+        colorScheme: await ColorScheme.create({}),
+        name: 'Test setup',
+        frame: 'Test',
+        helmet: 'Test',
+        skin: 'Test',
+      });
+    } catch (e) {
+      console.log(e);
+      expect(e.code).toBe(11000);
     }
   });
 });

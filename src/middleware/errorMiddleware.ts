@@ -13,7 +13,6 @@ const errorMiddleware = (
   console.log(`Received status: ${status}, error: ${message}`);
 
   res.status(status).send({
-    status,
     message,
   });
 };

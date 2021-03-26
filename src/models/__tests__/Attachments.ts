@@ -41,6 +41,7 @@ describe('Attachments model test', () => {
         ephemera: 'Test',
       });
     } catch (e) {
+      console.log(e);
       expect(e).toBeInstanceOf(mongoose.Error.ValidationError);
       expect(e.errors.colorScheme).toBeDefined();
     }

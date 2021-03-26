@@ -1,4 +1,12 @@
-import { model, Schema, Model, Document, Types } from 'mongoose';
+import {
+  model,
+  Schema,
+  Model,
+  Document,
+  Types,
+  Error,
+  CallbackError,
+} from 'mongoose';
 import validator from 'validator';
 import Attachments from './Attachments';
 import ColorScheme from './ColorScheme';
@@ -73,6 +81,18 @@ SetupSchema.pre('remove', async function () {
   await Syandana.deleteOne({ _id: setup.syandana });
   await ColorScheme.deleteOne({ _id: setup.colorScheme });
 });
+
+SetupSchema.post(
+  'save',
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (error: any, _doc: unknown, next: (err?: CallbackError) => void) => {
+    if (error.name === 'MongoError' && error.code === 11000) {
+      next({ ...error, message: 'Setup name must be unique' });
+    } else {
+      next();
+    }
+  }
+);
 
 const Setup: Model<ISetup> = model('Setup', SetupSchema);
 

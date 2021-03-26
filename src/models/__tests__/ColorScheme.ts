@@ -36,6 +36,7 @@ describe('ColorScheme model test', () => {
         primary: 'InvalidFormat',
       });
     } catch (e) {
+      console.log(e);
       expect(e).toBeInstanceOf(mongoose.Error.ValidationError);
       expect(e.errors.primary).toBeDefined();
     }

@@ -55,7 +55,7 @@
     "tsc": "tsc",
     "start": "node build/src/index.js",
     "dev": "ts-node-dev --watch src/**/* --files src/index.ts",
-    "test": "jest --runInBand --passWithNoTests --no-cache --coverage",
+    "test": "jest --runInBand --passWithNoTests --no-cache",
     "test:coverage": "jest --runInBand --passWithNoTests --no-cache --silent --coverage",
     "test:badges": "yarn test:coverage && jest-coverage-badges --input ./coverage/coverage-summary.json --output ./badges",
     "lint": "eslint --ext .ts . --fix",

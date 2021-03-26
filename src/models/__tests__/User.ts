@@ -30,6 +30,7 @@ describe('User model test', () => {
         password: 'TestTestTest',
       });
     } catch (e) {
+      console.log(e);
       expect(e).toBeInstanceOf(mongoose.Error.ValidationError);
       expect(e.errors.username).toBeDefined();
     }
@@ -40,6 +41,7 @@ describe('User model test', () => {
         password: 'TestTestTest',
       });
     } catch (e) {
+      console.log(e);
       expect(e).toBeInstanceOf(mongoose.Error.ValidationError);
       expect(e.errors.email).toBeDefined();
     }
@@ -50,6 +52,7 @@ describe('User model test', () => {
         email: 'test@test.com',
       });
     } catch (e) {
+      console.log(e);
       expect(e).toBeInstanceOf(mongoose.Error.ValidationError);
       expect(e.errors.password).toBeDefined();
     }
@@ -75,6 +78,7 @@ describe('User model test', () => {
         password: 'TestTestTest',
       });
     } catch (e) {
+      console.log(e);
       expect(e).toBeInstanceOf(mongoose.Error.ValidationError);
       expect(e.errors.username).toBeDefined();
     }
@@ -86,6 +90,7 @@ describe('User model test', () => {
         password: 'Test',
       });
     } catch (e) {
+      console.log(e);
       expect(e).toBeInstanceOf(mongoose.Error.ValidationError);
       expect(e.errors.password).toBeDefined();
     }
@@ -99,6 +104,7 @@ describe('User model test', () => {
         password: 'TestPassword',
       });
     } catch (e) {
+      console.log(e);
       expect(e.code).toBe(11000);
     }
 
@@ -109,6 +115,7 @@ describe('User model test', () => {
         password: 'TestPassword',
       });
     } catch (e) {
+      console.log(e);
       expect(e.code).toBe(11000);
     }
   });
@@ -150,6 +157,7 @@ describe('User model test', () => {
         password: 'TestTestTest',
       });
     } catch (e) {
+      console.log(e);
       expect(e).toBeInstanceOf(mongoose.Error.ValidationError);
       expect(e.errors.email).toBeDefined();
     }

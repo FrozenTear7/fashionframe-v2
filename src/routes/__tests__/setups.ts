@@ -10,6 +10,7 @@ import supertest from 'supertest';
 import app from '../../app';
 import Setup from '../../models/Setup';
 import User from '../../models/User';
+import Syandana from '../../models/Syandana';
 
 const request = supertest(app);
 
@@ -45,14 +46,100 @@ describe('Test createSetup', () => {
     done();
   });
 
-  test('should return an error if setup is invalid', async (done) => {
-    const res = await request
+  test('should return an error if setup is missing sub-elements', async (done) => {
+    const missingAttachmentsRes = await request
       .post(`${setupsUrl}/`)
       .set(await authorizedRequest())
-      .send({});
+      .send({
+        author: await getTestAuthorId(),
+        syandana: {
+          name: 'Test',
+          colorScheme: {},
+        },
+        colorScheme: {},
+        name: 'Test2',
+        frame: 'Test',
+        helmet: 'Test',
+        skin: 'Test',
+      });
 
-    expect(res.status).toBe(400);
-    expect(res.body.message).toBe('Error while creating setup');
+    expect(missingAttachmentsRes.status).toBe(400);
+    expect(missingAttachmentsRes.body.message).toBe(
+      'Setup validation failed: attachments: Attachments is required'
+    );
+
+    const missingSyandanaRes = await request
+      .post(`${setupsUrl}/`)
+      .set(await authorizedRequest())
+      .send({
+        author: await getTestAuthorId(),
+        attachments: {
+          colorScheme: {},
+        },
+        colorScheme: {},
+        name: 'Test2',
+        frame: 'Test',
+        helmet: 'Test',
+        skin: 'Test',
+      });
+
+    expect(missingSyandanaRes.status).toBe(400);
+    expect(missingSyandanaRes.body.message).toBe(
+      'Setup validation failed: syandana: Syandana is required'
+    );
+
+    const missingColorSchemeRes = await request
+      .post(`${setupsUrl}/`)
+      .set(await authorizedRequest())
+      .send({
+        author: await getTestAuthorId(),
+        attachments: {
+          colorScheme: {},
+        },
+        syandana: {
+          name: 'Test',
+          colorScheme: {},
+        },
+        name: 'Test2',
+        frame: 'Test',
+        helmet: 'Test',
+        skin: 'Test',
+      });
+
+    expect(missingColorSchemeRes.status).toBe(400);
+    expect(missingColorSchemeRes.body.message).toBe(
+      'Setup validation failed: colorScheme: ColorScheme is required'
+    );
+
+    done();
+  });
+
+  test('should return an error and cancel transaction on sub-element error', async (done) => {
+    const setupsBefore = await Setup.find({});
+    const syandanasBefore = await Syandana.find({});
+
+    const missingAttachmentsRes = await request
+      .post(`${setupsUrl}/`)
+      .set(await authorizedRequest())
+      .send({
+        author: await getTestAuthorId(),
+        syandana: {
+          name: 'Test',
+          colorScheme: {},
+        },
+        colorScheme: { primary: 'InvalidRGB' },
+        name: 'Test2',
+        frame: 'Test',
+        helmet: 'Test',
+        skin: 'Test',
+      });
+
+    const setupsAfter = await Setup.find({});
+    const syandanasAfter = await Syandana.find({});
+
+    expect(missingAttachmentsRes.status).toBe(400);
+    expect(setupsBefore.length).toBe(setupsAfter.length); // Setup was not created
+    expect(syandanasBefore.length).toBe(syandanasAfter.length); // Syandana created before ColorScheme should also be rolled back
 
     done();
   });
@@ -76,10 +163,10 @@ describe('Test getSetupsByUserId', () => {
   });
 
   test('should return an error if user does not exist', async (done) => {
-    const res = await request.get(`${setupsUrl}/user/InvalidId`);
+    const res = await request.get(`${setupsUrl}/user/${'0'.repeat(24)}`);
 
     expect(res.status).toBe(404);
-    expect(res.body.message).toBe('Error while fetching setups');
+    expect(res.body.message).toBe('User does not exist');
 
     done();
   });
@@ -101,10 +188,11 @@ describe('Test getSetupById', () => {
   });
 
   test('should return an error if setup does not exist', async (done) => {
-    const res = await request.get(`${setupsUrl}/InvalidId`);
+    const res = await request.get(`${setupsUrl}/${'0'.repeat(24)}`);
 
+    console.log(res.body);
     expect(res.status).toBe(404);
-    expect(res.body.message).toBe('Error while fetching setup');
+    expect(res.body.message).toBe('Setup does not exist');
 
     done();
   });
@@ -167,7 +255,6 @@ describe('Test updateSetupById', () => {
       });
 
     expect(res.status).toBe(400);
-    expect(res.body.message).toBe('Error while updating setup');
 
     done();
   });
@@ -197,11 +284,11 @@ describe('Test likeSetupById', () => {
 
   test('should return an error if setup does not exist', async (done) => {
     const likeRes = await request
-      .post(`${setupsUrl}/InvalidId/like`)
+      .post(`${setupsUrl}/${'0'.repeat(24)}/like`)
       .set(await authorizedRequest());
 
     expect(likeRes.status).toBe(404);
-    expect(likeRes.body.message).toBe('Error while liking setup');
+    expect(likeRes.body.message).toBe('Setup does not exist');
 
     done();
   });
@@ -224,13 +311,13 @@ describe('Test deleteSetupById', () => {
     done();
   });
 
-  test('should return an error if id is invalid', async (done) => {
+  test('should return an error if setup does not exist', async (done) => {
     const deleteRes = await request
-      .delete(`${setupsUrl}/InvalidId`)
+      .delete(`${setupsUrl}/${'0'.repeat(24)}`)
       .set(await authorizedRequest());
 
-    expect(deleteRes.status).toBe(400);
-    expect(deleteRes.body.message).toBe('Error while deleting setup');
+    expect(deleteRes.status).toBe(404);
+    expect(deleteRes.body.message).toBe('Setup does not exist');
 
     done();
   });

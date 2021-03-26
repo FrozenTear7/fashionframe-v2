@@ -74,25 +74,56 @@ describe('config', () => {
       port: port,
       apiUrl: apiUrl,
       webUrl: webUrl,
-      database: {
-        production: dbUrlProd,
-        development: dbUrlDev,
-      },
+      database: dbUrlProd,
       jwtKey: jwtKey,
     };
 
     expect(config).toStrictEqual(configCheck);
   });
 
-  test('returns valid URLs for development', () => {
-    const apiUrl = 'http://localhost:8000/fashionframe';
-    const webUrl = 'http://localhost:8001';
+  test('returns valid URLs depending for development', () => {
+    const devApiUrl = 'http://localhost:8000/fashionframe';
+    const devWebUrl = 'http://localhost:8001';
 
     process.env.NODE_ENV = 'development';
 
     const config = require('../../src/config').default;
 
-    expect(config.apiUrl).toBe(apiUrl);
-    expect(config.webUrl).toBe(webUrl);
+    expect(config.apiUrl).toBe(devApiUrl);
+    expect(config.webUrl).toBe(devWebUrl);
+  });
+
+  test('returns valid URLs depending for production', () => {
+    const prodApiUrl = 'https://fashionframe.herokuapp.com/fashionframe';
+    const prodWebUrl = 'https://fashionframe.herokuapp.com';
+
+    process.env.NODE_ENV = 'production';
+
+    const config = require('../../src/config').default;
+
+    expect(config.apiUrl).toBe(prodApiUrl);
+    expect(config.webUrl).toBe(prodWebUrl);
+  });
+
+  test('returns valid database depending for development', () => {
+    const dbUrlDev = 'test DB URL development';
+
+    process.env.NODE_ENV = 'development';
+    process.env.DB_URL_DEV = dbUrlDev;
+
+    const config = require('../../src/config').default;
+
+    expect(config.database).toBe(dbUrlDev);
+  });
+
+  test('returns valid database depending for production', () => {
+    const dbUrlProd = 'test DB URL production';
+
+    process.env.NODE_ENV = 'production';
+    process.env.DB_URL_PROD = dbUrlProd;
+
+    const config = require('../../src/config').default;
+
+    expect(config.database).toBe(dbUrlProd);
   });
 });

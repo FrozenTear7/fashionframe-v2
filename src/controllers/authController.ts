@@ -52,7 +52,7 @@ export const logoutUser = async (
     req.user.tokens = user.tokens.filter(({ token }) => token != req.token);
 
     await user.save();
-    res.sendStatus(200);
+    res.send({ message: 'Successfully signed out' });
   } catch (e) {
     next(new HttpException(500, e));
   }

@@ -5,10 +5,7 @@ export interface Config {
   port: string;
   apiUrl: string;
   webUrl: string;
-  database: {
-    production: string;
-    development: string;
-  };
+  database: string;
   jwtKey: string;
 }
 

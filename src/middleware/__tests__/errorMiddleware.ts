@@ -35,7 +35,6 @@ describe('errorMiddleware', () => {
     expect(mockSend).toBeCalledTimes(1);
     expect(mockSend).toBeCalledWith({
       message: testMessage,
-      status: testStatus,
     });
   });
 });

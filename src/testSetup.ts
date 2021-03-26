@@ -72,7 +72,6 @@ export const setupDB = (): void => {
     });
     await replSet.waitUntilRunning();
     const uri = await replSet.getUri();
-
     await mongoose.connect(
       uri,
       {
@@ -88,6 +87,22 @@ export const setupDB = (): void => {
         }
       }
     );
+
+    // await mongoose.connect(
+    //   config.database,
+    //   {
+    //     useNewUrlParser: true,
+    //     useUnifiedTopology: true,
+    //     useFindAndModify: false,
+    //     useCreateIndex: true,
+    //   },
+    //   (err) => {
+    //     if (err) {
+    //       console.error(err);
+    //       process.exit(1);
+    //     }
+    //   }
+    // );
   });
 
   beforeEach(async () => {

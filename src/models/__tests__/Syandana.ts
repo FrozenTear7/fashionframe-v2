@@ -24,6 +24,7 @@ describe('Syandana model test', () => {
     try {
       await Syandana.create({ colorScheme: await ColorScheme.create({}) });
     } catch (e) {
+      console.log(e);
       expect(e).toBeInstanceOf(mongoose.Error.ValidationError);
       expect(e.errors.name).toBeDefined();
     }
@@ -33,6 +34,7 @@ describe('Syandana model test', () => {
         name: 'Test',
       });
     } catch (e) {
+      console.log(e);
       expect(e).toBeInstanceOf(mongoose.Error.ValidationError);
       expect(e.errors.colorScheme).toBeDefined();
     }

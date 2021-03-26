@@ -32,6 +32,7 @@ const auth = async (
 
     next();
   } catch (e) {
+    console.log(e);
     next(new HttpException(401, `Access forbidden, ${(e as Error).message}`));
   }
 };

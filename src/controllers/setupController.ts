@@ -1,3 +1,4 @@
+import { exists } from './../utils/parseTypes/typeChecks';
 import { NextFunction, Response, Request } from 'express';
 import HttpException from '../exceptions/HttpException';
 import Attachments from '../models/Attachments';
@@ -5,7 +6,7 @@ import ColorScheme from '../models/ColorScheme';
 import Setup from '../models/Setup';
 import Syandana from '../models/Syandana';
 import User from '../models/User';
-import mongoose, { Types } from 'mongoose';
+import mongoose from 'mongoose';
 
 export const createSetup = async (
   req: Request,
@@ -13,6 +14,28 @@ export const createSetup = async (
   next: NextFunction
 ): Promise<void> => {
   const { attachments, syandana, colorScheme, ...setup } = req.body;
+
+  if (!exists(attachments))
+    return next(
+      new HttpException(
+        400,
+        'Setup validation failed: attachments: Attachments is required'
+      )
+    );
+  else if (!exists(syandana))
+    return next(
+      new HttpException(
+        400,
+        'Setup validation failed: syandana: Syandana is required'
+      )
+    );
+  else if (!exists(colorScheme))
+    return next(
+      new HttpException(
+        400,
+        'Setup validation failed: colorScheme: ColorScheme is required'
+      )
+    );
 
   const session = await mongoose.startSession();
 
@@ -56,7 +79,7 @@ export const createSetup = async (
     });
   } catch (e) {
     console.log(e);
-    next(new HttpException(400, `Error while creating setup`));
+    next(new HttpException(400, e));
   } finally {
     session.endSession();
   }
@@ -72,15 +95,19 @@ export const getSetupsByUserId = async (
   try {
     const user = await User.findById(userId);
 
-    const setups = await Setup.find({ user: user?._id });
+    if (!user) {
+      next(new HttpException(404, 'User does not exist'));
+    } else {
+      const setups = await Setup.find({ user: user?._id });
 
-    res.send({
-      data: setups,
-      message: `Successfully fetched setups`,
-    });
+      res.send({
+        data: setups,
+        message: `Successfully fetched setups`,
+      });
+    }
   } catch (e) {
     console.log(e);
-    next(new HttpException(404, `Error while fetching setups`));
+    next(new HttpException(404, e));
   }
 };
 
@@ -98,13 +125,15 @@ export const getSetupById = async (
       .populate('colorScheme')
       .populate('syandana');
 
-    res.send({
-      data: setup,
-      message: `Successfully fetched setup`,
-    });
+    if (!setup) next(new HttpException(404, 'Setup does not exist'));
+    else
+      res.send({
+        data: setup,
+        message: `Successfully fetched setup`,
+      });
   } catch (e) {
     console.log(e);
-    next(new HttpException(404, `Error while fetching setup`));
+    next(new HttpException(404, e));
   }
 };
 
@@ -184,7 +213,7 @@ export const updateSetupById = async (
     });
   } catch (e) {
     console.log(e);
-    next(new HttpException(400, `Error while updating setup`));
+    next(new HttpException(400, e));
   } finally {
     session.endSession();
   }
@@ -196,36 +225,45 @@ export const likeSetupById = async (
   next: NextFunction
 ): Promise<void> => {
   const id = req.params.id;
-  const userId: Types.ObjectId = req.user._id;
+  const userId: string = req.user._id;
 
   const session = await mongoose.startSession();
 
   try {
+    let setup;
+
     await session.withTransaction(async () => {
-      await Setup.findByIdAndUpdate(
+      setup = await Setup.findByIdAndUpdate(
         id,
         {
           $addToSet: {
-            likedUsers: userId,
+            likedUsers: mongoose.Types.ObjectId(userId),
           },
         },
         { session, runValidators: true }
       );
-      await User.findByIdAndUpdate(
-        userId,
-        {
-          $addToSet: {
-            likedSetups: mongoose.Types.ObjectId(id),
+
+      if (setup) {
+        await User.findByIdAndUpdate(
+          userId,
+          {
+            $addToSet: {
+              likedSetups: mongoose.Types.ObjectId(id),
+            },
           },
-        },
-        { session, runValidators: true }
-      );
+          { session, runValidators: true }
+        );
+      }
     });
 
-    res.sendStatus(200);
+    if (!setup) {
+      next(new HttpException(404, 'Setup does not exist'));
+    } else {
+      res.send({ message: 'Successfully liked setup' });
+    }
   } catch (e) {
     console.log(e);
-    next(new HttpException(404, `Error while liking setup`));
+    next(new HttpException(400, e));
   } finally {
     session.endSession();
   }
@@ -239,13 +277,15 @@ export const deleteSetupById = async (
   const id = req.params.id;
 
   try {
-    await Setup.findByIdAndDelete(id);
+    const setup = await Setup.findByIdAndDelete(id);
 
-    res.status(200).send({
-      message: `Successfully deleted setup`,
-    });
+    if (!setup) next(new HttpException(404, 'Setup does not exist'));
+    else
+      res.send({
+        message: `Successfully deleted setup`,
+      });
   } catch (e) {
     console.log(e);
-    next(new HttpException(400, `Error while deleting setup`));
+    next(new HttpException(400, e));
   }
 };

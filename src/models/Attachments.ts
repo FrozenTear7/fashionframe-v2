@@ -25,15 +25,11 @@ const AttachmentsSchema: Schema = new Schema({
   ephemera: { type: String },
 });
 
-AttachmentsSchema.pre(
-  'remove',
-  { document: true, query: false },
-  async function () {
-    const attachments = this as IAttachments;
+AttachmentsSchema.pre('remove', async function () {
+  const attachments = this as IAttachments;
 
-    await ColorScheme.deleteOne({ _id: attachments.colorScheme });
-  }
-);
+  await ColorScheme.deleteOne({ _id: attachments.colorScheme });
+});
 
 const Attachments: Model<IAttachments> = model(
   'Attachments',

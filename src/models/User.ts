@@ -1,4 +1,4 @@
-import { model, Schema, Model, Document, Types } from 'mongoose';
+import { model, Schema, Model, Document, Types, CallbackError } from 'mongoose';
 import validator from 'validator';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -61,6 +61,19 @@ UserSchema.pre('save', async function (next) {
 
   next();
 });
+
+// No idea how to handle params here
+UserSchema.post(
+  'save',
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (error: any, _doc: unknown, next: (err?: CallbackError) => void) => {
+    if (error.name === 'MongoError' && error.code === 11000) {
+      next({ ...error, message: 'User username and email must be unique' });
+    } else {
+      next();
+    }
+  }
+);
 
 UserSchema.methods.generateAuthToken = async function (): Promise<string> {
   const user = this as IUser;

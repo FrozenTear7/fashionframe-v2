@@ -1,5 +1,7 @@
 # Fashionframe
 
+[![CI](https://github.com/FrozenTear7/fashionframe-v2/actions/workflows/CI.yml/badge.svg?branch=master)](https://github.com/FrozenTear7/fashionframe-v2/actions/workflows/CI.yml)
+
 ![Coverage - statements](./badges/badge-statements.svg)
 ![Coverage - branches](./badges/badge-branches.svg)
 ![Coverage - functions](./badges/badge-functions.svg)
@@ -36,7 +38,7 @@ The app also provides endpoints with Warframe data taken from [Warframe Wiki](ht
 
 All data is being served as _.json_, where specific data is put into a json object as:
 
-```json
+```javascript
 {
     "<data_name>": [
         "Record1",
@@ -48,7 +50,7 @@ All data is being served as _.json_, where specific data is put into a json obje
 
 The exception are the Color Pickers where the Json data looks like:
 
-```json
+```javascript
 {
   "colorPickers": {
     "Agony": [
