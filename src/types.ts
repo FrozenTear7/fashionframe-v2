@@ -7,6 +7,10 @@ export interface Config {
   webUrl: string;
   database: string;
   jwtKey: string;
+  imgur: {
+    id: string;
+    secret: string;
+  };
 }
 
 export interface IGetUserAuthInfoRequest extends Request {

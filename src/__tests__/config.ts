@@ -32,7 +32,7 @@ describe('config', () => {
       expect((e as Error).message).toBe(exitMsg);
     }
 
-    process.env.DB_URL = undefined;
+    process.env.DB_URL_PROD = undefined;
 
     try {
       require('../../src/config').default;
@@ -40,7 +40,23 @@ describe('config', () => {
       expect((e as Error).message).toBe(exitMsg);
     }
 
-    process.env.JWT_KEY = undefined;
+    process.env.DB_URL_DEV = undefined;
+
+    try {
+      require('../../src/config').default;
+    } catch (e) {
+      expect((e as Error).message).toBe(exitMsg);
+    }
+
+    process.env.IMGUR_ID = undefined;
+
+    try {
+      require('../../src/config').default;
+    } catch (e) {
+      expect((e as Error).message).toBe(exitMsg);
+    }
+
+    process.env.IMGUR_SECRET = undefined;
 
     try {
       require('../../src/config').default;
@@ -62,12 +78,16 @@ describe('config', () => {
     const dbUrlProd = 'test DB URL production';
     const dbUrlDev = 'test DB URL development';
     const jwtKey = 'TeStJWTKeY';
+    const imgurId = 'ImgurId';
+    const imgurSecret = 'ImgurSecret';
 
     process.env.PORT = port;
     process.env.DB_URL_PROD = dbUrlProd;
     process.env.DB_URL_DEV = dbUrlDev;
     process.env.NODE_ENV = 'production';
     process.env.JWT_KEY = jwtKey;
+    process.env.IMGUR_ID = imgurId;
+    process.env.IMGUR_SECRET = imgurSecret;
 
     const config = require('../../src/config').default;
     const configCheck = {
@@ -76,6 +96,10 @@ describe('config', () => {
       webUrl: webUrl,
       database: dbUrlProd,
       jwtKey: jwtKey,
+      imgur: {
+        id: imgurId,
+        secret: imgurSecret,
+      },
     };
 
     expect(config).toStrictEqual(configCheck);
