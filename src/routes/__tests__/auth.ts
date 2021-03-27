@@ -1,6 +1,7 @@
 import { authorizedRequest, setupDB, getTestAuthor } from './../../testSetup';
 import supertest from 'supertest';
 import app from '../../app';
+import User from '../../models/User';
 
 const request = supertest(app);
 
@@ -31,6 +32,27 @@ describe('Test auth register route', () => {
 
     expect(res.status).toBe(201);
     expect(res.body).toHaveProperty('token');
+
+    done();
+  });
+
+  test('should catch an error correctly', async (done) => {
+    const testMsg = 'TestException';
+
+    const userCreateSpy = jest
+      .spyOn(User, 'create')
+      .mockImplementationOnce(() => Promise.reject({ message: testMsg }));
+
+    const res = await request.post(`${authUrl}/`).send({
+      username: 'TestUsername',
+      email: 'Test@gmail.com',
+      password: 'TestPassword',
+    });
+
+    expect(res.status).toBe(400);
+    expect(res.body.message).toBe(testMsg);
+
+    userCreateSpy.mockRestore();
 
     done();
   });
@@ -73,6 +95,26 @@ describe('Test auth login route', () => {
     expect(res.status).toBe(400);
     expect(res.body).toHaveProperty('message');
     expect(res.body.message).toBe('Password do not match');
+
+    done();
+  });
+
+  test('should catch an error correctly', async (done) => {
+    const testMsg = 'TestException';
+
+    const userFindSpy = jest
+      .spyOn(User, 'findByCredentials')
+      .mockImplementationOnce(() => Promise.reject({ message: testMsg }));
+
+    const res = await request.post(`${authUrl}/login`).send({
+      username: 'TestUsername',
+      password: 'InvalidPassword',
+    });
+
+    expect(res.status).toBe(400);
+    expect(res.body.message).toBe(testMsg);
+
+    userFindSpy.mockRestore();
 
     done();
   });

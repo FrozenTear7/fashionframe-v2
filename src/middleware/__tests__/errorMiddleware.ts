@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import HttpException from '../../exceptions/HttpException';
 import errorMiddleware from '../errorMiddleware';
 
@@ -8,17 +8,17 @@ describe('errorMiddleware', () => {
     const testMessage = 'TestError';
     const testHttpException = new HttpException(testStatus, testMessage);
 
-    const mockReq: Request = (jest.fn() as unknown) as Request;
+    const mockReq: any = jest.fn();
 
     const mockSend = jest.fn();
     const mockStatus = jest.fn(() => ({
       send: mockSend,
     }));
-    const mockRes: Response = ({
+    const mockRes: any = {
       status: mockStatus,
-    } as unknown) as Response;
+    };
 
-    const mockNext: NextFunction = jest.fn() as NextFunction;
+    const mockNext: any = jest.fn();
 
     const logSpy = jest.spyOn(global.console, 'log');
 

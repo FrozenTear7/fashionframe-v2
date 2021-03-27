@@ -12,7 +12,7 @@ const validObjectId = (
       try {
         Types.ObjectId(req.params[key]);
       } catch (e) {
-        next(new HttpException(400, 'Provided ID is invalid'));
+        return next(new HttpException(400, 'Provided ID is invalid'));
       }
   }
 
