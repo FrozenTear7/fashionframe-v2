@@ -88,7 +88,7 @@ describe('config', () => {
   });
 
   test('returns valid config', () => {
-    const port = '8001';
+    const port = '3001';
     const apiUrl = 'https://fashionframe.herokuapp.com/fashionframe';
     const webUrl = 'https://fashionframe.herokuapp.com';
     const dbUrlProd = 'test DB URL production';
@@ -128,8 +128,8 @@ describe('config', () => {
   });
 
   test('returns valid URLs depending for development', () => {
-    const devApiUrl = 'http://localhost:8000/fashionframe';
-    const devWebUrl = 'http://localhost:8001';
+    const devApiUrl = 'http://localhost:3000/fashionframe';
+    const devWebUrl = 'http://localhost:3001';
 
     process.env.NODE_ENV = 'development';
 

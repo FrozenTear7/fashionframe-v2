@@ -1,4 +1,4 @@
-name: CI
+name: CI & CD
 
 on: [push, pull_request]
 
@@ -22,3 +22,17 @@ jobs:
         run: |
           yarn install
           yarn test
+
+  deploy:
+    needs: build
+    
+    if: ${{ github.ref == 'refs/heads/master' && github.event_name == 'push' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Heroku deployment
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ secrets.HEROKU_APP }}
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
