@@ -1,7 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
+import { setupDB } from './../testSetup';
+
 describe('config', () => {
+  setupDB();
+
   const OLD_ENV = process.env;
 
   beforeEach(() => {

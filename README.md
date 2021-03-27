@@ -1,6 +1,6 @@
 # Fashionframe - backend
 
-[![CI](https://github.com/FrozenTear7/fashionframe-backend/actions/workflows/CI.yml/badge.svg?branch=master)](https://github.com/FrozenTear7/fashionframe-backend/actions/workflows/CI.yml)
+[![CI & CD](https://github.com/FrozenTear7/fashionframe-backend/actions/workflows/CI&CD.yml/badge.svg?branch=master)](https://github.com/FrozenTear7/fashionframe-backend/actions/workflows/CI&CD.yml)
 
 ![Coverage - statements](./badges/badge-statements.svg)
 ![Coverage - branches](./badges/badge-branches.svg)
