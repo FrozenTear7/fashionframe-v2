@@ -11,7 +11,7 @@ jest.mock('../../config', () => ({ jwtKey: 'TestJwtKey' }));
 describe('Setup model test', () => {
   setupTests();
 
-  test('create setup successfully', async () => {
+  test('create setup successfully', async (done) => {
     const setupData = {
       name: 'Test',
       description: 'Test',
@@ -40,9 +40,11 @@ describe('Setup model test', () => {
     expect(validSetup.helmet).toBe(validSetup.helmet);
     expect(validSetup.skin).toBe(validSetup.skin);
     expect(validSetup.screenshot).toBe(validSetup.screenshot);
+
+    done();
   });
 
-  test('creating setup without required fields should return an error', async () => {
+  test('creating setup without required fields should return an error', async (done) => {
     const userId = await getTestAuthorId();
 
     try {
@@ -132,9 +134,11 @@ describe('Setup model test', () => {
       expect(e).toBeInstanceOf(mongoose.Error.ValidationError);
       expect(e.errors.skin).toBeDefined();
     }
+
+    done();
   });
 
-  test('deleting setup also deletes attachments, syandana and colorScheme', async () => {
+  test('deleting setup also deletes attachments, syandana and colorScheme', async (done) => {
     const setup = await Setup.create({
       author: await getTestAuthorId(),
       attachments: await Attachments.create({
@@ -160,9 +164,11 @@ describe('Setup model test', () => {
     expect(attachments).toBe(null);
     expect(syandana).toBe(null);
     expect(colorScheme).toBe(null);
+
+    done();
   });
 
-  test('creating setup with an invalid screenshot should return an error', async () => {
+  test('creating setup with an invalid screenshot should return an error', async (done) => {
     try {
       await Setup.create({
         author: await getTestAuthorId(),
@@ -185,9 +191,11 @@ describe('Setup model test', () => {
       expect(e).toBeInstanceOf(mongoose.Error.ValidationError);
       expect(e.errors.screenshot).toBeDefined();
     }
+
+    done();
   });
 
-  test('creating setup with an existing name should return an error', async () => {
+  test('creating setup with an existing name should return an error', async (done) => {
     try {
       await Setup.create({
         author: await getTestAuthorId(),
@@ -208,5 +216,7 @@ describe('Setup model test', () => {
       console.log(e);
       expect(e.code).toBe(11000);
     }
+
+    done();
   });
 });

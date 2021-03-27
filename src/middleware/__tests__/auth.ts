@@ -9,7 +9,7 @@ jest.mock('jsonwebtoken');
 jest.mock('../../models/User');
 
 describe('errorMiddleware', () => {
-  test('passes an error on missing authHeader', async () => {
+  test('passes an error on missing authHeader', async (done) => {
     const mockReq: Request = ({
       header: jest.fn(),
     } as unknown) as Request;
@@ -22,9 +22,11 @@ describe('errorMiddleware', () => {
     expect(mockNext).toBeCalledWith(
       new HttpException(401, 'JWT Token is missing')
     );
+
+    done();
   });
 
-  test('passes an error on an invalid token', async () => {
+  test('passes an error on an invalid token', async (done) => {
     const mockToken = 'InvalidToken';
     const mockAuthHeader = jest.fn(() => ({
       replace: jest.fn(() => mockToken),
@@ -45,9 +47,11 @@ describe('errorMiddleware', () => {
     expect(mockNext).toBeCalledWith(
       new HttpException(401, `Access forbidden, jwt malformed`)
     );
+
+    done();
   });
 
-  test('passes an error on a non-existing user', async () => {
+  test('passes an error on a non-existing user', async (done) => {
     const mockToken = 'ValidToken';
     const mockAuthHeader = jest.fn(() => ({
       replace: jest.fn(() => mockToken),
@@ -67,9 +71,11 @@ describe('errorMiddleware', () => {
     expect(mockNext).toBeCalledWith(
       new HttpException(401, `Access forbidden, User does not exist`)
     );
+
+    done();
   });
 
-  test('assigns user and token on valid authorization', async () => {
+  test('assigns user and token on valid authorization', async (done) => {
     const mockReqUser = 'ValidUser';
     const mockReqToken = 'ValidToken';
 
@@ -91,5 +97,7 @@ describe('errorMiddleware', () => {
     expect(mockNext).toBeCalledWith();
     expect(mockReq.user).toBe(mockReqUser);
     expect(mockReq.token).toBe(mockReqToken);
+
+    done();
   });
 });

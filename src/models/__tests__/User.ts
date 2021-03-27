@@ -8,7 +8,7 @@ jest.mock('../../config', () => ({ jwtKey: 'TestJwtKey' }));
 describe('User model test', () => {
   setupTests();
 
-  test('create user successfully', async () => {
+  test('create user successfully', async (done) => {
     const userData = {
       username: 'TestTestTest',
       email: 'test@test.com',
@@ -23,9 +23,11 @@ describe('User model test', () => {
     expect(await bcrypt.compare(userData.password, validUser.password)).toBe(
       true
     );
+
+    done();
   });
 
-  test('creating user without required fields should return an error', async () => {
+  test('creating user without required fields should return an error', async (done) => {
     try {
       await User.create({
         email: 'test@test.com',
@@ -58,9 +60,11 @@ describe('User model test', () => {
       expect(e).toBeInstanceOf(mongoose.Error.ValidationError);
       expect(e.errors.password).toBeDefined();
     }
+
+    done();
   });
 
-  test('creating user should trim the username', async () => {
+  test('creating user should trim the username', async (done) => {
     const userData = {
       username: '  TestTestTest  ',
       email: 'test@test.com',
@@ -70,9 +74,11 @@ describe('User model test', () => {
     const validUser = await User.create(userData);
 
     expect(validUser.username).toBe('TestTestTest');
+
+    done();
   });
 
-  test('creating user with username or password too short should return an error', async () => {
+  test('creating user with username or password too short should return an error', async (done) => {
     try {
       await User.create({
         username: 'Test',
@@ -96,9 +102,11 @@ describe('User model test', () => {
       expect(e).toBeInstanceOf(mongoose.Error.ValidationError);
       expect(e.errors.password).toBeDefined();
     }
+
+    done();
   });
 
-  test('creating user with and existing username or email should return an error', async () => {
+  test('creating user with and existing username or email should return an error', async (done) => {
     try {
       await User.create({
         username: 'TestUsername',
@@ -120,9 +128,11 @@ describe('User model test', () => {
       console.log(e);
       expect(e.code).toBe(11000);
     }
+
+    done();
   });
 
-  test('creating user should clean the email', async () => {
+  test('creating user should clean the email', async (done) => {
     const userData = {
       username: 'TestTestTest',
       email: 'TeSt@TEST.Com',
@@ -133,9 +143,11 @@ describe('User model test', () => {
 
     expect(validUser.username).toBe(userData.username);
     expect(validUser.email).toBe(userData.email.toLowerCase());
+
+    done();
   });
 
-  test('correctly find user by credentials', async () => {
+  test('correctly find user by credentials', async (done) => {
     const userData = {
       username: 'TestTestTest',
       email: 'TeSt@TEST.Com',
@@ -149,9 +161,11 @@ describe('User model test', () => {
     );
 
     expect(validUser.username).toBe(userByCredentials.username);
+
+    done();
   });
 
-  test('creating user with an invalid email should return an error', async () => {
+  test('creating user with an invalid email should return an error', async (done) => {
     try {
       await User.create({
         username: 'TestTestTest',
@@ -163,5 +177,7 @@ describe('User model test', () => {
       expect(e).toBeInstanceOf(mongoose.Error.ValidationError);
       expect(e.errors.email).toBeDefined();
     }
+
+    done();
   });
 });

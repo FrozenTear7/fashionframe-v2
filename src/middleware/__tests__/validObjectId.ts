@@ -3,7 +3,7 @@ import HttpException from '../../exceptions/HttpException';
 import validObjectId from '../validObjectId';
 
 describe('errorMiddleware', () => {
-  test('calls next correctly for no params', () => {
+  test('calls next correctly for no params', (done) => {
     const mockReq: any = jest.fn();
     mockReq.params = {};
 
@@ -14,9 +14,11 @@ describe('errorMiddleware', () => {
 
     expect(mockNext).toBeCalledTimes(1);
     expect(mockNext).toBeCalledWith();
+
+    done();
   });
 
-  test('calls next correctly with valid id params', () => {
+  test('calls next correctly with valid id params', (done) => {
     const mockReq: any = jest.fn();
     mockReq.params = {
       userId: '0'.repeat(24),
@@ -29,9 +31,11 @@ describe('errorMiddleware', () => {
 
     expect(mockNext).toBeCalledTimes(1);
     expect(mockNext).toBeCalledWith();
+
+    done();
   });
 
-  test('calls next with an exception for incorrect id upperCase', () => {
+  test('calls next with an exception for incorrect id upperCase', (done) => {
     const mockReq: any = jest.fn();
     mockReq.params = {
       userId: 'InvalidId',
@@ -46,5 +50,7 @@ describe('errorMiddleware', () => {
     expect(mockNext).toBeCalledWith(
       new HttpException(400, 'Provided ID is invalid')
     );
+
+    done();
   });
 });

@@ -18,7 +18,7 @@ describe('config', () => {
     };
   });
 
-  test('exits on missing or non-string variables', () => {
+  test('exits on missing or non-string variables', (done) => {
     const exitMsg = 'mock process.exit(0)';
     const logSpy = jest.spyOn(global.console, 'log');
     const exitSpy = jest.spyOn(process, 'exit').mockImplementation(() => {
@@ -64,10 +64,12 @@ describe('config', () => {
 
       expect(exitSpy).toBeCalledTimes(1);
       expect(exitSpy).toBeCalledWith(0);
+
+      done();
     }
   });
 
-  test('returns valid config', () => {
+  test('returns valid config', (done) => {
     const apiUrl = 'https://fashionframe.herokuapp.com/fashionframe';
     const webUrl = 'https://fashionframe.herokuapp.com';
 
@@ -88,9 +90,11 @@ describe('config', () => {
     };
 
     expect(config).toStrictEqual(configCheck);
+
+    done();
   });
 
-  test('returns valid URLs depending for development', () => {
+  test('returns valid URLs depending for development', (done) => {
     const devApiUrl = 'http://localhost:3000/fashionframe';
     const devWebUrl = 'http://localhost:3001';
 
@@ -100,9 +104,11 @@ describe('config', () => {
 
     expect(config.apiUrl).toBe(devApiUrl);
     expect(config.webUrl).toBe(devWebUrl);
+
+    done();
   });
 
-  test('returns valid URLs depending for production', () => {
+  test('returns valid URLs depending for production', (done) => {
     const prodApiUrl = 'https://fashionframe.herokuapp.com/fashionframe';
     const prodWebUrl = 'https://fashionframe.herokuapp.com';
 
@@ -112,9 +118,11 @@ describe('config', () => {
 
     expect(config.apiUrl).toBe(prodApiUrl);
     expect(config.webUrl).toBe(prodWebUrl);
+
+    done();
   });
 
-  test('returns valid database depending for development', () => {
+  test('returns valid database depending for development', (done) => {
     const dbUrlDev = 'test DB URL development';
 
     process.env.NODE_ENV = 'development';
@@ -123,9 +131,11 @@ describe('config', () => {
     const config = require('../../src/config').default;
 
     expect(config.database).toBe(dbUrlDev);
+
+    done();
   });
 
-  test('returns valid database depending for production', () => {
+  test('returns valid database depending for production', (done) => {
     const dbUrlProd = 'test DB URL production';
 
     process.env.NODE_ENV = 'production';
@@ -134,5 +144,7 @@ describe('config', () => {
     const config = require('../../src/config').default;
 
     expect(config.database).toBe(dbUrlProd);
+
+    done();
   });
 });

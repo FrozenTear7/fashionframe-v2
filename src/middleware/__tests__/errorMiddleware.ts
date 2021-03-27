@@ -3,7 +3,7 @@ import HttpException from '../../exceptions/HttpException';
 import errorMiddleware from '../errorMiddleware';
 
 describe('errorMiddleware', () => {
-  test('handles error correctly with passed status and message', () => {
+  test('handles error correctly with passed status and message', (done) => {
     const testStatus = 1000;
     const testMessage = 'TestError';
     const testHttpException = new HttpException(testStatus, testMessage);
@@ -36,5 +36,7 @@ describe('errorMiddleware', () => {
     expect(mockSend).toBeCalledWith({
       message: testMessage,
     });
+
+    done();
   });
 });

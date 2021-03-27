@@ -7,7 +7,7 @@ jest.mock('../../config', () => ({ jwtKey: 'TestJwtKey' }));
 describe('ColorScheme model test', () => {
   setupTests();
 
-  test('create colorScheme successfully', async () => {
+  test('create colorScheme successfully', async (done) => {
     const colorSchemeData = {
       primary: '#FFFFFF',
       secondary: '#FFFFFF',
@@ -30,9 +30,11 @@ describe('ColorScheme model test', () => {
     expect(validColorScheme.emmissive2).toBe(colorSchemeData.emmissive2);
     expect(validColorScheme.energy1).toBe(colorSchemeData.energy1);
     expect(validColorScheme.energy2).toBe(colorSchemeData.energy2);
+
+    done();
   });
 
-  test('creating colorScheme with an invalid color format should return an error', async () => {
+  test('creating colorScheme with an invalid color format should return an error', async (done) => {
     try {
       await ColorScheme.create({
         primary: 'InvalidFormat',
@@ -42,5 +44,7 @@ describe('ColorScheme model test', () => {
       expect(e).toBeInstanceOf(mongoose.Error.ValidationError);
       expect(e.errors.primary).toBeDefined();
     }
+
+    done();
   });
 });

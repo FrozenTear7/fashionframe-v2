@@ -8,7 +8,7 @@ jest.mock('../../config', () => ({ jwtKey: 'TestJwtKey' }));
 describe('Attachments model test', () => {
   setupTests();
 
-  test('create attachments successfully', async () => {
+  test('create attachments successfully', async (done) => {
     const attachmentsData = {
       chest: 'Test',
       leftArm: 'Test',
@@ -30,9 +30,11 @@ describe('Attachments model test', () => {
     expect(validAttachments.leftLeg).toBe(attachmentsData.leftLeg);
     expect(validAttachments.rightLeg).toBe(attachmentsData.rightLeg);
     expect(validAttachments.ephemera).toBe(attachmentsData.ephemera);
+
+    done();
   });
 
-  test('creating attachments without required fields should return an error', async () => {
+  test('creating attachments without required fields should return an error', async (done) => {
     try {
       await Attachments.create({
         chest: 'Test',
@@ -47,9 +49,11 @@ describe('Attachments model test', () => {
       expect(e).toBeInstanceOf(mongoose.Error.ValidationError);
       expect(e.errors.colorScheme).toBeDefined();
     }
+
+    done();
   });
 
-  test('deleting attachments also deletes colorScheme', async () => {
+  test('deleting attachments also deletes colorScheme', async (done) => {
     const attachments = await Attachments.create({
       colorScheme: await ColorScheme.create({}),
     });
@@ -59,5 +63,7 @@ describe('Attachments model test', () => {
     const colorScheme = await ColorScheme.findById(attachments.colorScheme);
 
     expect(colorScheme).toBe(null);
+
+    done();
   });
 });
