@@ -2,7 +2,7 @@ import FormData from 'form-data';
 import fs from 'fs';
 import axios from 'axios';
 
-const imgurApi = 'https://api.imgur.com/3/upload';
+const imgurApiUpload = 'https://api.imgur.com/3/upload';
 const token = 'TOKEN HERE :)';
 
 const uploadToAlbum = async (
@@ -17,7 +17,7 @@ const uploadToAlbum = async (
 
   const res = await axios({
     method: 'post',
-    url: imgurApi,
+    url: imgurApiUpload,
     data: bodyFormData,
     headers: {
       ...bodyFormData.getHeaders(),

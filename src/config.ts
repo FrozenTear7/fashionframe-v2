@@ -13,6 +13,7 @@ const {
   IMGUR_ID,
   IMGUR_SECRET,
   IMGUR_ALBUM,
+  IMGUR_TOKEN,
 } = process.env;
 
 if (
@@ -23,7 +24,8 @@ if (
   !isString(JWT_KEY) ||
   !isString(IMGUR_ID) ||
   !isString(IMGUR_SECRET) ||
-  !isString(IMGUR_ALBUM)
+  !isString(IMGUR_ALBUM) ||
+  !isString(IMGUR_TOKEN)
 ) {
   console.log('Please provide a valid .env config');
   process.exit(0);
@@ -45,6 +47,7 @@ const config: Config = {
     id: IMGUR_ID,
     secret: IMGUR_SECRET,
     album: IMGUR_ALBUM,
+    refreshToken: IMGUR_TOKEN,
   },
 };
 

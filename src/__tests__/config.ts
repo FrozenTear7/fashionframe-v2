@@ -72,6 +72,14 @@ describe('config', () => {
       expect((e as Error).message).toBe(exitMsg);
     }
 
+    process.env.IMGUR_TOKEN = undefined;
+
+    try {
+      require('../../src/config').default;
+    } catch (e) {
+      expect((e as Error).message).toBe(exitMsg);
+    }
+
     expect(logSpy).toBeCalledTimes(1);
     expect(logSpy).toBeCalledWith('Please provide a valid .env config');
 
@@ -89,6 +97,7 @@ describe('config', () => {
     const imgurId = 'ImgurId';
     const imgurSecret = 'ImgurSecret';
     const imgurAlbum = 'ImgurAlbum';
+    const imgurRefreshToken = 'RefreshToken';
 
     process.env.PORT = port;
     process.env.DB_URL_PROD = dbUrlProd;
@@ -98,6 +107,7 @@ describe('config', () => {
     process.env.IMGUR_ID = imgurId;
     process.env.IMGUR_SECRET = imgurSecret;
     process.env.IMGUR_ALBUM = imgurAlbum;
+    process.env.IMGUR_TOKEN = imgurRefreshToken;
 
     const config = require('../../src/config').default;
     const configCheck = {
@@ -110,6 +120,7 @@ describe('config', () => {
         id: imgurId,
         secret: imgurSecret,
         album: imgurAlbum,
+        refreshToken: imgurRefreshToken,
       },
     };
 

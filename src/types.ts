@@ -11,6 +11,7 @@ export interface Config {
     id: string;
     secret: string;
     album: string;
+    refreshToken: string;
   };
 }
 
