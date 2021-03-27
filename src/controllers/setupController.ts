@@ -44,11 +44,9 @@ export const createSetup = async (
   const session = await mongoose.startSession();
 
   try {
-    const screenshot = await uploadToAlbum(
-      setup.name,
-      setup.description,
-      screenshotImage
-    );
+    const screenshot = screenshotImage
+      ? await uploadToAlbum(setup.name, setup.description, screenshotImage)
+      : undefined;
 
     const createdAttachmentsColorScheme = new ColorScheme(
       attachments.colorScheme
@@ -88,7 +86,6 @@ export const createSetup = async (
       message: `Successfully created setup`,
     });
   } catch (e) {
-    console.log(e);
     next(new HttpException(400, e));
   } finally {
     session.endSession();

@@ -21,11 +21,15 @@ const getAccessToken = async (): Promise<string> => {
       },
     });
 
-    const token = res.data.access_token;
-    const expiresIn = res.data.access_token;
+    const { access_token: token, expires_in: expiresIn } = res.data;
 
-    if (exists(token) && isString(token) && exists(token) && isNumber(token)) {
-      currentAccessToken = token;
+    if (
+      exists(token) &&
+      isString(String(token)) &&
+      exists(expiresIn) &&
+      isNumber(expiresIn)
+    ) {
+      currentAccessToken = String(token);
       currentExpiresIn = expiresIn;
       lastFetch = Date.now();
     } else {
