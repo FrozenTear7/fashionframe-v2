@@ -56,7 +56,7 @@
     "ts-node-dev": "^1.1.6"
   },
   "scripts": {
-    "tsc": "tsc",
+    "build": "tsc",
     "start": "node build/src/index.js",
     "dev": "ts-node-dev --watch src/**/* --files src/index.ts",
     "test": "jest --runInBand --passWithNoTests --no-cache",
