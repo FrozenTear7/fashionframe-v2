@@ -1,7 +1,7 @@
 import { handleCatch } from './../handleCatch';
 
 describe('handleCatch', () => {
-  test('handles an Error correctly', () => {
+  test('handles an Error correctly', (done) => {
     const logMsg = 'test';
     const testErrorMsg = 'test message';
     const testError = new Error(testErrorMsg);
@@ -12,9 +12,11 @@ describe('handleCatch', () => {
 
     expect(logSpy).toBeCalledTimes(1);
     expect(logSpy).toBeCalledWith(`${logMsg}: ${testErrorMsg}`);
+
+    done();
   });
 
-  test('handles an string correctly', () => {
+  test('handles an string correctly', (done) => {
     const logMsg = 'test';
     const testErrorMsg = 'test message';
 
@@ -24,9 +26,11 @@ describe('handleCatch', () => {
 
     expect(logSpy).toBeCalledTimes(1);
     expect(logSpy).toBeCalledWith(`${logMsg}: ${testErrorMsg}`);
+
+    done();
   });
 
-  test('rethrows anything else', () => {
+  test('rethrows anything else', (done) => {
     const logMsg = 'test';
     const otherError = undefined;
 
@@ -37,5 +41,7 @@ describe('handleCatch', () => {
     } catch (e) {
       expect(logSpy).toBeCalledTimes(0);
     }
+
+    done();
   });
 });
