@@ -12,6 +12,7 @@ const {
   JWT_KEY,
   IMGUR_ID,
   IMGUR_SECRET,
+  IMGUR_ALBUM,
 } = process.env;
 
 if (
@@ -21,7 +22,8 @@ if (
   !isString(DB_URL_DEV) ||
   !isString(JWT_KEY) ||
   !isString(IMGUR_ID) ||
-  !isString(IMGUR_SECRET)
+  !isString(IMGUR_SECRET) ||
+  !isString(IMGUR_ALBUM)
 ) {
   console.log('Please provide a valid .env config');
   process.exit(0);
@@ -42,6 +44,7 @@ const config: Config = {
   imgur: {
     id: IMGUR_ID,
     secret: IMGUR_SECRET,
+    album: IMGUR_ALBUM,
   },
 };
 

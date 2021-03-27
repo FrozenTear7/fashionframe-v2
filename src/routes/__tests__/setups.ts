@@ -10,140 +10,140 @@ import supertest from 'supertest';
 import app from '../../app';
 import Setup from '../../models/Setup';
 import User from '../../models/User';
-import Syandana from '../../models/Syandana';
+// import Syandana from '../../models/Syandana';
 
 const request = supertest(app);
 
 const setupsUrl = '/setups';
 
-describe('Test createSetup', () => {
-  setupDB();
+// describe('Test createSetup', () => {
+//   setupDB();
 
-  test('should create correct setup', async (done) => {
-    const res = await request
-      .post(`${setupsUrl}/`)
-      .set(await authorizedRequest())
-      .send({
-        author: await getTestAuthorId(),
-        attachments: {
-          colorScheme: {},
-        },
-        syandana: {
-          name: 'Test',
-          colorScheme: {},
-        },
-        colorScheme: {},
-        name: 'Test2',
-        frame: 'Test',
-        helmet: 'Test',
-        skin: 'Test',
-      });
+//   test('should create correct setup', async (done) => {
+//     const res = await request
+//       .post(`${setupsUrl}/`)
+//       .set(await authorizedRequest())
+//       .send({
+//         author: await getTestAuthorId(),
+//         attachments: {
+//           colorScheme: {},
+//         },
+//         syandana: {
+//           name: 'Test',
+//           colorScheme: {},
+//         },
+//         colorScheme: {},
+//         name: 'Test2',
+//         frame: 'Test',
+//         helmet: 'Test',
+//         skin: 'Test',
+//       });
 
-    const { data: createdSetup } = res.body;
+//     const { data: createdSetup } = res.body;
 
-    expect(createdSetup._id).toBeDefined();
+//     expect(createdSetup._id).toBeDefined();
 
-    done();
-  });
+//     done();
+//   });
 
-  test('should return an error if setup is missing sub-elements', async (done) => {
-    const missingAttachmentsRes = await request
-      .post(`${setupsUrl}/`)
-      .set(await authorizedRequest())
-      .send({
-        author: await getTestAuthorId(),
-        syandana: {
-          name: 'Test',
-          colorScheme: {},
-        },
-        colorScheme: {},
-        name: 'Test2',
-        frame: 'Test',
-        helmet: 'Test',
-        skin: 'Test',
-      });
+//   test('should return an error if setup is missing sub-elements', async (done) => {
+//     const missingAttachmentsRes = await request
+//       .post(`${setupsUrl}/`)
+//       .set(await authorizedRequest())
+//       .send({
+//         author: await getTestAuthorId(),
+//         syandana: {
+//           name: 'Test',
+//           colorScheme: {},
+//         },
+//         colorScheme: {},
+//         name: 'Test2',
+//         frame: 'Test',
+//         helmet: 'Test',
+//         skin: 'Test',
+//       });
 
-    expect(missingAttachmentsRes.status).toBe(400);
-    expect(missingAttachmentsRes.body.message).toBe(
-      'Setup validation failed: attachments: Attachments is required'
-    );
+//     expect(missingAttachmentsRes.status).toBe(400);
+//     expect(missingAttachmentsRes.body.message).toBe(
+//       'Setup validation failed: attachments: Attachments is required'
+//     );
 
-    const missingSyandanaRes = await request
-      .post(`${setupsUrl}/`)
-      .set(await authorizedRequest())
-      .send({
-        author: await getTestAuthorId(),
-        attachments: {
-          colorScheme: {},
-        },
-        colorScheme: {},
-        name: 'Test2',
-        frame: 'Test',
-        helmet: 'Test',
-        skin: 'Test',
-      });
+//     const missingSyandanaRes = await request
+//       .post(`${setupsUrl}/`)
+//       .set(await authorizedRequest())
+//       .send({
+//         author: await getTestAuthorId(),
+//         attachments: {
+//           colorScheme: {},
+//         },
+//         colorScheme: {},
+//         name: 'Test2',
+//         frame: 'Test',
+//         helmet: 'Test',
+//         skin: 'Test',
+//       });
 
-    expect(missingSyandanaRes.status).toBe(400);
-    expect(missingSyandanaRes.body.message).toBe(
-      'Setup validation failed: syandana: Syandana is required'
-    );
+//     expect(missingSyandanaRes.status).toBe(400);
+//     expect(missingSyandanaRes.body.message).toBe(
+//       'Setup validation failed: syandana: Syandana is required'
+//     );
 
-    const missingColorSchemeRes = await request
-      .post(`${setupsUrl}/`)
-      .set(await authorizedRequest())
-      .send({
-        author: await getTestAuthorId(),
-        attachments: {
-          colorScheme: {},
-        },
-        syandana: {
-          name: 'Test',
-          colorScheme: {},
-        },
-        name: 'Test2',
-        frame: 'Test',
-        helmet: 'Test',
-        skin: 'Test',
-      });
+//     const missingColorSchemeRes = await request
+//       .post(`${setupsUrl}/`)
+//       .set(await authorizedRequest())
+//       .send({
+//         author: await getTestAuthorId(),
+//         attachments: {
+//           colorScheme: {},
+//         },
+//         syandana: {
+//           name: 'Test',
+//           colorScheme: {},
+//         },
+//         name: 'Test2',
+//         frame: 'Test',
+//         helmet: 'Test',
+//         skin: 'Test',
+//       });
 
-    expect(missingColorSchemeRes.status).toBe(400);
-    expect(missingColorSchemeRes.body.message).toBe(
-      'Setup validation failed: colorScheme: ColorScheme is required'
-    );
+//     expect(missingColorSchemeRes.status).toBe(400);
+//     expect(missingColorSchemeRes.body.message).toBe(
+//       'Setup validation failed: colorScheme: ColorScheme is required'
+//     );
 
-    done();
-  });
+//     done();
+//   });
 
-  test('should return an error and cancel transaction on sub-element error', async (done) => {
-    const setupsBefore = await Setup.find({});
-    const syandanasBefore = await Syandana.find({});
+//   test('should return an error and cancel transaction on sub-element error', async (done) => {
+//     const setupsBefore = await Setup.find({});
+//     const syandanasBefore = await Syandana.find({});
 
-    const missingAttachmentsRes = await request
-      .post(`${setupsUrl}/`)
-      .set(await authorizedRequest())
-      .send({
-        author: await getTestAuthorId(),
-        syandana: {
-          name: 'Test',
-          colorScheme: {},
-        },
-        colorScheme: { primary: 'InvalidRGB' },
-        name: 'Test2',
-        frame: 'Test',
-        helmet: 'Test',
-        skin: 'Test',
-      });
+//     const missingAttachmentsRes = await request
+//       .post(`${setupsUrl}/`)
+//       .set(await authorizedRequest())
+//       .send({
+//         author: await getTestAuthorId(),
+//         syandana: {
+//           name: 'Test',
+//           colorScheme: {},
+//         },
+//         colorScheme: { primary: 'InvalidRGB' },
+//         name: 'Test2',
+//         frame: 'Test',
+//         helmet: 'Test',
+//         skin: 'Test',
+//       });
 
-    const setupsAfter = await Setup.find({});
-    const syandanasAfter = await Syandana.find({});
+//     const setupsAfter = await Setup.find({});
+//     const syandanasAfter = await Syandana.find({});
 
-    expect(missingAttachmentsRes.status).toBe(400);
-    expect(setupsBefore.length).toBe(setupsAfter.length); // Setup was not created
-    expect(syandanasBefore.length).toBe(syandanasAfter.length); // Syandana created before ColorScheme should also be rolled back
+//     expect(missingAttachmentsRes.status).toBe(400);
+//     expect(setupsBefore.length).toBe(setupsAfter.length); // Setup was not created
+//     expect(syandanasBefore.length).toBe(syandanasAfter.length); // Syandana created before ColorScheme should also be rolled back
 
-    done();
-  });
-});
+//     done();
+//   });
+// });
 
 describe('Test getSetupsByUserId', () => {
   setupDB();

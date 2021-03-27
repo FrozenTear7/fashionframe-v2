@@ -10,6 +10,7 @@ export interface Config {
   imgur: {
     id: string;
     secret: string;
+    album: string;
   };
 }
 

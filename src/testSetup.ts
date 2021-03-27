@@ -106,6 +106,7 @@ export const setupDB = (): void => {
   });
 
   beforeEach(async () => {
+    jest.restoreAllMocks();
     await seedDatabase();
   });
 

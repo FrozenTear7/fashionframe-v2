@@ -7,13 +7,17 @@ import Setup from '../models/Setup';
 import Syandana from '../models/Syandana';
 import User from '../models/User';
 import mongoose from 'mongoose';
+import uploadToAlbum from '../utils/imgur/uploadToAlbum';
 
 export const createSetup = async (
   req: Request,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  const { attachments, syandana, colorScheme, ...setup } = req.body;
+  const { attachments, syandana, colorScheme, ...setup } = JSON.parse(
+    req.body.setup
+  );
+  const screenshotImage = req.file;
 
   if (!exists(attachments))
     return next(
@@ -40,6 +44,12 @@ export const createSetup = async (
   const session = await mongoose.startSession();
 
   try {
+    const screenshot = await uploadToAlbum(
+      setup.name,
+      setup.description,
+      screenshotImage
+    );
+
     const createdAttachmentsColorScheme = new ColorScheme(
       attachments.colorScheme
     );
@@ -57,11 +67,11 @@ export const createSetup = async (
     const createdColorScheme = new ColorScheme(colorScheme);
 
     const createdSetup = new Setup({
-      user: req.user._id,
+      author: req.user._id,
       attachments: createdAttachments,
       syandana: createdSyandana,
       colorScheme: createdColorScheme,
-      ...setup,
+      ...{ ...setup, screenshot: screenshot },
     });
 
     await session.withTransaction(async () => {
