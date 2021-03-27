@@ -1,10 +1,12 @@
 import bcrypt from 'bcryptjs';
-import { setupDB } from '../../testSetup';
+import { setupTests } from '../../testSetup';
 import mongoose from 'mongoose';
 import User from '../User';
 
+jest.mock('../../config', () => ({ jwtKey: 'TestJwtKey' }));
+
 describe('User model test', () => {
-  setupDB();
+  setupTests();
 
   test('create user successfully', async () => {
     const userData = {

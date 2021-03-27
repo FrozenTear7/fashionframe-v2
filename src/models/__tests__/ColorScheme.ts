@@ -1,9 +1,11 @@
-import { setupDB } from './../../testSetup';
+import { setupTests } from './../../testSetup';
 import ColorScheme from '../ColorScheme';
 import mongoose from 'mongoose';
 
+jest.mock('../../config', () => ({ jwtKey: 'TestJwtKey' }));
+
 describe('ColorScheme model test', () => {
-  setupDB();
+  setupTests();
 
   test('create colorScheme successfully', async () => {
     const colorSchemeData = {

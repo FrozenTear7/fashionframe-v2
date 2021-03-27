@@ -19,16 +19,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies and run tests
-        env:
-          PORT: ${{ secrets.PORT }}
-          NODE_ENV: ${{ secrets.NODE_ENV }}
-          DB_URL_PROD: ${{ secrets.DB_URL_PROD }}
-          DB_URL_DEV: ${{ secrets.DB_URL_DEV }}
-          JWT_KEY: ${{ secrets.JWT_KEY }}
-          IMGUR_ID: ${{ secrets.IMGUR_ID }}
-          IMGUR_SECRET: ${{ secrets.IMGUR_SECRET }}
-          IMGUR_ALBUM: ${{ secrets.IMGUR_ALBUM }}
-          IMGUR_TOKEN:  ${{ secrets.IMGUR_TOKEN }}
         run: |
           yarn install
           yarn test

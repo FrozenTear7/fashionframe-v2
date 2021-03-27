@@ -5,19 +5,21 @@ import {
   getTestAuthorId,
   getTestAuthor,
 } from './../../testSetup';
-import { setupDB } from './../../testSetup';
+import { setupTests } from './../../testSetup';
 import supertest from 'supertest';
 import app from '../../app';
 import Setup from '../../models/Setup';
 import User from '../../models/User';
 // import Syandana from '../../models/Syandana';
 
+jest.mock('../../config', () => ({ jwtKey: 'TestJwtKey' }));
+
 const request = supertest(app);
 
 const setupsUrl = '/setups';
 
 // describe('Test createSetup', () => {
-//   setupDB();
+//   setupTests();
 
 //   test('should create correct setup', async (done) => {
 //     const res = await request
@@ -146,7 +148,7 @@ const setupsUrl = '/setups';
 // });
 
 describe('Test getSetupsByUserId', () => {
-  setupDB();
+  setupTests();
 
   test('should fetch correct setups', async (done) => {
     const user = await getTestAuthor();
@@ -173,7 +175,7 @@ describe('Test getSetupsByUserId', () => {
 });
 
 describe('Test getSetupById', () => {
-  setupDB();
+  setupTests();
 
   test('should fetch correct setup', async (done) => {
     const setups = await Setup.find({});
@@ -199,7 +201,7 @@ describe('Test getSetupById', () => {
 });
 
 describe('Test updateSetupById', () => {
-  setupDB();
+  setupTests();
 
   test('should update correct setup', async (done) => {
     const setups = await Setup.find({});
@@ -261,7 +263,7 @@ describe('Test updateSetupById', () => {
 });
 
 describe('Test likeSetupById', () => {
-  setupDB();
+  setupTests();
 
   test('should like if authorized', async (done) => {
     const userId = await getTestAuthorId();
@@ -295,7 +297,7 @@ describe('Test likeSetupById', () => {
 });
 
 describe('Test deleteSetupById', () => {
-  setupDB();
+  setupTests();
 
   test('should delete if authorized', async (done) => {
     const userId = await getTestAuthorId();

@@ -63,7 +63,7 @@ export const getTestAuthorId = async (): Promise<Types.ObjectId> => {
   return user._id;
 };
 
-export const setupDB = (): void => {
+export const setupTests = (): void => {
   let replSet: MongoMemoryReplSet;
 
   beforeAll(async () => {

@@ -4,6 +4,7 @@ import auth from '../auth';
 import jwt from 'jsonwebtoken';
 import User from '../../models/User';
 
+jest.mock('../../config', () => ({ jwtKey: 'TestJwtKey' }));
 jest.mock('jsonwebtoken');
 jest.mock('../../models/User');
 

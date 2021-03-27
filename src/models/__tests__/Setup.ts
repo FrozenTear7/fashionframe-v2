@@ -1,13 +1,15 @@
 import { getTestAuthorId } from './../../testSetup';
-import { setupDB } from '../../testSetup';
+import { setupTests } from '../../testSetup';
 import ColorScheme from '../ColorScheme';
 import mongoose from 'mongoose';
 import Syandana from '../Syandana';
 import Setup from '../Setup';
 import Attachments from '../Attachments';
 
+jest.mock('../../config', () => ({ jwtKey: 'TestJwtKey' }));
+
 describe('Setup model test', () => {
-  setupDB();
+  setupTests();
 
   test('create setup successfully', async () => {
     const setupData = {

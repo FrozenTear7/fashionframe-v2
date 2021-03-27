@@ -1,10 +1,12 @@
-import { setupDB } from '../../testSetup';
+import { setupTests } from '../../testSetup';
 import ColorScheme from '../ColorScheme';
 import mongoose from 'mongoose';
 import Syandana from '../Syandana';
 
+jest.mock('../../config', () => ({ jwtKey: 'TestJwtKey' }));
+
 describe('Syandana model test', () => {
-  setupDB();
+  setupTests();
 
   test('create syandana successfully', async () => {
     const syandanaData = {

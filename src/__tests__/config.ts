@@ -1,16 +1,21 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import { setupDB } from './../testSetup';
 
 describe('config', () => {
-  setupDB();
-
-  const OLD_ENV = process.env;
-
   beforeEach(() => {
     jest.resetModules();
-    process.env = { ...OLD_ENV };
+    process.env = {
+      PORT: 'test',
+      DB_URL_PROD: 'test',
+      DB_URL_DEV: 'test',
+      NODE_ENV: 'production',
+      JWT_KEY: 'test',
+      IMGUR_ID: 'test',
+      IMGUR_SECRET: 'test',
+      IMGUR_ALBUM: 'test',
+      IMGUR_TOKEN: 'test',
+    };
   });
 
   test('exits on missing or non-string variables', () => {
@@ -20,111 +25,65 @@ describe('config', () => {
       throw new Error(exitMsg);
     });
 
-    process.env.PORT = undefined;
+    const valuesToTest = [
+      'PORT',
+      'NODE_ENV',
+      'DB_URL_PROD',
+      'DB_URL_DEV',
+      'JWT_KEY',
+      'IMGUR_ID',
+      'IMGUR_SECRET',
+      'IMGUR_ALBUM',
+      'IMGUR_TOKEN',
+    ];
 
-    try {
-      require('../../src/config').default;
-    } catch (e) {
-      expect((e as Error).message).toBe(exitMsg);
+    const testEnv = {
+      PORT: 'test',
+      DB_URL_PROD: 'test',
+      DB_URL_DEV: 'test',
+      NODE_ENV: 'test',
+      JWT_KEY: 'test',
+      IMGUR_ID: 'test',
+      IMGUR_SECRET: 'test',
+      IMGUR_ALBUM: 'test',
+      IMGUR_TOKEN: 'test',
+    };
+
+    for (const valueToTest of valuesToTest) {
+      process.env = testEnv;
+      process.env[valueToTest] = undefined;
+
+      try {
+        require('../../src/config').default;
+      } catch (e) {
+        expect((e as Error).message).toBe(exitMsg);
+      }
+
+      expect(logSpy).toBeCalledTimes(1);
+      expect(logSpy).toBeCalledWith('Please provide a valid .env config');
+
+      expect(exitSpy).toBeCalledTimes(1);
+      expect(exitSpy).toBeCalledWith(0);
     }
-
-    process.env.NODE_ENV = undefined;
-
-    try {
-      require('../../src/config').default;
-    } catch (e) {
-      expect((e as Error).message).toBe(exitMsg);
-    }
-
-    process.env.DB_URL_PROD = undefined;
-
-    try {
-      require('../../src/config').default;
-    } catch (e) {
-      expect((e as Error).message).toBe(exitMsg);
-    }
-
-    process.env.DB_URL_DEV = undefined;
-
-    try {
-      require('../../src/config').default;
-    } catch (e) {
-      expect((e as Error).message).toBe(exitMsg);
-    }
-
-    process.env.IMGUR_ID = undefined;
-
-    try {
-      require('../../src/config').default;
-    } catch (e) {
-      expect((e as Error).message).toBe(exitMsg);
-    }
-
-    process.env.IMGUR_SECRET = undefined;
-
-    try {
-      require('../../src/config').default;
-    } catch (e) {
-      expect((e as Error).message).toBe(exitMsg);
-    }
-
-    process.env.IMGUR_ALBUM = undefined;
-
-    try {
-      require('../../src/config').default;
-    } catch (e) {
-      expect((e as Error).message).toBe(exitMsg);
-    }
-
-    process.env.IMGUR_TOKEN = undefined;
-
-    try {
-      require('../../src/config').default;
-    } catch (e) {
-      expect((e as Error).message).toBe(exitMsg);
-    }
-
-    expect(logSpy).toBeCalledTimes(1);
-    expect(logSpy).toBeCalledWith('Please provide a valid .env config');
-
-    expect(exitSpy).toBeCalledTimes(1);
-    expect(exitSpy).toBeCalledWith(0);
   });
 
   test('returns valid config', () => {
-    const port = '3001';
     const apiUrl = 'https://fashionframe.herokuapp.com/fashionframe';
     const webUrl = 'https://fashionframe.herokuapp.com';
-    const dbUrlProd = 'test DB URL production';
-    const dbUrlDev = 'test DB URL development';
-    const jwtKey = 'TeStJWTKeY';
-    const imgurId = 'ImgurId';
-    const imgurSecret = 'ImgurSecret';
-    const imgurAlbum = 'ImgurAlbum';
-    const imgurRefreshToken = 'RefreshToken';
-
-    process.env.PORT = port;
-    process.env.DB_URL_PROD = dbUrlProd;
-    process.env.DB_URL_DEV = dbUrlDev;
-    process.env.NODE_ENV = 'production';
-    process.env.JWT_KEY = jwtKey;
-    process.env.IMGUR_ID = imgurId;
-    process.env.IMGUR_SECRET = imgurSecret;
-    process.env.IMGUR_ALBUM = imgurAlbum;
-    process.env.IMGUR_TOKEN = imgurRefreshToken;
 
     const config = require('../../src/config').default;
+    console.log(config);
     const configCheck = {
-      port: port,
+      port: process.env.PORT,
       apiUrl: apiUrl,
       webUrl: webUrl,
-      database: dbUrlProd,
-      jwtKey: jwtKey,
+      database: process.env.DB_URL_PROD,
+      jwtKey: process.env.JWT_KEY,
       imgur: {
-        id: imgurId,
-        secret: imgurSecret,
-        album: imgurAlbum,
-        refreshToken: imgurRefreshToken,
+        id: process.env.IMGUR_ID,
+        secret: process.env.IMGUR_SECRET,
+        album: process.env.IMGUR_ALBUM,
+        refreshToken: process.env.IMGUR_TOKEN,
       },
     };
 

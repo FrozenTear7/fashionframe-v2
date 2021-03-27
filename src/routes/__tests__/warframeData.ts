@@ -1,4 +1,4 @@
-import { setupDB } from './../../testSetup';
+import { setupTests } from './../../testSetup';
 import supertest from 'supertest';
 import app from '../../app';
 import frames from '../../../public/warframe_data/frames.json';
@@ -11,10 +11,12 @@ import armAttachments from '../../../public/warframe_data/armAttachments.json';
 import legAttachments from '../../../public/warframe_data/legAttachments.json';
 import syandanas from '../../../public/warframe_data/syandanas.json';
 
+jest.mock('../../config', () => ({ jwtKey: 'TestJwtKey' }));
+
 const request = supertest(app);
 
 describe('Test warframe routes', () => {
-  setupDB();
+  setupTests();
 
   const apiUrl = '/api';
 

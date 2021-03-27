@@ -1,10 +1,12 @@
-import { setupDB } from '../../testSetup';
+import { setupTests } from '../../testSetup';
 import Attachments from '../Attachments';
 import ColorScheme from '../ColorScheme';
 import mongoose from 'mongoose';
 
+jest.mock('../../config', () => ({ jwtKey: 'TestJwtKey' }));
+
 describe('Attachments model test', () => {
-  setupDB();
+  setupTests();
 
   test('create attachments successfully', async () => {
     const attachmentsData = {
