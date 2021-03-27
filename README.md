@@ -85,4 +85,4 @@ Created and maintaned by: [FrozenTear7](https://github.com/FrozenTear7) - pawelm
 
 Thanks to [Arcustangens](https://github.com/arcustangens) for helping with Color Pickers data.
 
-For anything Warframe related whisper at **FrozenTear7** in-game.
+For anything Warframe related whisper **@FrozenTear7** in-game.
