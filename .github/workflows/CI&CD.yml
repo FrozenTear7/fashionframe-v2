@@ -36,9 +36,15 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.1.5
+        with:
+          node-version: 15.9.0
+
       - name: Build client and copy static to server
         run: |
           cd ./server
+          yarn install
           yarn build
           cp -r ./build ../server/client
           cd ..
