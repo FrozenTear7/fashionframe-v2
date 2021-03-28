@@ -12,13 +12,21 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.1.5
         with:
-          node-version: 15
+          node-version: 15.9.0
 
-      - name: Install dependencies and run tests
+      - name: CLIENT - Install dependencies and run tests
         run: |
+          cd ./client
           yarn install
           yarn test
+          cd ..
 
+      - name: SERVER - Install dependencies and run tests
+        run: |
+          cd ./server
+          yarn install
+          yarn test
+          cd ..
   deploy:
     needs: build
     
@@ -27,15 +35,17 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      
+
+      - name: Build client and copy static to server
+        run: |
+          cd ./server
+          yarn build
+          cp -r ./build ../server/client
+          cd ..
+
       - name: Heroku deployment
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: ${{ secrets.HEROKU_APP }}
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
-          usedocker: true
-          docker_build_args: |
-            CLONE_TOKEN
-        env:
-          CLONE_TOKEN: ${{ secrets.CLONE_TOKEN }}

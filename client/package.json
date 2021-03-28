@@ -1,0 +1,93 @@
+{
+  "name": "fashionframe-frontend",
+  "version": "1.0.0",
+  "description": "Social hub for sharing Warframe fashion setups - frontend",
+  "repository": "https://github.com/FrozenTear7/fashionframe-v2.git",
+  "author": "Paweł Mendroch <pawelmendroch7@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "homepage": "https://frozentear7.github.io/fashionframe-frontend",
+  "proxy": "http://localhost:3001",
+  "dependencies": {
+    "@testing-library/dom": "^7.30.1",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.3",
+    "typescript": "^4.1.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.15",
+    "@types/node": "^12.0.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@types/react-router": "^5.1.13",
+    "@types/react-router-dom": "^5.1.7",
+    "@typescript-eslint/eslint-plugin": "^4.19.0",
+    "@typescript-eslint/parser": "^4.19.0",
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb-typescript": "^12.3.1",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4",
+    "jest-coverage-badges": "^1.1.2",
+    "lint-staged": "^10.5.4",
+    "prettier": "^2.2.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --passWithNoTests --no-cache",
+    "test:coverage": "react-scripts test --passWithNoTests --no-cache --silent --coverage --watchAll=false",
+    "test:badges": "yarn test:coverage && jest-coverage-badges --input ./coverage/coverage-summary.json --output ./badges",
+    "eject": "react-scripts eject",
+    "lint": "eslint --ext .ts . --fix"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "jest": {
+    "clearMocks": true,
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}",
+      "!src/index.tsx",
+      "!src/types.ts",
+      "!src/setupTests.ts",
+      "!src/**/*.d.ts"
+    ],
+    "coverageReporters": [
+      "json-summary",
+      "text",
+      "lcov",
+      "clover"
+    ]
+  },
+  "lint-staged": {
+    "*.{js,jsx,mjs,ts,tsx}": [
+      "eslint --fix",
+      "git add ."
+    ]
+  }
+}

@@ -7,6 +7,9 @@
   "author": "Paweł Mendroch <pawelmendroch7@gmail.com>",
   "license": "MIT",
   "private": true,
+  "engines": {
+    "node": "15.9.0"
+  },
   "dependencies": {
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
@@ -63,7 +66,7 @@
     "test:coverage": "jest --runInBand --passWithNoTests --no-cache --silent --coverage",
     "test:badges": "yarn test:coverage && jest-coverage-badges --input ./coverage/coverage-summary.json --output ./badges",
     "lint": "eslint --ext .ts . --fix",
-    "prepare": "husky install"
+    "prepare": "cd .. && husky install"
   },
   "lint-staged": {
     "*.{js,jsx,mjs,ts,tsx}": [

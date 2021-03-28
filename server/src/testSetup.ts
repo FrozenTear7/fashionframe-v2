@@ -5,6 +5,9 @@ import mongoose, { Types } from 'mongoose';
 import config from './config';
 import User, { IUser } from './models/User';
 import { MongoMemoryReplSet } from 'mongodb-memory-server';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const removeAllCollections = async (): Promise<void> => {
   const collections = Object.keys(mongoose.connection.collections);
