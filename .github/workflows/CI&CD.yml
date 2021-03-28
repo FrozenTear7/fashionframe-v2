@@ -43,6 +43,12 @@ jobs:
           cp -r ./build ../server/client
           cd ..
 
+      - name: Remove unnecessary components
+        run: |
+          cp -r ./server/* .
+          rm -rf ./client
+          rm -rf ./server
+
       - name: Heroku deployment
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
