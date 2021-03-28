@@ -9,4 +9,4 @@ COPY ./server/yarn.lock ./
 
 RUN yarn install --production=true
 
-CMD [ "yarn start" ]
+CMD yarn start
