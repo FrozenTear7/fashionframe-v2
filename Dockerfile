@@ -2,8 +2,6 @@ FROM node:15
 
 WORKDIR /usr/src/server
 
-RUN npm install --global yarn
-
 COPY package.json ./
 COPY yarn.lock ./
 
