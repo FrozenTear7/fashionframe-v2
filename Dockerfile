@@ -11,7 +11,7 @@ RUN yarn build
 COPY ./tmp-client/build ./client
 
 RUN cd ../tmp-server
-RUN yarn install
+RUN yarn install --ignore-scripts
 RUN yarn build
 COPY ./tmp-server/build ./build
 RUN cd ..

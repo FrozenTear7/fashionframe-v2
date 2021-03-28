@@ -6,7 +6,6 @@
   "author": "Paweł Mendroch <pawelmendroch7@gmail.com>",
   "license": "MIT",
   "private": true,
-  "homepage": "https://frozentear7.github.io/fashionframe-frontend",
   "proxy": "http://localhost:3001",
   "dependencies": {
     "@testing-library/dom": "^7.30.1",
