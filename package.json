@@ -7,9 +7,6 @@
   "author": "Paweł Mendroch <pawelmendroch7@gmail.com>",
   "license": "MIT",
   "private": true,
-  "engines": {
-    "node": "15.9.0"
-  },
   "dependencies": {
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
