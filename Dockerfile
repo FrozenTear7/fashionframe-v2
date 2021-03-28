@@ -7,7 +7,7 @@ COPY yarn.lock ./
 
 RUN yarn install --production=true
 
-RUN git clone -b docker https://${CLONE_TOKEN}:x-oauth-basic@github.com/FrozenTear7/fashionframe-frontend.git /usr/src/client
+RUN git clone -b master https://${CLONE_TOKEN}:x-oauth-basic@github.com/FrozenTear7/fashionframe-frontend.git /usr/src/client
 RUN cd /usr/src/client
 RUN yarn install --production=true && yarn build
 RUN cp -R ./build /usr/src/server/client
