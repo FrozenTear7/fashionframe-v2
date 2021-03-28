@@ -35,3 +35,7 @@ jobs:
           heroku_app_name: ${{ secrets.HEROKU_APP }}
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
           usedocker: true
+          docker_build_args: |
+            CLONE_TOKEN
+        env:
+          CLONE_TOKEN: ${{ secrets.CLONE_TOKEN }}
