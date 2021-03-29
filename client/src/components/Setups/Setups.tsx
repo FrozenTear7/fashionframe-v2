@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as React from 'react';
+import { Helmet } from 'react-helmet';
 import { SetupItem } from '../../types/Setup';
 import Loading from '../../utils/Loading';
 import SetupListItem from './SetupListItem';
@@ -28,12 +29,17 @@ const Setups: React.VFC = () => {
     void fetchSetups();
   }, []);
 
-  // console.log(setups);
-
   if (setupsLoading) return <Loading />;
   if (setupsError) return <div>{setupsError}</div>;
   return (
     <div className="Setups">
+      <Helmet>
+        <title>Fashion setups | Fashionframe</title>
+        <meta
+          name="description"
+          content="Search for fashion setups created by other players, filter by frames or popularity."
+        />
+      </Helmet>
       Setups
       <ul>
         {setups.length > 0 &&

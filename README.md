@@ -1,5 +1,7 @@
 # Fashionframe
 
+[![CI & CD](https://github.com/FrozenTear7/fashionframe-v2/actions/workflows/CI&CD.yml/badge.svg?branch=master)](https://github.com/FrozenTear7/fashionframe-v2/actions/workflows/CI&CD.yml)
+
 ### Server tests
 
 ![Coverage - statements](./server/badges/badge-statements.svg)
@@ -24,7 +26,7 @@ Many modifications are being given out by the developers during events or alerts
 
 Fashionframe is a social hub for Warframe players, where they can share their fashion setups and use those, created by others.
 
-These fashion setups include attachments, syandanas, colors and skins for all availables frames in the game.
+These fashion setups include attachments, syandanas, colors and skins for all available frames in the game.
 
 _(Operators, railjacks, companions and others will be added in the future)_
 

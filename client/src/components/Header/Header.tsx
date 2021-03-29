@@ -7,6 +7,9 @@ const Header: React.VFC = () => {
       HEADER
       <ul>
         <li>
+          <Link to="/">Homepage</Link>
+        </li>
+        <li>
           <Link to="/setups">Setups</Link>
         </li>
         <li>
