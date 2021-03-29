@@ -2,9 +2,12 @@ import express from 'express';
 import auth from './routes/auth';
 import warframeData from './routes/warframeData';
 import setups from './routes/setups';
+import config from './config';
 import errorMiddleware from './middleware/errorMiddleware';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
+import path from 'path';
+import cors from 'cors';
 
 const app = express();
 
@@ -35,11 +38,28 @@ app.set('trust proxy', 1);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  })
+);
+app.use(cors());
 
-app.use('/users', limiters.users, auth);
-app.use('/api', limiters.api, warframeData);
-app.use('/setups', limiters.setups, setups);
+if (config.mode === 'production')
+  app.use(express.static(path.join(__dirname, 'clientBuild')));
+else app.use(express.static(path.join(__dirname, '../../client/build')));
+
+app.use('/api/users', limiters.users, auth);
+app.use('/api/data', limiters.api, warframeData);
+app.use('/api/setups', limiters.setups, setups);
+
+// Server the client on all other paths except for api
+app.get('*', (_req, res) => {
+  console.log('xd');
+  if (config.mode === 'production')
+    res.sendFile(path.join(__dirname, 'clientBuild', 'index.html'));
+  else res.sendFile(path.join(__dirname, '../../client/build', 'index.html'));
+});
 
 app.use(errorMiddleware);
 

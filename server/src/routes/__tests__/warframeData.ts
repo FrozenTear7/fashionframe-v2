@@ -18,7 +18,7 @@ const request = supertest(app);
 describe('Test warframe routes', () => {
   setupTests();
 
-  const apiUrl = '/api';
+  const apiUrl = '/api/data';
 
   test('frames route should return valid frames json data', async (done) => {
     const res = await request.get(`${apiUrl}/frames`);

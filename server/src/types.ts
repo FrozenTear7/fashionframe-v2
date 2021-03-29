@@ -3,8 +3,7 @@ import { Request } from 'express';
 
 export interface Config {
   port: string;
-  apiUrl: string;
-  webUrl: string;
+  mode: string;
   database: string;
   jwtKey: string;
   imgur: {

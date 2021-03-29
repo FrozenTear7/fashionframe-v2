@@ -33,14 +33,7 @@ if (
 
 const config: Config = {
   port: PORT,
-  apiUrl:
-    NODE_ENV === 'production'
-      ? 'https://fashionframe.herokuapp.com/fashionframe'
-      : 'http://localhost:3000/fashionframe',
-  webUrl:
-    NODE_ENV === 'production'
-      ? 'https://fashionframe.herokuapp.com'
-      : 'http://localhost:3001',
+  mode: NODE_ENV,
   database: NODE_ENV === 'production' ? DB_URL_PROD : DB_URL_DEV,
   jwtKey: JWT_KEY,
   imgur: {

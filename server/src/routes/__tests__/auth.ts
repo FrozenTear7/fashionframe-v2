@@ -11,7 +11,7 @@ jest.mock('../../config', () => ({ jwtKey: 'TestJwtKey' }));
 
 const request = supertest(app);
 
-const authUrl = '/users';
+const authUrl = '/api/users';
 
 describe('Test auth middleware', () => {
   setupTests();

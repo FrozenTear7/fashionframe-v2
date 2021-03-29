@@ -70,15 +70,11 @@ describe('config', () => {
   });
 
   test('returns valid config', (done) => {
-    const apiUrl = 'https://fashionframe.herokuapp.com/fashionframe';
-    const webUrl = 'https://fashionframe.herokuapp.com';
-
     const config = require('../../src/config').default;
-    console.log(config);
+
     const configCheck = {
       port: process.env.PORT,
-      apiUrl: apiUrl,
-      webUrl: webUrl,
+      mode: process.env.NODE_ENV,
       database: process.env.DB_URL_PROD,
       jwtKey: process.env.JWT_KEY,
       imgur: {
@@ -90,34 +86,6 @@ describe('config', () => {
     };
 
     expect(config).toStrictEqual(configCheck);
-
-    done();
-  });
-
-  test('returns valid URLs depending for development', (done) => {
-    const devApiUrl = 'http://localhost:3000/fashionframe';
-    const devWebUrl = 'http://localhost:3001';
-
-    process.env.NODE_ENV = 'development';
-
-    const config = require('../../src/config').default;
-
-    expect(config.apiUrl).toBe(devApiUrl);
-    expect(config.webUrl).toBe(devWebUrl);
-
-    done();
-  });
-
-  test('returns valid URLs depending for production', (done) => {
-    const prodApiUrl = 'https://fashionframe.herokuapp.com/fashionframe';
-    const prodWebUrl = 'https://fashionframe.herokuapp.com';
-
-    process.env.NODE_ENV = 'production';
-
-    const config = require('../../src/config').default;
-
-    expect(config.apiUrl).toBe(prodApiUrl);
-    expect(config.webUrl).toBe(prodWebUrl);
 
     done();
   });

@@ -1,16 +1,23 @@
 import * as React from 'react';
-// import { Redirect, Route, Switch } from 'react-router';
+import { Route, Switch } from 'react-router';
 import logo from './logo.svg';
 import './App.css';
+import Setup from './components/Setup/Setup';
+import Setups from './components/Setups/Setups';
+import User from './components/User/User';
+import Header from './components/Header/Header';
 
 const App: React.VFC = () => {
   return (
     <div className="App">
-      {/* <Switch>
-        <Route exact path="/invoices/dashboard" component={Dashboard} />
-        <Route path="/invoices/:id" component={Invoice} />
-      </Switch> */}
-
+      Fashionframe
+      <Header />
+      <Switch>
+        <Route exact path="/setups" component={Setups} />
+        <Route exact path="/setups/:id" component={Setup} />
+        <Route exact path="/profile" component={User} />
+        <Route exact path="/user/:id" component={User} />
+      </Switch>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>

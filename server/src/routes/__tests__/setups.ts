@@ -16,7 +16,7 @@ jest.mock('../../config', () => ({ jwtKey: 'TestJwtKey' }));
 
 const request = supertest(app);
 
-const setupsUrl = '/setups';
+const setupsUrl = '/api/setups';
 
 // describe('Test createSetup', () => {
 //   setupTests();
