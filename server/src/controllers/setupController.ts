@@ -98,11 +98,10 @@ export const getSetups = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const setups = await Setup.find({})
-      .populate('user')
-      .populate('attachments')
-      .populate('colorScheme')
-      .populate('syandana');
+    const setups = await Setup.find(
+      {},
+      'name createdAt frame screenshot'
+    ).populate('author', 'username');
 
     res.send({
       data: setups,
