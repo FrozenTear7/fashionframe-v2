@@ -14,6 +14,7 @@ import SignIn from './components/SignIn/SignIn';
 import NotFound from './utils/NotFound';
 import { UserContext } from './UserContext';
 import { ContextUser } from './types';
+import PrivateRoute from './utils/PrivateRoute';
 
 const App: React.VFC = () => {
   const [user, setUser] = React.useState<ContextUser | null>(null);
@@ -39,7 +40,7 @@ const App: React.VFC = () => {
             <Route exact path="/signin" component={SignIn} />
             <Route exact path="/setups" component={Setups} />
             <Route exact path="/setups/:id" component={Setup} />
-            <Route path="/profile" component={User} />
+            <PrivateRoute path="/profile" component={User} />
             <Route path="/user/:id" component={User} />
             <Route component={NotFound} />
           </Switch>

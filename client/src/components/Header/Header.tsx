@@ -4,7 +4,6 @@ import { useUserContext } from '../../UserContext';
 
 const Header: React.VFC = () => {
   const { user } = useUserContext();
-  console.log(user);
 
   return (
     <div className="Header">
