@@ -81,10 +81,7 @@ export const createSetup = async (
       await createdSetup.save({ session });
     });
 
-    res.send({
-      data: createdSetup,
-      message: `Successfully created setup`,
-    });
+    res.send(createdSetup);
   } catch (e) {
     next(new HttpException(400, e));
   } finally {
@@ -128,10 +125,7 @@ export const getSetupsByUserId = async (
     } else {
       const setups = await Setup.find({ user: user?._id });
 
-      res.send({
-        data: setups,
-        message: `Successfully fetched setups`,
-      });
+      res.send(setups);
     }
   } catch (e) {
     console.log(e);
@@ -154,11 +148,7 @@ export const getSetupById = async (
       .populate('syandana');
 
     if (!setup) next(new HttpException(404, 'Setup does not exist'));
-    else
-      res.send({
-        data: setup,
-        message: `Successfully fetched setup`,
-      });
+    else res.send(setup);
   } catch (e) {
     console.log(e);
     next(new HttpException(404, e));
@@ -233,8 +223,6 @@ export const updateSetupById = async (
       .populate('syandana')
       .populate('colorScheme');
 
-    console.log(updatedSetup2);
-
     res.send({
       data: updatedSetup2,
       message: `Successfully updated setup`,
@@ -287,7 +275,7 @@ export const likeSetupById = async (
     if (!setup) {
       next(new HttpException(404, 'Setup does not exist'));
     } else {
-      res.send({ message: 'Successfully liked setup' });
+      res.sendStatus(200);
     }
   } catch (e) {
     console.log(e);
@@ -308,10 +296,7 @@ export const deleteSetupById = async (
     const setup = await Setup.findByIdAndDelete(id);
 
     if (!setup) next(new HttpException(404, 'Setup does not exist'));
-    else
-      res.send({
-        message: `Successfully deleted setup`,
-      });
+    else res.sendStatus(200);
   } catch (e) {
     console.log(e);
     next(new HttpException(400, e));

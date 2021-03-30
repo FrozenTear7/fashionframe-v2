@@ -1,14 +1,21 @@
 import * as React from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { useUserContext } from '../../UserContext';
 import { signIn } from '../../utils/auth';
 
 const SignInForm: React.VFC = () => {
+  const { setUser } = useUserContext();
+
   const signInFormOnSubmit = async (
     username: string,
     password: string
   ): Promise<void> => {
-    await signIn(username, password);
+    try {
+      setUser(await signIn(username, password));
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (

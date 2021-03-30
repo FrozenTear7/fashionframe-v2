@@ -13,7 +13,7 @@ export const createUser = async (
     const token = await user.generateAuthToken();
 
     res.cookie('token', token, { httpOnly: true });
-    res.status(201).send({ user });
+    res.send({ user });
   } catch (e) {
     next(new HttpException(400, e.message));
   }
@@ -30,7 +30,7 @@ export const loginUser = async (
     const token = await user.generateAuthToken();
 
     res.cookie('token', token, { httpOnly: true });
-    res.send({ user });
+    res.send({ _id: user._id, username: user.username });
   } catch (e) {
     next(new HttpException(400, e.message));
   }
@@ -41,7 +41,7 @@ export const getOwnProfile = (
   res: Response,
   _next: NextFunction
 ): void => {
-  res.send({ data: req.user, message: 'Successfully fetched profile' });
+  res.send({ data: req.user });
 };
 
 export const logoutUser = async (
@@ -54,7 +54,7 @@ export const logoutUser = async (
     req.user.tokens = user.tokens.filter(({ token }) => token != req.token);
 
     await user.save();
-    res.send({ message: 'Successfully signed out' });
+    res.sendStatus(200);
   } catch (e) {
     next(new HttpException(500, e));
   }
