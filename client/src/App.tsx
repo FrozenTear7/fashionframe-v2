@@ -46,7 +46,7 @@ const App: React.VFC = () => {
             <SignedInRoute exact path="/signup" component={SignUp} />
             <SignedInRoute exact path="/signin" component={SignIn} />
             <Route exact path="/setups" component={Setups} />
-            <Route exact path="/setups/create" component={NewSetup} />
+            <PrivateRoute exact path="/setups/create" component={NewSetup} />
             <Route exact path="/setups/:id" component={Setup} />
             <PrivateRoute path="/profile" component={User} />
             <Route path="/user/:id" component={User} />
