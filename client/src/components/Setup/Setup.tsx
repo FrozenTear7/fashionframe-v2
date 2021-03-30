@@ -15,6 +15,7 @@ const Setup: React.VFC<RouteComponentProps<{ id: string }>> = ({ match }) => {
 
   React.useEffect(() => {
     const fetchSetups = async (): Promise<void> => {
+      setSetupError(undefined);
       setSetupLoading(true);
 
       try {

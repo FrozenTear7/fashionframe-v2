@@ -38,6 +38,9 @@ const Header: React.VFC = () => {
           <Link to="/setups">Setups</Link>
         </li>
         <li>
+          <Link to="/setups/create">Create new setup</Link>
+        </li>
+        <li>
           <Link to="/setups/1">Setup 1</Link>
         </li>
         <li>
