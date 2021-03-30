@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
+import SignInForm from './SignInForm';
 
 const SignIn: React.VFC = () => {
   return (
@@ -12,6 +13,7 @@ const SignIn: React.VFC = () => {
         />
       </Helmet>
       Sign in
+      <SignInForm />
     </div>
   );
 };
