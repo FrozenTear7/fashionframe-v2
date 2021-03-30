@@ -5,14 +5,10 @@
 
 cd ./client
 yarn lint-staged
-yarn test:badges
-git add ./badges
 cd ..
 
 # Pre-commit for server
 
 cd ./server
 yarn lint-staged
-yarn test:badges
-git add ./badges
 cd ..

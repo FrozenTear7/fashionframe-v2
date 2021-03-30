@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as React from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { SetupItem } from '../../types/Setup';
 import Loading from '../../utils/Loading';
 import SetupListItem from './SetupListItem';
@@ -15,8 +15,7 @@ const Setups: React.VFC = () => {
       setSetupsLoading(true);
 
       try {
-        const setupsRes = await axios.get('http://localhost:3001/api/setups');
-        console.log(setupsRes);
+        const setupsRes = await axios.get('/api/setups');
         setSetups(setupsRes.data.data);
       } catch (e) {
         console.log(e);

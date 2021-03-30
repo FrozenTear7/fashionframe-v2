@@ -9,11 +9,9 @@ const auth = async (
   _res: Response,
   next: NextFunction
 ): Promise<void> => {
-  const authHeader = req.header('Authorization');
+  const { token } = req.cookies;
 
-  if (!authHeader) return next(new HttpException(401, 'JWT Token is missing'));
-
-  const token = authHeader.replace('Bearer ', '');
+  if (!token) return next(new HttpException(401, 'JWT Token is missing'));
 
   try {
     const data = jwt.verify(token, config.jwtKey);
@@ -23,9 +21,7 @@ const auth = async (
       'tokens.token': token,
     });
 
-    if (!user) {
-      throw new Error('User does not exist');
-    }
+    if (!user) throw new Error('User does not exist');
 
     req.user = user;
     req.token = token;

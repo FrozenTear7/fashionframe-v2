@@ -18,6 +18,5 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "moduleResolution": "Node"
-  },
-  "exclude": ["jest.config.ts"]
+  }
 }

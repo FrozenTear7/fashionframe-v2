@@ -1,6 +1,9 @@
 name: CI & CD
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - "master"
 
 jobs:
   build:
@@ -13,28 +16,6 @@ jobs:
         uses: actions/setup-node@v2.1.5
         with:
           node-version: 15.9.0
-
-      - name: CLIENT - Install dependencies and run tests
-        run: |
-          cd ./client
-          yarn install
-          yarn test
-          cd ..
-
-      - name: SERVER - Install dependencies and run tests
-        run: |
-          cd ./server
-          yarn install
-          yarn test
-          cd ..
-  deploy:
-    needs: build
-    
-    if: ${{ github.ref == 'refs/heads/master' && github.event_name == 'push' }}
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
 
       - name: Install and build
         run: |

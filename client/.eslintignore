@@ -1,5 +1,3 @@
 node_modules
 build
 releases
-jest.config.ts
-babel.config.js

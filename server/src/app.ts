@@ -8,6 +8,8 @@ import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import path from 'path';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import csrf from 'csurf';
 
 const app = express();
 
@@ -44,6 +46,12 @@ app.use(
   })
 );
 app.use(cors());
+app.use(cookieParser());
+app.use(
+  csrf({
+    cookie: true,
+  })
+);
 
 if (config.mode === 'production')
   app.use(express.static(path.join(__dirname, 'clientBuild')));
@@ -54,7 +62,7 @@ app.use('/api/data', limiters.api, warframeData);
 app.use('/api/setups', limiters.setups, setups);
 
 // Server the client on all other paths except for api
-app.get('*', (_req, res) => {
+app.get(/^\/(?!api).*$/, (_req, res) => {
   if (config.mode === 'production')
     res.sendFile(path.join(__dirname, 'clientBuild', 'index.html'));
   else res.sendFile(path.join(__dirname, '../../client/build', 'index.html'));

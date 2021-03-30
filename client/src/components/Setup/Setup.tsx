@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { RouteComponentProps } from 'react-router';
 
 const Setup: React.VFC<RouteComponentProps<{ id: string }>> = ({ match }) => {

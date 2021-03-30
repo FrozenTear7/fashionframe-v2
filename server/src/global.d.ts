@@ -5,9 +5,3 @@ declare namespace Express {
     token: any;
   }
 }
-
-declare namespace NodeJS {
-  export interface Global {
-    __MONGO_URI__: string;
-  }
-}

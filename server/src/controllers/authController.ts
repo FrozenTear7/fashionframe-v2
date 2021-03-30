@@ -12,7 +12,8 @@ export const createUser = async (
     const user = await User.create(req.body);
     const token = await user.generateAuthToken();
 
-    res.status(201).send({ user, token });
+    res.cookie('token', token, { httpOnly: true });
+    res.status(201).send({ user });
   } catch (e) {
     next(new HttpException(400, e.message));
   }
@@ -28,7 +29,8 @@ export const loginUser = async (
     const user = await User.findByCredentials(username, password);
     const token = await user.generateAuthToken();
 
-    res.send({ user, token });
+    res.cookie('token', token, { httpOnly: true });
+    res.send({ user });
   } catch (e) {
     next(new HttpException(400, e.message));
   }
@@ -56,4 +58,8 @@ export const logoutUser = async (
   } catch (e) {
     next(new HttpException(500, e));
   }
+};
+
+export const getCsrfToken = (req: Request, res: Response): void => {
+  res.send({ csrfToken: req.csrfToken() });
 };

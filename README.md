@@ -2,20 +2,6 @@
 
 [![CI & CD](https://github.com/FrozenTear7/fashionframe-v2/actions/workflows/CI&CD.yml/badge.svg?branch=master)](https://github.com/FrozenTear7/fashionframe-v2/actions/workflows/CI&CD.yml)
 
-### Server tests
-
-![Coverage - statements](./server/badges/badge-statements.svg)
-![Coverage - branches](./server/badges/badge-branches.svg)
-![Coverage - functions](./server/badges/badge-functions.svg)
-![Coverage - lines](./server/badges/badge-lines.svg)
-
-### Client tests
-
-![Coverage - statements](./client/badges/badge-statements.svg)
-![Coverage - branches](./client/badges/badge-branches.svg)
-![Coverage - functions](./client/badges/badge-functions.svg)
-![Coverage - lines](./client/badges/badge-lines.svg)
-
 ### What is Fashionframe?
 
 Fashionframe is what Warframe players call _"The true endgame"_, which is modifying your frames, operator and other parts with different skins, colors, that look the best in your own eye.
