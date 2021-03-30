@@ -10,23 +10,29 @@ import Header from './components/Header/Header';
 import Homepage from './components/Homepage/Homepage';
 import SignUp from './components/SignUp/SignUp';
 import SignIn from './components/SignIn/SignIn';
-// import PrivateRoute from './utils/PrivateRoute';
 import NotFound from './utils/NotFound';
 import { UserContext } from './UserContext';
 import { ContextUser } from './types';
-import PrivateRoute from './utils/PrivateRoute';
+import { PrivateRoute, SignedInRoute } from './utils/PrivateRoute';
 
 const App: React.VFC = () => {
   const [user, setUser] = React.useState<ContextUser | null>(null);
 
-  // Fetch CSRF token for security measures
   React.useEffect(() => {
+    // Fetch CSRF token for security measures
     const getCsrfToken = async (): Promise<void> => {
       const { data } = await axios.get('/api/users/csrf-token');
       axios.defaults.headers.post['X-CSRF-Token'] = data.csrfToken;
     };
 
+    // Also fetch user profile for the context
+    const getUserProfile = async (): Promise<void> => {
+      const { data } = await axios.get('/api/users/me');
+      setUser(data);
+    };
+
     void getCsrfToken();
+    void getUserProfile();
   }, []);
 
   return (
@@ -36,8 +42,8 @@ const App: React.VFC = () => {
           <Header />
           <Switch>
             <Route exact path="/" component={Homepage} />
-            <Route exact path="/signup" component={SignUp} />
-            <Route exact path="/signin" component={SignIn} />
+            <SignedInRoute exact path="/signup" component={SignUp} />
+            <SignedInRoute exact path="/signin" component={SignIn} />
             <Route exact path="/setups" component={Setups} />
             <Route exact path="/setups/:id" component={Setup} />
             <PrivateRoute path="/profile" component={User} />

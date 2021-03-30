@@ -2,6 +2,8 @@ import { IUser } from './../models/User';
 import { NextFunction, Response, Request } from 'express';
 import HttpException from '../exceptions/HttpException';
 import User from '../models/User';
+import jwt from 'jsonwebtoken';
+import config from '../config';
 
 export const createUser = async (
   req: Request,
@@ -36,12 +38,25 @@ export const loginUser = async (
   }
 };
 
-export const getOwnProfile = (
+export const getOwnProfile = async (
   req: Request,
   res: Response,
   _next: NextFunction
-): void => {
-  res.send({ data: req.user });
+): Promise<void> => {
+  const { token } = req.cookies;
+
+  if (!token) res.send(null);
+  else {
+    const data = jwt.verify(token, config.jwtKey);
+
+    const user = await User.findOne({
+      _id: data,
+      'tokens.token': token,
+    });
+
+    if (!user) res.send(null);
+    else res.send({ _id: user._id, username: user.username });
+  }
 };
 
 export const logoutUser = async (

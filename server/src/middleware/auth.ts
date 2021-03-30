@@ -24,7 +24,6 @@ const auth = async (
     if (!user) throw new Error('User does not exist');
 
     req.user = user;
-    req.token = token;
 
     next();
   } catch (e) {

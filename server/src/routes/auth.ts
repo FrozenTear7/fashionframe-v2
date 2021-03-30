@@ -15,9 +15,9 @@ const csrfProtection = csrf({
 
 const router = express.Router();
 
-router.post('/', createUser);
-router.post('/login', loginUser);
-router.get('/me', [csrfProtection, auth], getOwnProfile);
+router.post('/', csrfProtection, createUser);
+router.post('/login', csrfProtection, loginUser);
+router.get('/me', csrfProtection, getOwnProfile);
 router.post('/logout', [csrfProtection, auth], logoutUser);
 router.get('/csrf-token', getCsrfToken);
 

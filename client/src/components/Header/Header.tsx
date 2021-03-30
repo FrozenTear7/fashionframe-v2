@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { useUserContext } from '../../UserContext';
+import { signOut } from '../../utils/auth';
 
 const Header: React.VFC = () => {
-  const { user } = useUserContext();
+  const { user, setUser } = useUserContext();
 
   return (
     <div className="Header">
@@ -12,12 +13,27 @@ const Header: React.VFC = () => {
         <li>
           <Link to="/">Homepage</Link>
         </li>
-        <li>
-          <Link to="/signup">Sign up</Link>
-        </li>
-        <li>
-          <Link to="/signin">Sign in</Link>
-        </li>
+        {!user && (
+          <li>
+            <Link to="/signup">Sign up</Link>
+          </li>
+        )}
+        {!user && (
+          <li>
+            <Link to="/signin">Sign in</Link>
+          </li>
+        )}
+        {user && (
+          <button
+            type="button"
+            onClick={async (): Promise<void> => {
+              await signOut();
+              setUser(null);
+            }}
+          >
+            Sign out
+          </button>
+        )}
         <li>
           <Link to="/setups">Setups</Link>
         </li>

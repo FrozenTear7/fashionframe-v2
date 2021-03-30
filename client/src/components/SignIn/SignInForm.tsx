@@ -24,12 +24,8 @@ const SignInForm: React.VFC = () => {
     password: string
   ): Promise<void> => {
     try {
-      setUser(await signIn(username, password));
-
-      const { from }: LocationState = (location.state as LocationState) || {
-        from: { pathname: '/' },
-      };
-      history.replace(from);
+      const user = await signIn(username, password);
+      setUser(user);
     } catch (e) {
       console.log(e);
       setSignInError(e);
@@ -55,7 +51,13 @@ const SignInForm: React.VFC = () => {
           { setSubmitting }
         ): Promise<void> => {
           await signInFormOnSubmit(username, password);
+
+          const { from }: LocationState = (location.state as LocationState) || {
+            from: { pathname: '/' },
+          };
+
           setSubmitting(false);
+          history.replace(from);
         }}
       >
         <Form>
