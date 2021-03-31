@@ -31,19 +31,7 @@ The app also provides endpoints with Warframe data taken from [Warframe Wiki](ht
 
 ## API
 
-All data is being served as _.json_, where specific data is put into a json object as:
-
-```javascript
-{
-    "<data_name>": [
-        "Record1",
-        "Record2",
-        ...
-    ]
-}
-```
-
-The exception are the Color Pickers where the Json data looks like:
+Color pickers, helmets and skins data is served as a **json** object with items group by the shared type:
 
 ```javascript
 {
@@ -58,17 +46,55 @@ The exception are the Color Pickers where the Json data looks like:
 }
 ```
 
-| Endpoint              | Data                                                                        |
-| --------------------- | --------------------------------------------------------------------------- |
-| /api/frames           | [Frames](https://fashionframe.herokuapp.com/api/frames)                     |
-| /api/ephemeras        | [Ephemeras](https://fashionframe.herokuapp.com/api/ephemeras)               |
-| /api/helmets          | [Helmets](https://fashionframe.herokuapp.com/api/helmets)                   |
-| /api/skins            | [Skins](https://fashionframe.herokuapp.com/api/skins)                       |
-| /api/colorPickers     | [ColorPickers](https://fashionframe.herokuapp.com/api/colorPickers)         |
-| /api/chestAttachments | [ChestAttachments](https://fashionframe.herokuapp.com/api/chestAttachments) |
-| /api/armAttachments   | [ArmAttachments](https://fashionframe.herokuapp.com/api/armAttachments)     |
-| /api/legAttachments   | [LegAttachments](https://fashionframe.herokuapp.com/api/legAttachments)     |
-| /api/syandanas        | [Syandanas](https://fashionframe.herokuapp.com/api/syandanas)               |
+```javascript
+{
+  "helmets": {
+    "Ash": [
+      "Ash Helmet",
+      "Ash Prime Helmet",
+      ...
+    ],
+    ...
+  }
+}
+```
+
+```javascript
+{
+  "skins": {
+    "Ash": [
+      "Ash Skin",
+      "Ash Koga Skin",
+      ...
+    ],
+    ...
+  }
+}
+```
+
+The rest of the data is served as a simple **json** array of values:
+
+```javascript
+{
+    "<data_name>": [
+        "Record1",
+        "Record2",
+        ...
+    ]
+}
+```
+
+| Endpoint                   | Data                                                                             |
+| -------------------------- | -------------------------------------------------------------------------------- |
+| /api/data/frames           | [Frames](https://fashionframe.herokuapp.com/api/data/frames)                     |
+| /api/data/ephemeras        | [Ephemeras](https://fashionframe.herokuapp.com/api/data/ephemeras)               |
+| /api/data/helmets          | [Helmets](https://fashionframe.herokuapp.com/api/data/helmets)                   |
+| /api/data/skins            | [Skins](https://fashionframe.herokuapp.com/api/data/skins)                       |
+| /api/data/colorPickers     | [ColorPickers](https://fashionframe.herokuapp.com/api/data/colorPickers)         |
+| /api/data/chestAttachments | [ChestAttachments](https://fashionframe.herokuapp.com/api/data/chestAttachments) |
+| /api/data/armAttachments   | [ArmAttachments](https://fashionframe.herokuapp.com/api/data/armAttachments)     |
+| /api/data/legAttachments   | [LegAttachments](https://fashionframe.herokuapp.com/api/data/legAttachments)     |
+| /api/data/syandanas        | [Syandanas](https://fashionframe.herokuapp.com/api/data/syandanas)               |
 
 ## License
 
