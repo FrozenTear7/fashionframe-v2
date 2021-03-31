@@ -12,7 +12,7 @@ const newSetupSchema = yup.object().shape({
   screenshotImage: yup
     .mixed()
     .test('fileRequired', 'Required', (value: File[]) => {
-      return value.length === 0;
+      return value.length > 0;
     })
     .test('fileSize', 'This file is too large', (value: File[]) => {
       if (!value.length) return true;

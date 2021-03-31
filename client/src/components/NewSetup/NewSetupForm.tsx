@@ -8,6 +8,7 @@ import { WarframeData } from '../../types/WarframeData';
 import Error from '../../utils/Error';
 import newSetupSchema from '../../validation/newSetupSchema';
 import { NewSetupFormData } from '../../types/Setup';
+import NewSetupSetupSection from './NewSetupSetupSection';
 
 const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
   warframeData,
@@ -51,61 +52,17 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
     }
   });
 
-  console.log(errors);
-
   return (
     <div className="NewSetupForm">
       {createSetupError && <Error error={createSetupError} />}
 
       <form onSubmit={newSetupFormOnSubmit}>
-        <label>Name</label>
-        <input name="name" ref={register} />
-        <p>{errors.name?.message}</p>
-
-        <label>Description</label>
-        <textarea name="description" ref={register} />
-        <p>{errors.description?.message}</p>
-
-        <label>Frame</label>
-        <select name="frame" ref={register}>
-          {warframeData.frames.map((frame) => (
-            <option key={frame} value={frame}>
-              {frame}
-            </option>
-          ))}
-        </select>
-        <p>{errors.frame?.message}</p>
-
-        <label>Helmet</label>
-        <select name="helmet" ref={register}>
-          {currentFrame &&
-            warframeData.helmets[currentFrame].map((helmet) => (
-              <option key={helmet} value={helmet}>
-                {helmet}
-              </option>
-            ))}
-        </select>
-        <p>{errors.helmet?.message}</p>
-
-        <label>Skin</label>
-        <select name="skin" ref={register}>
-          {currentFrame &&
-            warframeData.skins[currentFrame].map((skin) => (
-              <option key={skin} value={skin}>
-                {skin}
-              </option>
-            ))}
-        </select>
-        <p>{errors.skin?.message}</p>
-
-        <label>Screenshot</label>
-        <input
-          name="screenshotImage"
-          type="file"
-          accept="image/*"
-          ref={register}
+        <NewSetupSetupSection
+          warframeData={warframeData}
+          currentFrame={currentFrame}
+          register={register}
+          errors={errors}
         />
-        <p>{errors.screenshotImage}</p>
 
         <input type="submit" />
       </form>
