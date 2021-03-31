@@ -8,17 +8,25 @@ export interface SetupBase {
   author: UserBase;
   name: string;
   frame: string;
-  screenshot: string;
   createdAt: Date;
 }
 
 export interface SetupItem extends SetupBase {
+  screenshot: string;
   likes: number;
   likedByYou: boolean;
 }
 
 export interface SetupDetails extends SetupBase {
+  screenshot: string;
   attachments: Attachments;
   syandana: Syandana;
   colorScheme: ColorScheme;
+}
+
+export interface NewSetup extends SetupBase {
+  attachments: Attachments;
+  syandana: Syandana;
+  colorScheme: ColorScheme;
+  screenshotImage: File;
 }

@@ -1,35 +1,14 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import * as React from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useUserContext } from '../../UserContext';
 import { signIn } from '../../utils/auth';
 import Error from '../../utils/Error';
-
-type SignInFormData = {
-  username: string;
-  password: string;
-};
-
-interface LocationState {
-  from: {
-    pathname: string;
-  };
-}
-
-const signInSchema = yup.object().shape({
-  username: yup
-    .string()
-    .min(3, 'Must be at least 3 characters long')
-    .max(20, 'Must be at most 20 characters long')
-    .required('Required'),
-  password: yup
-    .string()
-    .min(6, 'Must be at least 6 characters long')
-    .required('Required'),
-});
+import signInSchema from '../../validation/signInSchema';
+import { SignInFormData } from '../../types/SignIn';
+import { LocationState } from '../../types';
 
 const SignInForm: React.VFC = () => {
   const history = useHistory();

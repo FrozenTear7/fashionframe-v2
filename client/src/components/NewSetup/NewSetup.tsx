@@ -1,18 +1,42 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable @typescript-eslint/unbound-method */
 import axios from 'axios';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useHistory } from 'react-router-dom';
 import { WarframeData } from '../../types/WarframeData';
 import Error from '../../utils/Error';
 import Loading from '../../utils/Loading';
+import newSetupSchema from '../../validation/newSetupSchema';
+
+type NewSetupFormData = {
+  name: string;
+  description: string;
+  frame: string;
+  helmet: string;
+};
 
 const NewSetup: React.VFC = () => {
+  const history = useHistory();
+
   const [warframeData, setWarframeData] = React.useState<WarframeData>();
   const [warframeDataLoading, setWarframeDataLoading] = React.useState(true);
   const [warframeDataError, setWarframeDataError] = React.useState<string>();
-  const [createSetupError] = React.useState<string>();
+  const [createSetupError, setCreateSetupError] = React.useState<string>();
   // const [selectedFrame, setSelectedFrame] = React.useState<string>('Ash');
+
+  const {
+    register,
+    handleSubmit,
+    errors,
+    getValues,
+  } = useForm<NewSetupFormData>({
+    resolver: yupResolver(newSetupSchema),
+    defaultValues: {
+      frame: 'Ash',
+    },
+  });
 
   React.useEffect(() => {
     const fetchSetups = async (): Promise<void> => {
@@ -53,37 +77,40 @@ const NewSetup: React.VFC = () => {
     void fetchSetups();
   }, []);
 
-  //   const setupFormOnSubmit = async (
-  //     name: string,
-  //     description: string,
-  //     screenshotImage: File | string
-  //   ): Promise<void> => {
-  //     const setup = {
-  //       name,
-  //       description,
-  //     };
+  const newSetupFormOnSubmit = handleSubmit(
+    async ({ name, description, frame, helmet }) => {
+      const setup = {
+        name,
+        description,
+        frame,
+        helmet,
+      };
 
-  //     // Can't figure out how to pass screenshotImage value correctly so it has to asserted this way for now
-  //     const bodyFormData = new FormData();
-  //     bodyFormData.append('screenshotImage', screenshotImage);
-  //     bodyFormData.append('setup', JSON.stringify(setup));
+      console.log(name, description, frame, helmet);
 
-  //     try {
-  //       console.log('xddd');
-  //       console.log(bodyFormData);
-  //       await axios({
-  //         method: 'post',
-  //         url: '/api/setups',
-  //         data: bodyFormData,
-  //         headers: {
-  //           'Content-Type': 'multipart/form-data',
-  //         },
-  //       });
-  //     } catch ({ response }) {
-  //       console.log(response);
-  //       setCreateSetupError(response.data.message);
-  //     }
-  //   };
+      const bodyFormData = new FormData();
+      // bodyFormData.append('screenshotImage', screenshotImage);
+      bodyFormData.append('setup', JSON.stringify(setup));
+
+      try {
+        const { data } = await axios({
+          method: 'post',
+          url: '/api/setups',
+          data: bodyFormData,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+        history.replace(`/setups/${data._id}`);
+      } catch ({ response }) {
+        console.log(response.data.message);
+        setCreateSetupError(response.data.message);
+      }
+    }
+  );
+
+  console.log(warframeData?.helmets[getValues('frame')]);
 
   if (warframeDataLoading) return <Loading />;
   if (warframeDataError) return <Error error={warframeDataError} />;
@@ -100,6 +127,38 @@ const NewSetup: React.VFC = () => {
       Create new setup
       <div className="SignInForm">
         {createSetupError && <Error error={createSetupError} />}
+
+        <form onSubmit={newSetupFormOnSubmit}>
+          <label>Name</label>
+          <input name="name" ref={register} />
+          <p>{errors.name?.message}</p>
+          <label>Description</label>
+          <textarea name="description" ref={register} />
+          <p>{errors.description?.message}</p>
+
+          <label>Frame</label>
+          <select name="frame" ref={register}>
+            {warframeData.frames.map((frame) => (
+              <option key={frame} value={frame}>
+                {frame}
+              </option>
+            ))}
+          </select>
+          <p>{errors.frame?.message}</p>
+
+          {/* <label>Helmet</label>
+          <select name="helmet" ref={register}>
+            {getValues('frame') &&
+              warframeData.helmets[getValues('frame')].map((helmet) => (
+                <option key={helmet} value={helmet}>
+                  {helmet}
+                </option>
+              ))}
+          </select>
+          <p>{errors.helmet?.message}</p> */}
+
+          <input type="submit" />
+        </form>
       </div>
     </div>
   );
