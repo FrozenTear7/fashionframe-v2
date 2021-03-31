@@ -1,26 +1,28 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import axios from 'axios';
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { SetupItem } from '../../types/Setup';
+import Error from '../../utils/Error';
 import Loading from '../../utils/Loading';
 import SetupListItem from './SetupListItem';
 
 const Setups: React.VFC = () => {
   const [setups, setSetups] = React.useState<SetupItem[]>([]);
-  const [setupsLoading, setSetupsLoading] = React.useState(false);
-  const [setupsError, setSetupsError] = React.useState();
+  const [setupsLoading, setSetupsLoading] = React.useState(true);
+  const [setupsError, setSetupsError] = React.useState<string>();
 
   React.useEffect(() => {
     const fetchSetups = async (): Promise<void> => {
+      setSetupsError(undefined);
       setSetupsLoading(true);
 
       try {
-        const setupsRes = await axios.get('/api/setups');
-        setSetups(setupsRes.data.data);
-      } catch (e) {
-        console.log(e);
-        setSetupsError(e);
+        const { data } = await axios.get('/api/setups');
+        setSetups(data);
+      } catch ({ response }) {
+        setSetupsError(response.data.message);
       } finally {
         setSetupsLoading(false);
       }
@@ -30,7 +32,7 @@ const Setups: React.VFC = () => {
   }, []);
 
   if (setupsLoading) return <Loading />;
-  if (setupsError) return <div>{setupsError}</div>;
+  if (setupsError) return <Error error={setupsError} />;
   return (
     <div className="Setups">
       <Helmet>
@@ -46,14 +48,7 @@ const Setups: React.VFC = () => {
           setups.map((setup) => (
             <li key={setup._id}>
               <Link to={`/setups/${setup._id}`}>
-                <SetupListItem
-                  _id={setup._id}
-                  author={setup.author}
-                  name={setup.name}
-                  frame={setup.frame}
-                  screenshot={setup.screenshot}
-                  createdAt={setup.createdAt}
-                />
+                <SetupListItem setup={setup} />
               </Link>
             </li>
           ))}

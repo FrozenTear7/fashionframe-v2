@@ -15,27 +15,39 @@ import { UserContext } from './UserContext';
 import { ContextUser } from './types';
 import { PrivateRoute, SignedInRoute } from './utils/PrivateRoute';
 import NewSetup from './components/NewSetup/NewSetup';
+import Loading from './utils/Loading';
+import Error from './utils/Error';
 
 const App: React.VFC = () => {
   const [user, setUser] = React.useState<ContextUser | null>(null);
+  const [initialDataLoading, setInitialDataLoading] = React.useState(true);
+  const [initialDataError, setInitialDataError] = React.useState<string>();
 
   React.useEffect(() => {
-    // Fetch CSRF token for security measures
-    const getCsrfToken = async (): Promise<void> => {
-      const { data } = await axios.get('/api/users/csrf-token');
-      axios.defaults.headers.post['X-CSRF-Token'] = data.csrfToken;
+    // Fetch CSRF token for security measures and then user profile
+    const getUserData = async (): Promise<void> => {
+      setInitialDataError(undefined);
+      setInitialDataLoading(true);
+
+      try {
+        const { data: csrfData } = await axios.get('/api/users/csrf-token');
+        axios.defaults.headers.post['X-CSRF-Token'] = csrfData.csrfToken;
+
+        const { data: profileData } = await axios.get('/api/users/me');
+        setUser(profileData);
+      } catch ({ response }) {
+        console.log(response.data.message);
+        setInitialDataError(response.data.message);
+      } finally {
+        setInitialDataLoading(false);
+      }
     };
 
-    // Also fetch user profile for the context
-    const getUserProfile = async (): Promise<void> => {
-      const { data } = await axios.get('/api/users/me');
-      setUser(data);
-    };
-
-    void getCsrfToken();
-    void getUserProfile();
+    void getUserData();
   }, []);
 
+  if (initialDataLoading) return <Loading />;
+  if (initialDataError) return <Error error={initialDataError} />;
   return (
     <HelmetProvider>
       <UserContext.Provider value={{ user, setUser }}>

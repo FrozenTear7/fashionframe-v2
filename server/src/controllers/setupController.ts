@@ -1,3 +1,5 @@
+import { IUser } from './../models/User';
+import jwt from 'jsonwebtoken';
 import { exists } from './../utils/parseTypes/typeChecks';
 import { NextFunction, Response, Request } from 'express';
 import HttpException from '../exceptions/HttpException';
@@ -8,6 +10,7 @@ import Syandana from '../models/Syandana';
 import User from '../models/User';
 import mongoose from 'mongoose';
 import uploadToAlbum from '../utils/imgur/uploadToAlbum';
+import config from '../config';
 
 export const createSetup = async (
   req: Request,
@@ -90,20 +93,55 @@ export const createSetup = async (
 };
 
 export const getSetups = async (
-  _req: Request,
+  req: Request,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
   try {
     const setups = await Setup.find(
       {},
-      'name createdAt frame screenshot'
+      'name createdAt frame screenshot likedUsers'
     ).populate('author', 'username');
 
-    res.send({
-      data: setups,
-      message: `Successfully fetched setups`,
-    });
+    const { token } = req.cookies;
+
+    let user: IUser | null = null;
+    if (!token) {
+      try {
+        const data = jwt.verify(token, config.jwtKey);
+
+        user = await User.findOne({
+          _id: data,
+          'tokens.token': token,
+        });
+        // eslint-disable-next-line no-empty
+      } catch {}
+    }
+
+    res.send(
+      setups.map((setup) => {
+        const {
+          _id,
+          name,
+          createdAt,
+          frame,
+          screenshot,
+          likedUsers,
+          author,
+        } = setup;
+
+        return {
+          _id,
+          name,
+          createdAt,
+          frame,
+          screenshot,
+          likes: likedUsers.length,
+          likedByYou: user && likedUsers.includes(user._id),
+          author,
+        };
+      })
+    );
   } catch (e) {
     console.log(e);
     next(new HttpException(404, e));
@@ -223,10 +261,7 @@ export const updateSetupById = async (
       .populate('syandana')
       .populate('colorScheme');
 
-    res.send({
-      data: updatedSetup2,
-      message: `Successfully updated setup`,
-    });
+    res.send(updatedSetup2);
   } catch (e) {
     console.log(e);
     next(new HttpException(400, e));

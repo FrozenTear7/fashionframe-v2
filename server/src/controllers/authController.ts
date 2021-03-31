@@ -69,6 +69,8 @@ export const logoutUser = async (
     req.user.tokens = user.tokens.filter(({ token }) => token != req.token);
 
     await user.save();
+
+    res.clearCookie('token');
     res.sendStatus(200);
   } catch (e) {
     next(new HttpException(500, e));

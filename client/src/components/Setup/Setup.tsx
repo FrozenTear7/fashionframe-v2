@@ -10,7 +10,7 @@ const Setup: React.VFC<RouteComponentProps<{ id: string }>> = ({ match }) => {
   const setupId = match.params.id;
 
   const [setup, setSetup] = React.useState<SetupDetails>();
-  const [setupLoading, setSetupLoading] = React.useState(false);
+  const [setupLoading, setSetupLoading] = React.useState(true);
   const [setupError, setSetupError] = React.useState<string>();
 
   React.useEffect(() => {
@@ -32,12 +32,7 @@ const Setup: React.VFC<RouteComponentProps<{ id: string }>> = ({ match }) => {
   }, []);
 
   if (setupLoading) return <Loading />;
-  if (setupError)
-    return (
-      <div>
-        <Error error={setupError} />
-      </div>
-    );
+  if (setupError) return <Error error={setupError} />;
   return (
     <div className="Setup">
       <Helmet>

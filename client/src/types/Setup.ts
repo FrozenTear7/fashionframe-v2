@@ -13,7 +13,8 @@ export interface SetupBase {
 }
 
 export interface SetupItem extends SetupBase {
-  author: UserBase;
+  likes: number;
+  likedByYou: boolean;
 }
 
 export interface SetupDetails extends SetupBase {
