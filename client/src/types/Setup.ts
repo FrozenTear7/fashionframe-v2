@@ -30,3 +30,12 @@ export interface NewSetup extends SetupBase {
   colorScheme: ColorScheme;
   screenshotImage: File;
 }
+
+export type NewSetupFormData = {
+  name: string;
+  description: string;
+  frame: string;
+  helmet: string;
+  skin: string;
+  screenshotImage: File;
+};
