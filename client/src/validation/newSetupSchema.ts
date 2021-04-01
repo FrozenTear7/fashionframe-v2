@@ -9,6 +9,27 @@ const newSetupSchema = yup.object().shape({
   frame: yup.string().required('Required'),
   helmet: yup.string().required('Required'),
   skin: yup.string().required('Required'),
+  attachments: yup.object().shape({
+    chest: yup.string(),
+    leftArm: yup.string(),
+    rightArm: yup.string(),
+    leftLeg: yup.string(),
+    rightLeg: yup.string(),
+    ephemera: yup.string(),
+  }),
+  syandana: yup.object().shape({
+    name: yup.string(),
+  }),
+  colorScheme: yup.object().shape({
+    primary: yup.string(),
+    secondary: yup.string(),
+    tertiary: yup.string(),
+    accents: yup.string(),
+    emmissive1: yup.string(),
+    emmissive2: yup.string(),
+    energy1: yup.string(),
+    energy2: yup.string(),
+  }),
   screenshotImage: yup
     .mixed()
     .test('fileRequired', 'Required', (value: File[]) => {
@@ -22,12 +43,6 @@ const newSetupSchema = yup.object().shape({
       if (!value.length) return true;
       return /^image\/.+$/.test(value[0].type);
     }),
-  attachments: yup.object().shape({
-    chest: yup.string().required('Required'),
-  }),
-  syandana: yup.object().shape({
-    name: yup.string().required('Required'),
-  }),
 });
 
 export default newSetupSchema;

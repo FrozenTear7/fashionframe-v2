@@ -38,4 +38,7 @@ export type NewSetupFormData = {
   helmet: string;
   skin: string;
   screenshotImage: File;
+  attachments: Omit<Attachments, '_id'>;
+  syandana: Omit<Syandana, '_id'>;
+  colorScheme: Omit<ColorScheme, '_id'>;
 };

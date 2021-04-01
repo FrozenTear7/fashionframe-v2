@@ -11,7 +11,7 @@ import { NewSetupFormData } from '../../types/Setup';
 import NewSetupSetupSection from './NewSetupSetupSection';
 import NewSetupSyandanaSection from './NewSetupSyandanaSection';
 import NewSetupAttachmentsSection from './NewSetupAttachmentsSections';
-import ColorSchemeSubsection from './ColorSchemeSubsection';
+// import ColorSchemeSubsection from './ColorSchemeSubsection';
 
 const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
   warframeData,
@@ -26,14 +26,32 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
     errors,
     watch,
     control,
+    setValue,
   } = useForm<NewSetupFormData>({
     resolver: yupResolver(newSetupSchema),
     defaultValues: {
       frame: 'Ash',
+      helmet: 'Ash Helmet',
+      skin: 'Ash Skin',
+      attachments: {
+        chest: '',
+        leftArm: '',
+        rightArm: '',
+        leftLeg: '',
+        rightLeg: '',
+        ephemera: '',
+      },
+      syandana: {
+        name: '',
+      },
     },
   });
 
-  const { frame: currentFrame } = watch();
+  const {
+    frame: currentFrame,
+    helmet: currentHelmet,
+    skin: currentSkin,
+  } = watch();
 
   const newSetupFormOnSubmit = handleSubmit(async (setupWithImage) => {
     console.log(setupWithImage);
@@ -60,7 +78,9 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
     }
   });
 
-  console.log(errors);
+  console.log(currentFrame);
+  console.log(currentHelmet);
+  console.log(currentSkin);
 
   return (
     <div className="NewSetupForm">
@@ -68,28 +88,35 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
 
       <form onSubmit={newSetupFormOnSubmit}>
         <NewSetupSetupSection
-          warframeData={warframeData}
+          frames={warframeData.frames}
+          helmets={warframeData.helmets}
+          skins={warframeData.skins}
           currentFrame={currentFrame}
           register={register}
           errors={errors}
+          control={control}
+          setValue={setValue}
         />
 
-        <ColorSchemeSubsection
+        {/* <ColorSchemeSubsection
           dataPrefix="colorScheme"
-          warframeData={warframeData}
+          colorPickers={warframeData.colorPickers}
+          control={control}
+        /> */}
+
+        <NewSetupAttachmentsSection
+          armAttachments={warframeData.armAttachments}
+          chestAttachments={warframeData.chestAttachments}
+          ephemeras={warframeData.ephemeras}
+          legAttachments={warframeData.legAttachments}
+          errors={errors}
           control={control}
         />
 
-        <NewSetupAttachmentsSection
-          warframeData={warframeData}
-          register={register}
-          errors={errors}
-        />
-
         <NewSetupSyandanaSection
-          warframeData={warframeData}
-          register={register}
+          syandanas={warframeData.syandanas}
           errors={errors}
+          control={control}
         />
 
         <input type="submit" />

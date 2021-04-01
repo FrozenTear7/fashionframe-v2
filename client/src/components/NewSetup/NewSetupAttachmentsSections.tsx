@@ -1,84 +1,140 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import * as React from 'react';
-import {
-  FieldElement,
-  FieldErrors,
-  FieldValues,
-  Ref,
-} from 'react-hook-form/dist/types';
-import { WarframeData } from '../../types/WarframeData';
+import { Controller } from 'react-hook-form';
+import { Control, FieldErrors, FieldValues } from 'react-hook-form/dist/types';
+import { Select, MenuItem } from '@material-ui/core';
 
 type AttachmentsSectionProps = {
-  warframeData: WarframeData;
-  register: (ref: (FieldElement & Ref) | null) => void;
+  armAttachments: string[];
+  chestAttachments: string[];
+  ephemeras: string[];
+  legAttachments: string[];
   errors: FieldErrors<FieldValues>;
+  control: Control<FieldValues>;
 };
 
 const NewSetupAttachmentsSection: React.VFC<AttachmentsSectionProps> = ({
-  warframeData,
-  register,
+  armAttachments,
+  chestAttachments,
+  ephemeras,
+  legAttachments,
   errors,
+  control,
 }) => {
   return (
     <>
       <label>Chest</label>
-      <select name="attachments.chest" ref={register}>
-        {warframeData.chestAttachments.map((attachment) => (
-          <option key={attachment} value={attachment}>
-            {attachment}
-          </option>
-        ))}
-      </select>
+      <Controller
+        as={
+          <Select>
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            {chestAttachments.map((attachment) => (
+              <MenuItem key={attachment} value={attachment}>
+                {attachment}
+              </MenuItem>
+            ))}
+          </Select>
+        }
+        control={control}
+        name="attachments.chest"
+      />
       <p>{errors.attachments?.chest?.message}</p>
 
       <label>Left arm</label>
-      <select name="attachments.leftArm" ref={register}>
-        {warframeData.armAttachments.map((attachment) => (
-          <option key={attachment} value={attachment}>
-            {attachment}
-          </option>
-        ))}
-      </select>
+      <Controller
+        as={
+          <Select>
+            <MenuItem value={undefined}>
+              <em>None</em>
+            </MenuItem>
+            {armAttachments.map((attachment) => (
+              <MenuItem key={attachment} value={attachment}>
+                {attachment}
+              </MenuItem>
+            ))}
+          </Select>
+        }
+        control={control}
+        name="attachments.leftArm"
+      />
       <p>{errors.attachments?.leftArm?.message}</p>
 
       <label>Right arm</label>
-      <select name="attachments.rightArm" ref={register}>
-        {warframeData.armAttachments.map((attachment) => (
-          <option key={attachment} value={attachment}>
-            {attachment}
-          </option>
-        ))}
-      </select>
+      <Controller
+        as={
+          <Select>
+            <MenuItem value={undefined}>
+              <em>None</em>
+            </MenuItem>
+            {armAttachments.map((attachment) => (
+              <MenuItem key={attachment} value={attachment}>
+                {attachment}
+              </MenuItem>
+            ))}
+          </Select>
+        }
+        control={control}
+        name="attachments.rightArm"
+      />
       <p>{errors.attachments?.rightArm?.message}</p>
 
       <label>Left leg</label>
-      <select name="attachments.leftLeg" ref={register}>
-        {warframeData.legAttachments.map((attachment) => (
-          <option key={attachment} value={attachment}>
-            {attachment}
-          </option>
-        ))}
-      </select>
+      <Controller
+        as={
+          <Select>
+            <MenuItem value={undefined}>
+              <em>None</em>
+            </MenuItem>
+            {legAttachments.map((attachment) => (
+              <MenuItem key={attachment} value={attachment}>
+                {attachment}
+              </MenuItem>
+            ))}
+          </Select>
+        }
+        control={control}
+        name="attachments.leftLeg"
+      />
       <p>{errors.attachments?.leftLeg?.message}</p>
 
       <label>Right leg</label>
-      <select name="attachments.rightLeg" ref={register}>
-        {warframeData.legAttachments.map((attachment) => (
-          <option key={attachment} value={attachment}>
-            {attachment}
-          </option>
-        ))}
-      </select>
+      <Controller
+        as={
+          <Select>
+            <MenuItem value={undefined}>
+              <em>None</em>
+            </MenuItem>
+            {legAttachments.map((attachment) => (
+              <MenuItem key={attachment} value={attachment}>
+                {attachment}
+              </MenuItem>
+            ))}
+          </Select>
+        }
+        control={control}
+        name="attachments.rightLeg"
+      />
       <p>{errors.attachments?.rightLeg?.message}</p>
 
       <label>Ephemera</label>
-      <select name="attachments.ephemera" ref={register}>
-        {warframeData.ephemeras.map((ephemera) => (
-          <option key={ephemera} value={ephemera}>
-            {ephemera}
-          </option>
-        ))}
-      </select>
+      <Controller
+        as={
+          <Select>
+            <MenuItem value={undefined}>
+              <em>None</em>
+            </MenuItem>
+            {ephemeras.map((attachment) => (
+              <MenuItem key={attachment} value={attachment}>
+                {attachment}
+              </MenuItem>
+            ))}
+          </Select>
+        }
+        control={control}
+        name="attachments.ephemera"
+      />
       <p>{errors.attachments?.ephemera?.message}</p>
     </>
   );

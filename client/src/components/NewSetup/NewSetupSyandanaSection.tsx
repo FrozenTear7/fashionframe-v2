@@ -1,34 +1,39 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import * as React from 'react';
-import {
-  FieldElement,
-  FieldErrors,
-  FieldValues,
-  Ref,
-} from 'react-hook-form/dist/types';
-import { WarframeData } from '../../types/WarframeData';
+import { Controller } from 'react-hook-form';
+import { Control, FieldErrors, FieldValues } from 'react-hook-form/dist/types';
+import { Select, MenuItem } from '@material-ui/core';
 
 type SyandanaSectionProps = {
-  warframeData: WarframeData;
-  register: (ref: (FieldElement & Ref) | null) => void;
+  syandanas: string[];
   errors: FieldErrors<FieldValues>;
+  control: Control<FieldValues>;
 };
 
 const NewSetupSyandanaSection: React.VFC<SyandanaSectionProps> = ({
-  warframeData,
-  register,
+  syandanas,
   errors,
+  control,
 }) => {
   return (
     <>
       <label>Syandana</label>
-      <select name="syandana.name" ref={register}>
-        {warframeData.syandanas.map((syandana) => (
-          <option key={syandana} value={syandana}>
-            {syandana}
-          </option>
-        ))}
-      </select>
+      <Controller
+        as={
+          <Select>
+            <MenuItem value={undefined}>
+              <em>None</em>
+            </MenuItem>
+            {syandanas.map((syandana) => (
+              <MenuItem key={syandana} value={syandana}>
+                {syandana}
+              </MenuItem>
+            ))}
+          </Select>
+        }
+        control={control}
+        name="syandana.name"
+      />
       <p>{errors.syandana?.name?.message}</p>
     </>
   );

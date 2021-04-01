@@ -1,25 +1,42 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import * as React from 'react';
+import { Controller } from 'react-hook-form';
 import {
+  Control,
   FieldElement,
   FieldErrors,
+  FieldName,
   FieldValues,
   Ref,
+  SetFieldValue,
+  SetValueConfig,
 } from 'react-hook-form/dist/types';
-import { WarframeData } from '../../types/WarframeData';
+import { Select, MenuItem } from '@material-ui/core';
 
 type SetupSectionProps = {
-  warframeData: WarframeData;
+  frames: string[];
+  helmets: { [frame: string]: string[] };
+  skins: { [frame: string]: string[] };
   currentFrame: string;
   register: (ref: (FieldElement & Ref) | null) => void;
   errors: FieldErrors<FieldValues>;
+  control: Control<FieldValues>;
+  setValue: (
+    name: FieldName<FieldValues>,
+    value: SetFieldValue<FieldValues>,
+    config?: SetValueConfig
+  ) => void;
 };
 
 const NewSetupSetupSection: React.VFC<SetupSectionProps> = ({
-  warframeData,
+  frames,
+  helmets,
+  skins,
   currentFrame,
   register,
   errors,
+  control,
+  setValue,
 }) => {
   return (
     <>
@@ -32,35 +49,58 @@ const NewSetupSetupSection: React.VFC<SetupSectionProps> = ({
       <p>{errors.description?.message}</p>
 
       <label>Frame</label>
-      <select name="frame" ref={register}>
-        {warframeData.frames.map((frame) => (
-          <option key={frame} value={frame}>
-            {frame}
-          </option>
-        ))}
-      </select>
+      <Controller
+        name="frame"
+        control={control}
+        render={({ onChange, value }): JSX.Element => (
+          <Select
+            value={value}
+            onChange={(e): void => {
+              onChange(e.target.value);
+              setValue('helmet', `${String(e.target.value)} Helmet`);
+              setValue('skin', `${String(e.target.value)} Skin`);
+            }}
+          >
+            {frames.map((frame) => (
+              <MenuItem key={frame} value={frame}>
+                {frame}
+              </MenuItem>
+            ))}
+          </Select>
+        )}
+      />
       <p>{errors.frame?.message}</p>
 
       <label>Helmet</label>
-      <select name="helmet" ref={register}>
-        {currentFrame &&
-          warframeData.helmets[currentFrame].map((helmet) => (
-            <option key={helmet} value={helmet}>
-              {helmet}
-            </option>
-          ))}
-      </select>
+      <Controller
+        as={
+          <Select>
+            {helmets[currentFrame].map((helmet) => (
+              <MenuItem key={helmet} value={helmet}>
+                {helmet}
+              </MenuItem>
+            ))}
+          </Select>
+        }
+        control={control}
+        name="helmet"
+      />
       <p>{errors.helmet?.message}</p>
 
       <label>Skin</label>
-      <select name="skin" ref={register}>
-        {currentFrame &&
-          warframeData.skins[currentFrame].map((skin) => (
-            <option key={skin} value={skin}>
-              {skin}
-            </option>
-          ))}
-      </select>
+      <Controller
+        as={
+          <Select>
+            {skins[currentFrame].map((skin) => (
+              <MenuItem key={skin} value={skin}>
+                {skin}
+              </MenuItem>
+            ))}
+          </Select>
+        }
+        control={control}
+        name="skin"
+      />
       <p>{errors.skin?.message}</p>
 
       <label>Screenshot</label>

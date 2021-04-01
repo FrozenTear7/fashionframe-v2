@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import * as React from 'react';
 import { Control, FieldValues } from 'react-hook-form/dist/types';
-import { WarframeData } from '../../types/WarframeData';
 import ColorSelect from './ColorSelect';
 
 const colors = [
@@ -17,13 +16,13 @@ const colors = [
 
 type SetupSectionProps = {
   dataPrefix: string;
-  warframeData: WarframeData;
+  colorPickers: { [colorPicker: string]: string[] };
   control: Control<FieldValues>;
 };
 
 const ColorSchemeSubsection: React.VFC<SetupSectionProps> = ({
   dataPrefix,
-  warframeData,
+  colorPickers,
   control,
 }) => {
   return (
@@ -32,7 +31,7 @@ const ColorSchemeSubsection: React.VFC<SetupSectionProps> = ({
         <ColorSelect
           key={color}
           valueToSet={`${dataPrefix}.${color}`}
-          warframeData={warframeData}
+          colorPickers={colorPickers}
           control={control}
         />
       ))}
