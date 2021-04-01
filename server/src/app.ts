@@ -64,7 +64,7 @@ app.use('/api/setups', limiters.setups, setups);
 // Server the client on all other paths except for api
 app.get(/^\/(?!api).*$/, (_req, res) => {
   if (config.mode === 'production')
-    res.sendFile(path.join(__dirname, 'clientBuild', 'index.html'));
+    res.sendFile(path.join(__dirname, '../clientBuild', 'index.html'));
   else res.sendFile(path.join(__dirname, '../../client/build', 'index.html'));
 });
 
