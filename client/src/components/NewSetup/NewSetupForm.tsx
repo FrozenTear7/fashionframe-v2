@@ -11,6 +11,7 @@ import { NewSetupFormData } from '../../types/Setup';
 import NewSetupSetupSection from './NewSetupSetupSection';
 import NewSetupSyandanaSection from './NewSetupSyandanaSection';
 import NewSetupAttachmentsSection from './NewSetupAttachmentsSections';
+import ColorSchemeSubsection from './ColorSchemeSubsection';
 
 const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
   warframeData,
@@ -19,7 +20,13 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
 
   const [createSetupError, setCreateSetupError] = React.useState<string>();
 
-  const { register, handleSubmit, errors, watch } = useForm<NewSetupFormData>({
+  const {
+    register,
+    handleSubmit,
+    errors,
+    watch,
+    control,
+  } = useForm<NewSetupFormData>({
     resolver: yupResolver(newSetupSchema),
     defaultValues: {
       frame: 'Ash',
@@ -65,6 +72,12 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
           currentFrame={currentFrame}
           register={register}
           errors={errors}
+        />
+
+        <ColorSchemeSubsection
+          dataPrefix="colorScheme"
+          warframeData={warframeData}
+          control={control}
         />
 
         <NewSetupAttachmentsSection
