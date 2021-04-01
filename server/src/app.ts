@@ -54,7 +54,7 @@ app.use(
 );
 
 if (config.mode === 'production')
-  app.use(express.static(path.join(__dirname, 'clientBuild')));
+  app.use(express.static(path.join(__dirname, '../clientBuild')));
 else app.use(express.static(path.join(__dirname, '../../client/build')));
 
 app.use('/api/users', limiters.users, auth);
