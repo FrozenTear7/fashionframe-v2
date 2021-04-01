@@ -9,6 +9,8 @@ import Error from '../../utils/Error';
 import newSetupSchema from '../../validation/newSetupSchema';
 import { NewSetupFormData } from '../../types/Setup';
 import NewSetupSetupSection from './NewSetupSetupSection';
+import NewSetupSyandanaSection from './NewSetupSyandanaSection';
+import NewSetupAttachmentsSection from './NewSetupAttachmentsSections';
 
 const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
   warframeData,
@@ -27,9 +29,8 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
   const { frame: currentFrame } = watch();
 
   const newSetupFormOnSubmit = handleSubmit(async (setupWithImage) => {
+    console.log(setupWithImage);
     const { screenshotImage, ...setup } = setupWithImage;
-
-    console.log(screenshotImage);
 
     const bodyFormData = new FormData();
     bodyFormData.append('screenshotImage', screenshotImage);
@@ -52,6 +53,8 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
     }
   });
 
+  console.log(errors);
+
   return (
     <div className="NewSetupForm">
       {createSetupError && <Error error={createSetupError} />}
@@ -60,6 +63,18 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
         <NewSetupSetupSection
           warframeData={warframeData}
           currentFrame={currentFrame}
+          register={register}
+          errors={errors}
+        />
+
+        <NewSetupAttachmentsSection
+          warframeData={warframeData}
+          register={register}
+          errors={errors}
+        />
+
+        <NewSetupSyandanaSection
+          warframeData={warframeData}
           register={register}
           errors={errors}
         />

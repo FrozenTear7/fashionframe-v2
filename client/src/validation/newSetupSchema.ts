@@ -22,6 +22,12 @@ const newSetupSchema = yup.object().shape({
       if (!value.length) return true;
       return /^image\/.+$/.test(value[0].type);
     }),
+  attachments: yup.object().shape({
+    chest: yup.string().required('Required'),
+  }),
+  syandana: yup.object().shape({
+    name: yup.string().required('Required'),
+  }),
 });
 
 export default newSetupSchema;
