@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router';
-import './App.css';
 import axios from 'axios';
 import { HelmetProvider } from 'react-helmet-async';
+import { Container, createStyles, makeStyles } from '@material-ui/core';
 import Setup from './components/Setup/Setup';
 import Setups from './components/Setups/Setups';
 import User from './components/User/User';
@@ -18,7 +18,17 @@ import NewSetup from './components/NewSetup/NewSetup';
 import Loading from './components/Utils/Loading';
 import Error from './components/Utils/Error';
 
+const useStyles = makeStyles(() =>
+  createStyles({
+    container: {
+      paddingTop: '3rem',
+    },
+  })
+);
+
 const App: React.VFC = () => {
+  const classes = useStyles();
+
   const [user, setUser] = React.useState<ContextUser | null>(null);
   const [initialDataLoading, setInitialDataLoading] = React.useState(true);
   const [initialDataError, setInitialDataError] = React.useState<string>();
@@ -53,17 +63,19 @@ const App: React.VFC = () => {
       <UserContext.Provider value={{ user, setUser }}>
         <div className="App">
           <Header />
-          <Switch>
-            <Route exact path="/" component={Homepage} />
-            <SignedInRoute exact path="/signup" component={SignUp} />
-            <SignedInRoute exact path="/signin" component={SignIn} />
-            <Route exact path="/setups" component={Setups} />
-            <PrivateRoute exact path="/setups/create" component={NewSetup} />
-            <Route exact path="/setups/:id" component={Setup} />
-            <PrivateRoute path="/profile" component={User} />
-            <Route path="/user/:id" component={User} />
-            <Route component={NotFound} />
-          </Switch>
+          <Container maxWidth="lg" className={classes.container}>
+            <Switch>
+              <Route exact path="/" component={Homepage} />
+              <SignedInRoute exact path="/signup" component={SignUp} />
+              <SignedInRoute exact path="/signin" component={SignIn} />
+              <Route exact path="/setups" component={Setups} />
+              <PrivateRoute exact path="/setups/create" component={NewSetup} />
+              <Route exact path="/setups/:id" component={Setup} />
+              <PrivateRoute path="/profile" component={User} />
+              <Route path="/user/:id" component={User} />
+              <Route component={NotFound} />
+            </Switch>
+          </Container>
         </div>
       </UserContext.Provider>
     </HelmetProvider>

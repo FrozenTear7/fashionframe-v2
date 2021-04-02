@@ -32,17 +32,17 @@ const Header: React.VFC = () => {
     <div className="Header">
       <AppBar position="static">
         <Toolbar>
+          <Typography variant="h6" className={classes.title}>
+            Fashionframe
+          </Typography>
           <Button color="inherit" component={Link} to="/setups">
             Setups
           </Button>
           {user && (
             <Button color="inherit" component={Link} to="/setups/create">
-              Create new setup
+              New setup
             </Button>
           )}
-          <Typography variant="h6" className={classes.title}>
-            Fashionframe
-          </Typography>
           {user ? (
             <>
               <>

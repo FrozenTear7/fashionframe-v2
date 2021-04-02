@@ -1,14 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import { BrowserRouter } from 'react-router-dom';
-import { CssBaseline } from '@material-ui/core';
+import { createMuiTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
+import { lime, deepOrange } from '@material-ui/core/colors';
 import App from './App';
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: lime[200],
+    },
+    secondary: {
+      main: deepOrange[200],
+    },
+  },
+});
 
 ReactDOM.render(
   <BrowserRouter>
     <CssBaseline>
-      <App />
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
     </CssBaseline>
   </BrowserRouter>,
   document.getElementById('root')

@@ -2,13 +2,28 @@
 import axios from 'axios';
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
-import { SetupItem } from '../../types/Setup';
-import Error from '../Utils/Error';
-import Loading from '../Utils/Loading';
+import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
 import SetupListItem from './SetupListItem';
+import Loading from '../Utils/Loading';
+import Error from '../Utils/Error';
+import { SetupItem } from '../../types/Setup';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      width: '100%',
+      backgroundColor: theme.palette.background.paper,
+    },
+    inline: {
+      display: 'inline',
+    },
+  })
+);
 
 const Setups: React.VFC = () => {
+  const classes = useStyles();
+
   const [setups, setSetups] = React.useState<SetupItem[]>([]);
   const [setupsLoading, setSetupsLoading] = React.useState(true);
   const [setupsError, setSetupsError] = React.useState<string>();
@@ -43,16 +58,12 @@ const Setups: React.VFC = () => {
         />
       </Helmet>
       Setups
-      <ul>
+      <List className={classes.root}>
         {setups.length > 0 &&
           setups.map((setup) => (
-            <li key={setup._id}>
-              <Link to={`/setups/${setup._id}`}>
-                <SetupListItem setup={setup} />
-              </Link>
-            </li>
+            <SetupListItem key={setup._id} setup={setup} />
           ))}
-      </ul>
+      </List>
     </div>
   );
 };
