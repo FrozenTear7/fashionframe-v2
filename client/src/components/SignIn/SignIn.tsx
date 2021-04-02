@@ -12,7 +12,6 @@ const SignIn: React.VFC = () => {
           content="Sign in to add your own fashion setups or save setups created by others."
         />
       </Helmet>
-      Sign in
       <SignInForm />
     </div>
   );

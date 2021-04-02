@@ -5,7 +5,6 @@ import { Controller, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -44,7 +43,11 @@ const SignUpForm: React.VFC = () => {
   const { setUser } = useUserContext();
   const [signUpError, setSignUpError] = React.useState<string>();
 
-  const { handleSubmit, control, errors } = useForm<SignUpFormData>({
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<SignUpFormData>({
     resolver: yupResolver(signUpSchema),
     defaultValues: {
       username: '',
@@ -71,7 +74,6 @@ const SignUpForm: React.VFC = () => {
       {signUpError && <Error error={signUpError} />}
 
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
@@ -85,8 +87,11 @@ const SignUpForm: React.VFC = () => {
             noValidate
           >
             <Controller
-              as={
+              name="username"
+              control={control}
+              render={({ field }): JSX.Element => (
                 <TextField
+                  {...field}
                   variant="outlined"
                   margin="normal"
                   required
@@ -99,13 +104,14 @@ const SignUpForm: React.VFC = () => {
                   }
                   autoFocus
                 />
-              }
-              control={control}
-              name="username"
+              )}
             />
             <Controller
-              as={
+              name="email"
+              control={control}
+              render={({ field }): JSX.Element => (
                 <TextField
+                  {...field}
                   variant="outlined"
                   margin="normal"
                   required
@@ -118,13 +124,14 @@ const SignUpForm: React.VFC = () => {
                   }
                   autoComplete="email"
                 />
-              }
-              control={control}
-              name="email"
+              )}
             />
             <Controller
-              as={
+              name="password"
+              control={control}
+              render={({ field }): JSX.Element => (
                 <TextField
+                  {...field}
                   variant="outlined"
                   margin="normal"
                   required
@@ -137,28 +144,27 @@ const SignUpForm: React.VFC = () => {
                     errors.password?.message ? errors.password?.message : ''
                   }
                 />
-              }
-              control={control}
-              name="password"
+              )}
             />
             <Controller
-              as={
+              name="password2"
+              control={control}
+              render={({ field }): JSX.Element => (
                 <TextField
+                  {...field}
                   variant="outlined"
                   margin="normal"
                   required
                   fullWidth
                   id="password2"
                   label="Repeat password"
-                  type="password2"
+                  type="password"
                   error={!!errors.password2?.message}
                   helperText={
                     errors.password2?.message ? errors.password2?.message : ''
                   }
                 />
-              }
-              control={control}
-              name="password2"
+              )}
             />
             <Button
               type="submit"

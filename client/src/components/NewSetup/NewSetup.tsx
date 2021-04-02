@@ -62,7 +62,6 @@ const NewSetup: React.VFC = () => {
           content="Create a new fashion setup to share it with others."
         />
       </Helmet>
-      Create new setup
       <NewSetupForm warframeData={warframeData} />
     </div>
   );

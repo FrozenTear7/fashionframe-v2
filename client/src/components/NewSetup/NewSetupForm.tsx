@@ -6,7 +6,7 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import axios from 'axios';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { FormProvider, useForm } from 'react-hook-form';
+import { Controller, FormProvider, useForm } from 'react-hook-form';
 import * as React from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles, Theme } from '@material-ui/core/styles';
@@ -14,14 +14,17 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import { TextField } from '@material-ui/core';
 import { WarframeData } from '../../types/WarframeData';
 import Error from '../Utils/Error';
 import newSetupSchema from '../../validation/newSetupSchema';
 import { NewSetupFormData } from '../../types/Setup';
 import NewSetupSetupSection from './NewSetupSetupSection';
 import NewSetupSyandanaSection from './NewSetupSyandanaSection';
-import NewSetupAttachmentsSection from './NewSetupAttachmentsSections';
-import ColorSchemeSubsection from './ColorSchemeSubsection';
+// import NewSetupAttachmentsSection from './NewSetupAttachmentsSections.tsx.tmp';
+// import ColorSchemeSubsection from './ColorSchemeSubsection';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -57,6 +60,23 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
   },
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
 }));
 
 const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
@@ -66,21 +86,23 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
     frames,
     helmets,
     skins,
-    chestAttachments,
-    armAttachments,
-    legAttachments,
-    ephemeras,
+    // chestAttachments,
+    // armAttachments,
+    // legAttachments,
+    // ephemeras,
     syandanas,
-    colorPickers,
+    // colorPickers,
   } = warframeData;
   const history = useHistory();
 
   const [createSetupError, setCreateSetupError] = React.useState<string>();
 
   const methods = useForm<NewSetupFormData>({
-    shouldUnregister: false,
+    // shouldUnregister: false,
     resolver: yupResolver(newSetupSchema),
     defaultValues: {
+      name: '',
+      description: '',
       frame: 'Ash',
       helmet: 'Ash Helmet',
       skin: 'Ash Skin',
@@ -97,7 +119,12 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
       },
     },
   });
-  const { handleSubmit, register, errors } = methods;
+  const {
+    handleSubmit,
+    register,
+    control,
+    formState: { errors },
+  } = methods;
 
   const newSetupFormOnSubmit = handleSubmit(async (setupWithImage) => {
     console.log(setupWithImage);
@@ -131,78 +158,141 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
     setValue(newValue);
   };
 
+  console.log(errors);
+
   return (
     <div className="NewSetupForm">
       {createSetupError && <Error error={createSetupError} />}
 
-      <label>Name</label>
-      <input name="name" ref={register} />
-      <>{errors.name?.message}</>
-
-      <label>Description</label>
-      <textarea name="description" ref={register} />
-      <>{errors.description?.message}</>
-
-      <label>Screenshot</label>
-      <input
-        name="screenshotImage"
-        type="file"
-        accept="image/*"
-        ref={register}
-      />
-      <>{(errors.screenshotImage as { message: string })?.message}</>
-
       <FormProvider {...methods}>
-        <form onSubmit={newSetupFormOnSubmit}>
-          <div className={classes.root}>
-            <AppBar position="static">
-              <Tabs
-                value={value}
-                onChange={handleChange}
-                aria-label="simple tabs example"
+        <div className={classes.paper}>
+          <Typography component="h1" variant="h5">
+            Create new setup
+          </Typography>
+          <form
+            onSubmit={newSetupFormOnSubmit}
+            className={classes.form}
+            noValidate
+          >
+            <Controller
+              name="name"
+              control={control}
+              render={({ field }): JSX.Element => (
+                <TextField
+                  {...field}
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="name"
+                  label="Name"
+                  error={!!errors.name?.message}
+                  helperText={errors.name?.message ? errors.name?.message : ''}
+                  autoFocus
+                />
+              )}
+            />
+            <Controller
+              name="description"
+              control={control}
+              render={({ field }): JSX.Element => (
+                <TextField
+                  {...field}
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  multiline
+                  fullWidth
+                  id="description"
+                  label="Description"
+                  error={!!errors.description?.message}
+                  helperText={
+                    errors.description?.message
+                      ? errors.description?.message
+                      : ''
+                  }
+                />
+              )}
+            />
+
+            <input
+              {...register('screenshotImage')}
+              id="screenshotImage"
+              name="screenshotImage"
+              type="file"
+              accept="image/*"
+              style={{ display: 'none' }}
+            />
+            <label htmlFor="screenshotImage">
+              <Button
+                component="span"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
               >
-                <Tab label="Item One" {...a11yProps(0)} />
-                <Tab label="Item Two" {...a11yProps(1)} />
-                <Tab label="Item Three" {...a11yProps(2)} />
-              </Tabs>
-            </AppBar>
-            <TabPanel value={value} index={0}>
-              <NewSetupSetupSection
-                frames={frames}
-                helmets={helmets}
-                skins={skins}
-              />
+                Upload
+              </Button>
+            </label>
 
-              <ColorSchemeSubsection
-                dataPrefix="colorScheme"
-                colorPickers={colorPickers}
-              />
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-              <NewSetupAttachmentsSection
-                armAttachments={armAttachments}
-                chestAttachments={chestAttachments}
-                ephemeras={ephemeras}
-                legAttachments={legAttachments}
-              />
+            <div className={classes.root}>
+              <AppBar position="static">
+                <Tabs
+                  value={value}
+                  onChange={handleChange}
+                  aria-label="simple tabs example"
+                >
+                  <Tab label="Main components" {...a11yProps(0)} />
+                  <Tab label="Attachments" {...a11yProps(1)} />
+                  <Tab label="Syandana" {...a11yProps(2)} />
+                </Tabs>
+              </AppBar>
+              <TabPanel value={value} index={0}>
+                <NewSetupSetupSection
+                  frames={frames}
+                  helmets={helmets}
+                  skins={skins}
+                />
 
-              <ColorSchemeSubsection
-                dataPrefix="attachments.colorScheme"
-                colorPickers={colorPickers}
-              />
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-              <NewSetupSyandanaSection syandanas={syandanas} />
+                {/* <ColorSchemeSubsection
+                  dataPrefix="colorScheme"
+                  colorPickers={colorPickers}
+                /> */}
+              </TabPanel>
+              <TabPanel value={value} index={1}>
+                {/* <NewSetupAttachmentsSection
+                  armAttachments={armAttachments}
+                  chestAttachments={chestAttachments}
+                  ephemeras={ephemeras}
+                  legAttachments={legAttachments}
+                /> */}
 
-              <ColorSchemeSubsection
-                dataPrefix="syandana.colorScheme"
-                colorPickers={colorPickers}
-              />
-            </TabPanel>
-          </div>
+                {/* <ColorSchemeSubsection
+                  dataPrefix="attachments.colorScheme"
+                  colorPickers={colorPickers}
+                /> */}
+              </TabPanel>
+              <TabPanel value={value} index={2}>
+                <NewSetupSyandanaSection syandanas={syandanas} />
 
-          <input type="submit" />
-        </form>
+                {/* <ColorSchemeSubsection
+                  dataPrefix="syandana.colorScheme"
+                  colorPickers={colorPickers}
+                /> */}
+              </TabPanel>
+            </div>
+
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Create
+            </Button>
+          </form>
+        </div>
       </FormProvider>
     </div>
   );

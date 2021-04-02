@@ -5,7 +5,6 @@ import { Controller, useForm } from 'react-hook-form';
 import { useHistory, useLocation, Link } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -47,7 +46,11 @@ const SignInForm: React.VFC = () => {
   const { setUser } = useUserContext();
   const [signInError, setSignInError] = React.useState<string>();
 
-  const { handleSubmit, control, errors } = useForm<SignInFormData>({
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<SignInFormData>({
     resolver: yupResolver(signInSchema),
     defaultValues: {
       username: '',
@@ -55,7 +58,10 @@ const SignInForm: React.VFC = () => {
     },
   });
 
-  const signInFormOnSubmit = handleSubmit(async ({ username, password }) => {
+  const signInFormOnSubmit = async ({
+    username,
+    password,
+  }: SignInFormData): Promise<void> => {
     const { from }: LocationState = (location.state as LocationState) || {
       from: { pathname: '/' },
     };
@@ -68,14 +74,13 @@ const SignInForm: React.VFC = () => {
       console.log(response.data.message);
       setSignInError(response.data.message);
     }
-  });
+  };
 
   return (
     <div className="SignInForm">
       {signInError && <Error error={signInError} />}
 
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
@@ -84,13 +89,16 @@ const SignInForm: React.VFC = () => {
             Sign in
           </Typography>
           <form
-            onSubmit={signInFormOnSubmit}
+            onSubmit={handleSubmit(signInFormOnSubmit)}
             className={classes.form}
             noValidate
           >
             <Controller
-              as={
+              name="username"
+              control={control}
+              render={({ field }): JSX.Element => (
                 <TextField
+                  {...field}
                   variant="outlined"
                   margin="normal"
                   required
@@ -103,13 +111,14 @@ const SignInForm: React.VFC = () => {
                   }
                   autoFocus
                 />
-              }
-              control={control}
-              name="username"
+              )}
             />
             <Controller
-              as={
+              name="password"
+              control={control}
+              render={({ field }): JSX.Element => (
                 <TextField
+                  {...field}
                   variant="outlined"
                   margin="normal"
                   required
@@ -121,11 +130,8 @@ const SignInForm: React.VFC = () => {
                   helperText={
                     errors.password?.message ? errors.password?.message : ''
                   }
-                  autoComplete="current-password"
                 />
-              }
-              control={control}
-              name="password"
+              )}
             />
             <Button
               type="submit"

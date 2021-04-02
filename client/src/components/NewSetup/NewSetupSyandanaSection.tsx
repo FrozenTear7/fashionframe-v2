@@ -10,12 +10,17 @@ type SyandanaSectionProps = {
 const NewSetupSyandanaSection: React.VFC<SyandanaSectionProps> = ({
   syandanas,
 }) => {
-  const { errors } = useFormContext();
+  const {
+    formState: { errors },
+  } = useFormContext();
 
   return (
     <>
-      <label>Syandana</label>
-      <SelectField optionValuesToMap={syandanas} name="syandana.name" />
+      <SelectField
+        optionValuesToMap={syandanas}
+        name="syandana.name"
+        label="Syandana"
+      />
       <>{errors.syandana?.name?.message}</>
     </>
   );

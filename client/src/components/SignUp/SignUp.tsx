@@ -12,7 +12,6 @@ const SignUp: React.VFC = () => {
           content="Sign up to join the Fashionframe community and add your own fashion setups or save setups created by others."
         />
       </Helmet>
-      Sign up
       <SignUpForm />
     </div>
   );

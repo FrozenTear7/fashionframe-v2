@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import * as React from 'react';
-import { Controller, useFormContext } from 'react-hook-form';
-import { Select, MenuItem } from '@material-ui/core';
+import { useFormContext } from 'react-hook-form';
 import SelectField from '../Utils/SelectField';
 
 type SetupSectionProps = {
@@ -11,17 +10,20 @@ type SetupSectionProps = {
 };
 
 const NewSetupSetupSection: React.VFC<SetupSectionProps> = ({
-  frames,
+  frames: _frames,
   helmets,
   skins,
 }) => {
   const methods = useFormContext();
-  const { errors, control, setValue, watch } = methods;
+  const {
+    formState: { errors },
+    watch,
+  } = methods;
   const { frame: currentFrame } = watch();
 
   return (
     <>
-      <label>Frame</label>
+      {/* <label>Frame</label>
       <Controller
         name="frame"
         control={control}
@@ -42,20 +44,20 @@ const NewSetupSetupSection: React.VFC<SetupSectionProps> = ({
           </Select>
         )}
       />
-      <>{errors.frame?.message}</>
+      <>{errors.frame?.message}</> */}
 
-      <label>Helmet</label>
       <SelectField
         optionValuesToMap={helmets[currentFrame]}
         name="helmet"
+        label="Helmet"
         withNone={false}
       />
       <>{errors.helmet?.message}</>
 
-      <label>Skin</label>
       <SelectField
         optionValuesToMap={skins[currentFrame]}
         name="skin"
+        label="Skin"
         withNone={false}
       />
       <>{errors.skin?.message}</>
