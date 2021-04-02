@@ -1,24 +1,58 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import * as React from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from 'react-hook-form';
-import { useHistory, useLocation } from 'react-router-dom';
-import { useUserContext } from '../../UserContext';
-import { signIn } from '../../utils/auth';
-import Error from '../Utils/Error';
-import signInSchema from '../../validation/signInSchema';
-import { SignInFormData } from '../../types/SignIn';
+import { Controller, useForm } from 'react-hook-form';
+import { useHistory, useLocation, Link } from 'react-router-dom';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
 import { LocationState } from '../../types';
+import { SignInFormData } from '../../types/SignIn';
+import signInSchema from '../../validation/signInSchema';
+import Error from '../Utils/Error';
+import { signIn } from '../../utils/auth';
+import { useUserContext } from '../../UserContext';
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
 
 const SignInForm: React.VFC = () => {
   const history = useHistory();
   const location = useLocation();
+  const classes = useStyles();
 
   const { setUser } = useUserContext();
   const [signInError, setSignInError] = React.useState<string>();
 
-  const { register, handleSubmit, errors } = useForm<SignInFormData>({
+  const { handleSubmit, control, errors } = useForm<SignInFormData>({
     resolver: yupResolver(signInSchema),
+    defaultValues: {
+      username: '',
+      password: '',
+    },
   });
 
   const signInFormOnSubmit = handleSubmit(async ({ username, password }) => {
@@ -40,17 +74,76 @@ const SignInForm: React.VFC = () => {
     <div className="SignInForm">
       {signInError && <Error error={signInError} />}
 
-      <form onSubmit={signInFormOnSubmit}>
-        <label>Username</label>
-        <input name="username" ref={register} />
-        <>{errors.username?.message}</>
-
-        <label>Password</label>
-        <input name="password" type="password" ref={register} />
-        <>{errors.password?.message}</>
-
-        <input type="submit" />
-      </form>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign in
+          </Typography>
+          <form
+            onSubmit={signInFormOnSubmit}
+            className={classes.form}
+            noValidate
+          >
+            <Controller
+              as={
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="username"
+                  label="Username"
+                  error={!!errors.username?.message}
+                  helperText={
+                    errors.username?.message ? errors.username?.message : ''
+                  }
+                  autoFocus
+                />
+              }
+              control={control}
+              name="username"
+            />
+            <Controller
+              as={
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="password"
+                  label="Password"
+                  type="password"
+                  error={!!errors.password?.message}
+                  helperText={
+                    errors.password?.message ? errors.password?.message : ''
+                  }
+                  autoComplete="current-password"
+                />
+              }
+              control={control}
+              name="password"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Sign In
+            </Button>
+            <Grid container justify="center">
+              <Grid item>
+                <Link to="/signup">Don&apos;t have an account? Sign Up</Link>
+              </Grid>
+            </Grid>
+          </form>
+        </div>
+      </Container>
     </div>
   );
 };
