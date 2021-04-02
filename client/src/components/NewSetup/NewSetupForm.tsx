@@ -23,7 +23,7 @@ import newSetupSchema from '../../validation/newSetupSchema';
 import { NewSetupFormData } from '../../types/Setup';
 import NewSetupSetupSection from './NewSetupSetupSection';
 import NewSetupSyandanaSection from './NewSetupSyandanaSection';
-// import NewSetupAttachmentsSection from './NewSetupAttachmentsSections.tsx.tmp';
+import NewSetupAttachmentsSection from './NewSetupAttachmentsSections';
 // import ColorSchemeSubsection from './ColorSchemeSubsection';
 
 interface TabPanelProps {
@@ -86,10 +86,10 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
     frames,
     helmets,
     skins,
-    // chestAttachments,
-    // armAttachments,
-    // legAttachments,
-    // ephemeras,
+    chestAttachments,
+    armAttachments,
+    legAttachments,
+    ephemeras,
     syandanas,
     // colorPickers,
   } = warframeData;
@@ -98,7 +98,6 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
   const [createSetupError, setCreateSetupError] = React.useState<string>();
 
   const methods = useForm<NewSetupFormData>({
-    // shouldUnregister: false,
     resolver: yupResolver(newSetupSchema),
     defaultValues: {
       name: '',
@@ -107,15 +106,15 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
       helmet: 'Ash Helmet',
       skin: 'Ash Skin',
       attachments: {
-        chest: '',
-        leftArm: '',
-        rightArm: '',
-        leftLeg: '',
-        rightLeg: '',
-        ephemera: '',
+        chest: 'None',
+        leftArm: 'None',
+        rightArm: 'None',
+        leftLeg: 'None',
+        rightLeg: 'None',
+        ephemera: 'None',
       },
       syandana: {
-        name: '',
+        name: 'None',
       },
     },
   });
@@ -123,6 +122,7 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
     handleSubmit,
     register,
     control,
+    watch,
     formState: { errors },
   } = methods;
 
@@ -158,7 +158,8 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
     setValue(newValue);
   };
 
-  console.log(errors);
+  console.log('Errors: ', errors);
+  console.log(watch());
 
   return (
     <div className="NewSetupForm">
@@ -260,12 +261,12 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
                 /> */}
               </TabPanel>
               <TabPanel value={value} index={1}>
-                {/* <NewSetupAttachmentsSection
+                <NewSetupAttachmentsSection
                   armAttachments={armAttachments}
                   chestAttachments={chestAttachments}
                   ephemeras={ephemeras}
                   legAttachments={legAttachments}
-                /> */}
+                />
 
                 {/* <ColorSchemeSubsection
                   dataPrefix="attachments.colorScheme"

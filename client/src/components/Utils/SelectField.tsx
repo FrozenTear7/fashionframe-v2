@@ -22,23 +22,30 @@ const SelectField: React.VFC<SelectFieldProps> = ({
   if (!optionValuesToMap) return <Loading />;
   return (
     <Controller
-      name={`${name[0].toUpperCase()}${name.substr(1, name.length - 1)}`}
+      name={name}
       control={control}
-      render={({ field }): JSX.Element => (
-        <Autocomplete
-          {...field}
-          defaultValue={withNone ? 'None' : optionValuesToMap[0]}
-          options={
-            withNone ? ['None', ...optionValuesToMap] : optionValuesToMap
-          }
-          getOptionLabel={(option: string): string => option}
-          style={{ width: 300 }}
-          renderInput={(params): JSX.Element => (
-            <TextField {...params} label={label} variant="outlined" />
-          )}
-          onChange={(e): void => console.log(e)}
-        />
-      )}
+      defaultValue={withNone ? 'None' : optionValuesToMap[0]}
+      render={({ field }): JSX.Element => {
+        const { onChange, value } = field;
+
+        return (
+          <Autocomplete
+            value={value}
+            onChange={(_event, newValue): void => {
+              onChange(newValue);
+            }}
+            defaultValue={withNone ? 'None' : optionValuesToMap[0]}
+            options={
+              withNone ? ['None', ...optionValuesToMap] : optionValuesToMap
+            }
+            style={{ width: 300 }}
+            renderInput={(params): JSX.Element => (
+              <TextField {...params} label={label} variant="outlined" />
+            )}
+            disableClearable
+          />
+        );
+      }}
     />
   );
 };

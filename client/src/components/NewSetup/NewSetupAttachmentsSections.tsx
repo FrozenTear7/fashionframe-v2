@@ -16,47 +16,52 @@ const NewSetupAttachmentsSection: React.VFC<AttachmentsSectionProps> = ({
   ephemeras,
   legAttachments,
 }) => {
-  const { errors } = useFormContext();
+  const {
+    formState: { errors },
+  } = useFormContext();
 
   return (
     <>
-      <label>Chest</label>
       <SelectField
         optionValuesToMap={chestAttachments}
         name="attachments.chest"
+        label="Chest"
       />
       <>{errors.attachments?.chest?.message}</>
 
-      <label>Left arm</label>
       <SelectField
         optionValuesToMap={armAttachments}
         name="attachments.leftArm"
+        label="Left arm"
       />
       <>{errors.attachments?.leftArm?.message}</>
 
-      <label>Right arm</label>
       <SelectField
         optionValuesToMap={armAttachments}
         name="attachments.rightArm"
+        label="Right arm"
       />
       <>{errors.attachments?.rightArm?.message}</>
 
-      <label>Left leg</label>
       <SelectField
         optionValuesToMap={legAttachments}
         name="attachments.leftLeg"
+        label="Left leg"
       />
       <>{errors.attachments?.leftLeg?.message}</>
 
-      <label>Right leg</label>
       <SelectField
         optionValuesToMap={legAttachments}
         name="attachments.rightLeg"
+        label="Right leg"
       />
       <>{errors.attachments?.rightLeg?.message}</>
 
-      <label>Ephemera</label>
-      <SelectField optionValuesToMap={ephemeras} name="attachments.ephemera" />
+      <SelectField
+        optionValuesToMap={ephemeras}
+        name="attachments.ephemera"
+        label="Ephemera"
+      />
       <>{errors.attachments?.ephemera?.message}</>
     </>
   );

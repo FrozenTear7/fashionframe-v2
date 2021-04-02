@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/unbound-method */
+import { TextField } from '@material-ui/core';
+import { Autocomplete } from '@material-ui/lab';
 import * as React from 'react';
-import { useFormContext } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 import SelectField from '../Utils/SelectField';
 
 type SetupSectionProps = {
@@ -10,41 +12,47 @@ type SetupSectionProps = {
 };
 
 const NewSetupSetupSection: React.VFC<SetupSectionProps> = ({
-  frames: _frames,
+  frames,
   helmets,
   skins,
 }) => {
   const methods = useFormContext();
   const {
+    control,
     formState: { errors },
+    setValue,
     watch,
   } = methods;
   const { frame: currentFrame } = watch();
 
   return (
     <>
-      {/* <label>Frame</label>
       <Controller
         name="frame"
         control={control}
-        render={({ onChange, value }): JSX.Element => (
-          <Select
-            value={value}
-            onChange={(e): void => {
-              onChange(e.target.value);
-              setValue('helmet', `${String(e.target.value)} Helmet`);
-              setValue('skin', `${String(e.target.value)} Skin`);
-            }}
-          >
-            {frames.map((frame) => (
-              <MenuItem key={frame} value={frame}>
-                {frame}
-              </MenuItem>
-            ))}
-          </Select>
-        )}
+        defaultValue={frames[0]}
+        render={({ field }): JSX.Element => {
+          const { onChange, value } = field;
+
+          return (
+            <Autocomplete
+              value={value}
+              onChange={(_event, newValue): void => {
+                onChange(newValue);
+                setValue('helmet', `${String(newValue)} Helmet`);
+                setValue('skin', `${String(newValue)} Skin`);
+              }}
+              options={frames}
+              style={{ width: 300 }}
+              renderInput={(params): JSX.Element => (
+                <TextField {...params} label="Frame" variant="outlined" />
+              )}
+              disableClearable
+            />
+          );
+        }}
       />
-      <>{errors.frame?.message}</> */}
+      <>{errors.frame?.message}</>
 
       <SelectField
         optionValuesToMap={helmets[currentFrame]}
