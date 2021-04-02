@@ -14,7 +14,8 @@ const signUpSchema = yup.object().shape({
   password2: yup
     .string()
     .min(6, 'Must be at least 6 characters long')
-    .required('Required'),
+    .required('Required')
+    .oneOf([yup.ref('password'), null], 'Passwords must match'),
 });
 
 export default signUpSchema;
