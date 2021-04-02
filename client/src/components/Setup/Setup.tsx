@@ -3,8 +3,8 @@ import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { RouteComponentProps } from 'react-router';
 import { SetupDetails } from '../../types/Setup';
-import Error from '../../utils/Error';
-import Loading from '../../utils/Loading';
+import Error from '../Utils/Error';
+import Loading from '../Utils/Loading';
 
 const Setup: React.VFC<RouteComponentProps<{ id: string }>> = ({ match }) => {
   const setupId = match.params.id;

@@ -1,43 +1,24 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import * as React from 'react';
-import { Controller } from 'react-hook-form';
-import {
-  Control,
-  FieldElement,
-  FieldErrors,
-  FieldName,
-  FieldValues,
-  Ref,
-  SetFieldValue,
-  SetValueConfig,
-} from 'react-hook-form/dist/types';
+import { Controller, useFormContext } from 'react-hook-form';
 import { Select, MenuItem } from '@material-ui/core';
+import SelectField from '../Utils/SelectField';
 
 type SetupSectionProps = {
   frames: string[];
   helmets: { [frame: string]: string[] };
   skins: { [frame: string]: string[] };
-  currentFrame: string;
-  register: (ref: (FieldElement & Ref) | null) => void;
-  errors: FieldErrors<FieldValues>;
-  control: Control<FieldValues>;
-  setValue: (
-    name: FieldName<FieldValues>,
-    value: SetFieldValue<FieldValues>,
-    config?: SetValueConfig
-  ) => void;
 };
 
 const NewSetupSetupSection: React.VFC<SetupSectionProps> = ({
   frames,
   helmets,
   skins,
-  currentFrame,
-  register,
-  errors,
-  control,
-  setValue,
 }) => {
+  const methods = useFormContext();
+  const { register, errors, control, setValue, watch } = methods;
+  const { frame: currentFrame } = watch();
+
   return (
     <>
       <label>Name</label>
@@ -72,34 +53,18 @@ const NewSetupSetupSection: React.VFC<SetupSectionProps> = ({
       <p>{errors.frame?.message}</p>
 
       <label>Helmet</label>
-      <Controller
-        as={
-          <Select>
-            {helmets[currentFrame].map((helmet) => (
-              <MenuItem key={helmet} value={helmet}>
-                {helmet}
-              </MenuItem>
-            ))}
-          </Select>
-        }
-        control={control}
+      <SelectField
+        optionValuesToMap={helmets[currentFrame]}
         name="helmet"
+        withNone={false}
       />
       <p>{errors.helmet?.message}</p>
 
       <label>Skin</label>
-      <Controller
-        as={
-          <Select>
-            {skins[currentFrame].map((skin) => (
-              <MenuItem key={skin} value={skin}>
-                {skin}
-              </MenuItem>
-            ))}
-          </Select>
-        }
-        control={control}
+      <SelectField
+        optionValuesToMap={skins[currentFrame]}
         name="skin"
+        withNone={false}
       />
       <p>{errors.skin?.message}</p>
 

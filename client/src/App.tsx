@@ -10,13 +10,13 @@ import Header from './components/Header/Header';
 import Homepage from './components/Homepage/Homepage';
 import SignUp from './components/SignUp/SignUp';
 import SignIn from './components/SignIn/SignIn';
-import NotFound from './utils/NotFound';
+import NotFound from './components/Utils/NotFound';
 import { UserContext } from './UserContext';
 import { ContextUser } from './types';
 import { PrivateRoute, SignedInRoute } from './utils/PrivateRoute';
 import NewSetup from './components/NewSetup/NewSetup';
-import Loading from './utils/Loading';
-import Error from './utils/Error';
+import Loading from './components/Utils/Loading';
+import Error from './components/Utils/Error';
 
 const App: React.VFC = () => {
   const [user, setUser] = React.useState<ContextUser | null>(null);

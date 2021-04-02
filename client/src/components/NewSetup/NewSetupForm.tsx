@@ -1,33 +1,36 @@
-/* eslint-disable @typescript-eslint/unbound-method */
 import axios from 'axios';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import * as React from 'react';
 import { useHistory } from 'react-router-dom';
 import { WarframeData } from '../../types/WarframeData';
-import Error from '../../utils/Error';
+import Error from '../Utils/Error';
 import newSetupSchema from '../../validation/newSetupSchema';
 import { NewSetupFormData } from '../../types/Setup';
 import NewSetupSetupSection from './NewSetupSetupSection';
 import NewSetupSyandanaSection from './NewSetupSyandanaSection';
 import NewSetupAttachmentsSection from './NewSetupAttachmentsSections';
-// import ColorSchemeSubsection from './ColorSchemeSubsection';
+import ColorSchemeSubsection from './ColorSchemeSubsection';
 
 const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
   warframeData,
 }) => {
+  const {
+    frames,
+    helmets,
+    skins,
+    chestAttachments,
+    armAttachments,
+    legAttachments,
+    ephemeras,
+    syandanas,
+    colorPickers,
+  } = warframeData;
   const history = useHistory();
 
   const [createSetupError, setCreateSetupError] = React.useState<string>();
 
-  const {
-    register,
-    handleSubmit,
-    errors,
-    watch,
-    control,
-    setValue,
-  } = useForm<NewSetupFormData>({
+  const methods = useForm<NewSetupFormData>({
     resolver: yupResolver(newSetupSchema),
     defaultValues: {
       frame: 'Ash',
@@ -47,13 +50,7 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
     },
   });
 
-  const {
-    frame: currentFrame,
-    helmet: currentHelmet,
-    skin: currentSkin,
-  } = watch();
-
-  const newSetupFormOnSubmit = handleSubmit(async (setupWithImage) => {
+  const newSetupFormOnSubmit = methods.handleSubmit(async (setupWithImage) => {
     console.log(setupWithImage);
     const { screenshotImage, ...setup } = setupWithImage;
 
@@ -78,49 +75,35 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
     }
   });
 
-  console.log(currentFrame);
-  console.log(currentHelmet);
-  console.log(currentSkin);
-
   return (
     <div className="NewSetupForm">
       {createSetupError && <Error error={createSetupError} />}
 
-      <form onSubmit={newSetupFormOnSubmit}>
-        <NewSetupSetupSection
-          frames={warframeData.frames}
-          helmets={warframeData.helmets}
-          skins={warframeData.skins}
-          currentFrame={currentFrame}
-          register={register}
-          errors={errors}
-          control={control}
-          setValue={setValue}
-        />
+      <FormProvider {...methods}>
+        <form onSubmit={newSetupFormOnSubmit}>
+          <NewSetupSetupSection
+            frames={frames}
+            helmets={helmets}
+            skins={skins}
+          />
 
-        {/* <ColorSchemeSubsection
-          dataPrefix="colorScheme"
-          colorPickers={warframeData.colorPickers}
-          control={control}
-        /> */}
+          <ColorSchemeSubsection
+            dataPrefix="colorScheme"
+            colorPickers={colorPickers}
+          />
 
-        <NewSetupAttachmentsSection
-          armAttachments={warframeData.armAttachments}
-          chestAttachments={warframeData.chestAttachments}
-          ephemeras={warframeData.ephemeras}
-          legAttachments={warframeData.legAttachments}
-          errors={errors}
-          control={control}
-        />
+          <NewSetupAttachmentsSection
+            armAttachments={armAttachments}
+            chestAttachments={chestAttachments}
+            ephemeras={ephemeras}
+            legAttachments={legAttachments}
+          />
 
-        <NewSetupSyandanaSection
-          syandanas={warframeData.syandanas}
-          errors={errors}
-          control={control}
-        />
+          <NewSetupSyandanaSection syandanas={syandanas} />
 
-        <input type="submit" />
-      </form>
+          <input type="submit" />
+        </form>
+      </FormProvider>
     </div>
   );
 };

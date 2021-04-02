@@ -4,8 +4,8 @@ import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { SetupItem } from '../../types/Setup';
-import Error from '../../utils/Error';
-import Loading from '../../utils/Loading';
+import Error from '../Utils/Error';
+import Loading from '../Utils/Loading';
 import SetupListItem from './SetupListItem';
 
 const Setups: React.VFC = () => {

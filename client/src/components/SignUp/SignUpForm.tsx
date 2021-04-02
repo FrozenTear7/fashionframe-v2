@@ -4,7 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { useUserContext } from '../../UserContext';
 import { signUp } from '../../utils/auth';
-import Error from '../../utils/Error';
+import Error from '../Utils/Error';
 import signUpSchema from '../../validation/signUpSchema';
 import { SignUpFormData } from '../../types/SignUp';
 

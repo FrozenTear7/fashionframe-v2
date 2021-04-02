@@ -2,8 +2,8 @@ import axios from 'axios';
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { WarframeData } from '../../types/WarframeData';
-import Error from '../../utils/Error';
-import Loading from '../../utils/Loading';
+import Error from '../Utils/Error';
+import Loading from '../Utils/Loading';
 import NewSetupForm from './NewSetupForm';
 
 const warframeDataTypes = [

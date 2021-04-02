@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useUserContext } from '../../UserContext';
 import { signIn } from '../../utils/auth';
-import Error from '../../utils/Error';
+import Error from '../Utils/Error';
 import signInSchema from '../../validation/signInSchema';
 import { SignInFormData } from '../../types/SignIn';
 import { LocationState } from '../../types';
