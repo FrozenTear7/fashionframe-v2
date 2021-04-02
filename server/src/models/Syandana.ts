@@ -3,7 +3,7 @@ import ColorScheme from './ColorScheme';
 
 export interface ISyandana extends Document {
   colorScheme: Types.ObjectId;
-  name: string;
+  name?: string;
 }
 
 const SyandanaSchema: Schema = new Schema({
@@ -12,7 +12,7 @@ const SyandanaSchema: Schema = new Schema({
     ref: 'ColorScheme',
     required: 'ColorScheme is required',
   },
-  name: { type: String, required: 'Name is required' },
+  name: { type: String },
 });
 
 SyandanaSchema.pre('remove', async function () {

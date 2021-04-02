@@ -43,11 +43,11 @@ const SignInForm: React.VFC = () => {
       <form onSubmit={signInFormOnSubmit}>
         <label>Username</label>
         <input name="username" ref={register} />
-        <p>{errors.username?.message}</p>
+        <>{errors.username?.message}</>
 
         <label>Password</label>
         <input name="password" type="password" ref={register} />
-        <p>{errors.password?.message}</p>
+        <>{errors.password?.message}</>
 
         <input type="submit" />
       </form>

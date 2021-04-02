@@ -1,6 +1,7 @@
 import { MenuItem, Select } from '@material-ui/core';
 import * as React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
+import Loading from './Loading';
 
 type SelectFieldProps = {
   optionValuesToMap: string[];
@@ -15,6 +16,7 @@ const SelectField: React.VFC<SelectFieldProps> = ({
 }) => {
   const { control } = useFormContext();
 
+  if (!optionValuesToMap) return <Loading />;
   return (
     <Controller
       as={

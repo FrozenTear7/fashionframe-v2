@@ -16,19 +16,11 @@ const NewSetupSetupSection: React.VFC<SetupSectionProps> = ({
   skins,
 }) => {
   const methods = useFormContext();
-  const { register, errors, control, setValue, watch } = methods;
+  const { errors, control, setValue, watch } = methods;
   const { frame: currentFrame } = watch();
 
   return (
     <>
-      <label>Name</label>
-      <input name="name" ref={register} />
-      <p>{errors.name?.message}</p>
-
-      <label>Description</label>
-      <textarea name="description" ref={register} />
-      <p>{errors.description?.message}</p>
-
       <label>Frame</label>
       <Controller
         name="frame"
@@ -50,7 +42,7 @@ const NewSetupSetupSection: React.VFC<SetupSectionProps> = ({
           </Select>
         )}
       />
-      <p>{errors.frame?.message}</p>
+      <>{errors.frame?.message}</>
 
       <label>Helmet</label>
       <SelectField
@@ -58,7 +50,7 @@ const NewSetupSetupSection: React.VFC<SetupSectionProps> = ({
         name="helmet"
         withNone={false}
       />
-      <p>{errors.helmet?.message}</p>
+      <>{errors.helmet?.message}</>
 
       <label>Skin</label>
       <SelectField
@@ -66,16 +58,7 @@ const NewSetupSetupSection: React.VFC<SetupSectionProps> = ({
         name="skin"
         withNone={false}
       />
-      <p>{errors.skin?.message}</p>
-
-      <label>Screenshot</label>
-      <input
-        name="screenshotImage"
-        type="file"
-        accept="image/*"
-        ref={register}
-      />
-      <p>{(errors.screenshotImage as { message: string })?.message}</p>
+      <>{errors.skin?.message}</>
     </>
   );
 };

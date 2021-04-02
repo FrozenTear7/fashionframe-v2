@@ -3,12 +3,12 @@ import ColorScheme from './ColorScheme';
 
 export interface IAttachments extends Document {
   colorScheme: Types.ObjectId;
-  chest: string;
-  leftArm: string;
-  rightArm: string;
-  leftLeg: string;
-  rightLeg: string;
-  ephemera: string;
+  chest?: string;
+  leftArm?: string;
+  rightArm?: string;
+  leftLeg?: string;
+  rightLeg?: string;
+  ephemera?: string;
 }
 
 const AttachmentsSchema: Schema = new Schema({

@@ -16,7 +16,7 @@ const NewSetupSyandanaSection: React.VFC<SyandanaSectionProps> = ({
     <>
       <label>Syandana</label>
       <SelectField optionValuesToMap={syandanas} name="syandana.name" />
-      <p>{errors.syandana?.name?.message}</p>
+      <>{errors.syandana?.name?.message}</>
     </>
   );
 };

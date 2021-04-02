@@ -25,39 +25,39 @@ const NewSetupAttachmentsSection: React.VFC<AttachmentsSectionProps> = ({
         optionValuesToMap={chestAttachments}
         name="attachments.chest"
       />
-      <p>{errors.attachments?.chest?.message}</p>
+      <>{errors.attachments?.chest?.message}</>
 
       <label>Left arm</label>
       <SelectField
         optionValuesToMap={armAttachments}
         name="attachments.leftArm"
       />
-      <p>{errors.attachments?.leftArm?.message}</p>
+      <>{errors.attachments?.leftArm?.message}</>
 
       <label>Right arm</label>
       <SelectField
         optionValuesToMap={armAttachments}
         name="attachments.rightArm"
       />
-      <p>{errors.attachments?.rightArm?.message}</p>
+      <>{errors.attachments?.rightArm?.message}</>
 
       <label>Left leg</label>
       <SelectField
         optionValuesToMap={legAttachments}
         name="attachments.leftLeg"
       />
-      <p>{errors.attachments?.leftLeg?.message}</p>
+      <>{errors.attachments?.leftLeg?.message}</>
 
       <label>Right leg</label>
       <SelectField
         optionValuesToMap={legAttachments}
         name="attachments.rightLeg"
       />
-      <p>{errors.attachments?.rightLeg?.message}</p>
+      <>{errors.attachments?.rightLeg?.message}</>
 
       <label>Ephemera</label>
       <SelectField optionValuesToMap={ephemeras} name="attachments.ephemera" />
-      <p>{errors.attachments?.ephemera?.message}</p>
+      <>{errors.attachments?.ephemera?.message}</>
     </>
   );
 };

@@ -21,9 +21,9 @@ const SignUpForm: React.VFC = () => {
       try {
         const userRes = await signUp(username, email, password, password2);
         setUser(userRes);
-      } catch (e) {
-        console.log(e);
-        setSignUpError(e);
+      } catch ({ response }) {
+        console.log(response.data.message);
+        setSignUpError(response.data.message);
       }
     }
   );
@@ -35,19 +35,19 @@ const SignUpForm: React.VFC = () => {
       <form onSubmit={signInFormOnSubmit}>
         <label>Username</label>
         <input name="username" ref={register} />
-        <p>{errors.username?.message}</p>
+        <>{errors.username?.message}</>
 
         <label>Email</label>
         <input name="email" ref={register} />
-        <p>{errors.email?.message}</p>
+        <>{errors.email?.message}</>
 
         <label>Password</label>
         <input name="password" ref={register} />
-        <p>{errors.password?.message}</p>
+        <>{errors.password?.message}</>
 
         <label>Repeat password</label>
         <input name="password2" ref={register} />
-        <p>{errors.password2?.message}</p>
+        <>{errors.password2?.message}</>
 
         <input type="submit" />
       </form>

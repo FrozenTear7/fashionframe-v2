@@ -6,14 +6,14 @@ const validateColorRGB = (color: string): void => {
 };
 
 export interface IColorScheme extends Document {
-  primary: string;
-  secondary: string;
-  tertiary: string;
-  accents: string;
-  emmissive1: string;
-  emmissive2: string;
-  energy1: string;
-  energy2: string;
+  primary?: string;
+  secondary?: string;
+  tertiary?: string;
+  accents?: string;
+  emmissive1?: string;
+  emmissive2?: string;
+  energy1?: string;
+  energy2?: string;
 }
 
 const ColorSchemeSchema: Schema = new Schema({
