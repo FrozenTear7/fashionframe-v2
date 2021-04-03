@@ -37,7 +37,7 @@ export interface NewSetupFormData {
   frame: string;
   helmet: string;
   skin: string;
-  screenshotImage: File;
+  screenshotImage: FileList;
   attachments: Omit<Attachments, '_id'>;
   syandana: Omit<Syandana, '_id'>;
   colorScheme: Omit<ColorScheme, '_id'>;

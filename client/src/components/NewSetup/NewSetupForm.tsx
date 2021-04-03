@@ -3,7 +3,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import * as React from 'react';
 import { useHistory } from 'react-router-dom';
-import { makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -18,7 +17,27 @@ import NewSetupSetupSection from './NewSetupSetupSection';
 import NewSetupSyandanaSection from './NewSetupSyandanaSection';
 import NewSetupAttachmentsSection from './NewSetupAttachmentsSections';
 import NewSetupTabPanel from './NewSetupTabPanel';
+import useNewSetupFormStyles from './useNewSetupFormStyles';
 // import ColorSchemeSubsection from './ColorSchemeSubsection';
+
+const newSetupFormDefaultValues = {
+  name: '',
+  description: '',
+  frame: 'Ash',
+  helmet: 'Ash Helmet',
+  skin: 'Ash Skin',
+  attachments: {
+    chest: 'None',
+    leftArm: 'None',
+    rightArm: 'None',
+    leftLeg: 'None',
+    rightLeg: 'None',
+    ephemera: 'None',
+  },
+  syandana: {
+    name: 'None',
+  },
+};
 
 const a11yProps = (index: number): { id: string; 'aria-controls': string } => {
   return {
@@ -27,32 +46,15 @@ const a11yProps = (index: number): { id: string; 'aria-controls': string } => {
   };
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
-  },
-  paper: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
-
 const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
   warframeData,
 }) => {
+  const history = useHistory();
+  const classes = useNewSetupFormStyles();
+
+  const [createSetupError, setCreateSetupError] = React.useState<string>();
+  const [value, setValue] = React.useState(0);
+
   const {
     frames,
     helmets,
@@ -64,30 +66,10 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
     syandanas,
     // colorPickers,
   } = warframeData;
-  const history = useHistory();
-
-  const [createSetupError, setCreateSetupError] = React.useState<string>();
 
   const methods = useForm<NewSetupFormData>({
     resolver: yupResolver(newSetupSchema),
-    defaultValues: {
-      name: '',
-      description: '',
-      frame: 'Ash',
-      helmet: 'Ash Helmet',
-      skin: 'Ash Skin',
-      attachments: {
-        chest: 'None',
-        leftArm: 'None',
-        rightArm: 'None',
-        leftLeg: 'None',
-        rightLeg: 'None',
-        ephemera: 'None',
-      },
-      syandana: {
-        name: 'None',
-      },
-    },
+    defaultValues: newSetupFormDefaultValues,
   });
   const {
     handleSubmit,
@@ -102,7 +84,7 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
     const { screenshotImage, ...setup } = setupWithImage;
 
     const bodyFormData = new FormData();
-    bodyFormData.append('screenshotImage', screenshotImage);
+    bodyFormData.append('screenshotImage', screenshotImage[0]);
     bodyFormData.append('setup', JSON.stringify(setup));
 
     try {
@@ -121,9 +103,6 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
       setCreateSetupError(response.data.message);
     }
   });
-
-  const classes = useStyles();
-  const [value, setValue] = React.useState(0);
 
   const handleChange = (
     _event: React.ChangeEvent<unknown>,
@@ -297,10 +276,6 @@ colorPickers={colorPickers}
                 Create
               </Button>
             </Grid>
-
-            {/* <div className={classes.root}>
-              
-            </div> */}
           </form>
         </div>
       </FormProvider>

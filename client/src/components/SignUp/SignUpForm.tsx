@@ -18,6 +18,13 @@ import { signUp } from '../../utils/auth';
 import { useUserContext } from '../../UserContext';
 import useSignUpFormStyles from './useSignUpFormStyles';
 
+const signUpFormDefaultValues = {
+  username: '',
+  email: '',
+  password: '',
+  password2: '',
+};
+
 const SignUpForm: React.VFC = () => {
   const classes = useSignUpFormStyles();
   const { setUser } = useUserContext();
@@ -31,12 +38,7 @@ const SignUpForm: React.VFC = () => {
     formState: { errors },
   } = useForm<SignUpFormData>({
     resolver: yupResolver(signUpSchema),
-    defaultValues: {
-      username: '',
-      email: '',
-      password: '',
-      password2: '',
-    },
+    defaultValues: signUpFormDefaultValues,
   });
 
   const signUpFormOnSubmit = async ({

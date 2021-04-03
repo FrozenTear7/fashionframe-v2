@@ -64,7 +64,7 @@ const App: React.VFC = () => {
       <UserContext.Provider value={{ user, setUser }}>
         <SnackbarProvider maxSnack={3}>
           <Header />
-          <Container maxWidth="lg" className={classes.container}>
+          <Container maxWidth="xl" className={classes.container}>
             <Switch>
               <Route exact path="/" component={Homepage} />
               <SignedInRoute exact path="/signup" component={SignUp} />

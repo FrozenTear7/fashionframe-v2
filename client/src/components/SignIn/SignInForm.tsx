@@ -19,6 +19,11 @@ import { signIn } from '../../utils/auth';
 import { useUserContext } from '../../UserContext';
 import useSignInFormStyles from './useSignInFormStyles';
 
+const signInFormDefaultValues = {
+  username: '',
+  password: '',
+};
+
 const SignInForm: React.VFC = () => {
   const history = useHistory();
   const location = useLocation();
@@ -34,10 +39,7 @@ const SignInForm: React.VFC = () => {
     formState: { errors },
   } = useForm<SignInFormData>({
     resolver: yupResolver(signInSchema),
-    defaultValues: {
-      username: '',
-      password: '',
-    },
+    defaultValues: signInFormDefaultValues,
   });
 
   const signInFormOnSubmit = async ({

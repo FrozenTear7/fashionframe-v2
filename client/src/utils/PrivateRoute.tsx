@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import * as React from 'react';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
 import { useUserContext } from '../UserContext';
