@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router';
 import axios from 'axios';
 import { HelmetProvider } from 'react-helmet-async';
 import { Container, createStyles, makeStyles } from '@material-ui/core';
+import { SnackbarProvider } from 'notistack';
 import Setup from './components/Setup/Setup';
 import Setups from './components/Setups/Setups';
 import User from './components/User/User';
@@ -61,7 +62,7 @@ const App: React.VFC = () => {
   return (
     <HelmetProvider>
       <UserContext.Provider value={{ user, setUser }}>
-        <div className="App">
+        <SnackbarProvider maxSnack={3}>
           <Header />
           <Container maxWidth="lg" className={classes.container}>
             <Switch>
@@ -76,7 +77,7 @@ const App: React.VFC = () => {
               <Route component={NotFound} />
             </Switch>
           </Container>
-        </div>
+        </SnackbarProvider>
       </UserContext.Provider>
     </HelmetProvider>
   );

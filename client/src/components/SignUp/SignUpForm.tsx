@@ -10,6 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import PersonAddOutlinedIcon from '@material-ui/icons/PersonAdd';
+import { useSnackbar } from 'notistack';
 import { SignUpFormData } from '../../types/SignUp';
 import signUpSchema from '../../validation/signUpSchema';
 import Error from '../Utils/Error';
@@ -19,8 +20,9 @@ import useSignUpFormStyles from './useSignUpFormStyles';
 
 const SignUpForm: React.VFC = () => {
   const classes = useSignUpFormStyles();
-
   const { setUser } = useUserContext();
+  const { enqueueSnackbar } = useSnackbar();
+
   const [signUpError, setSignUpError] = React.useState<string>();
 
   const {
@@ -37,22 +39,30 @@ const SignUpForm: React.VFC = () => {
     },
   });
 
-  const signUpFormOnSubmit = handleSubmit(
-    async ({ username, email, password, password2 }) => {
-      try {
-        const userRes = await signUp(username, email, password, password2);
-        setUser(userRes);
-      } catch ({ response }) {
-        console.log(response.data.message);
-        setSignUpError(response.data.message);
-      }
+  const signUpFormOnSubmit = async ({
+    username,
+    email,
+    password,
+    password2,
+  }: SignUpFormData): Promise<void> => {
+    try {
+      const userRes = await signUp(username, email, password, password2);
+      setUser(userRes);
+      enqueueSnackbar('Signed up successfully', {
+        variant: 'success',
+        autoHideDuration: 3000,
+        anchorOrigin: {
+          vertical: 'bottom',
+          horizontal: 'center',
+        },
+      });
+    } catch ({ response }) {
+      console.log(response.data.message);
+      setSignUpError(response.data.message);
     }
-  );
-
+  };
   return (
     <div className="SignUpForm">
-      {signUpError && <Error error={signUpError} />}
-
       <Container component="main" maxWidth="xs">
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
@@ -62,7 +72,7 @@ const SignUpForm: React.VFC = () => {
             Sign up
           </Typography>
           <form
-            onSubmit={signUpFormOnSubmit}
+            onSubmit={handleSubmit(signUpFormOnSubmit)}
             className={classes.form}
             noValidate
           >
@@ -146,6 +156,7 @@ const SignUpForm: React.VFC = () => {
                 />
               )}
             />
+            {signUpError && <Error error={signUpError} />}
             <Button
               type="submit"
               fullWidth

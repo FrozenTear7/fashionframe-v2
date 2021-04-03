@@ -10,6 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+import { useSnackbar } from 'notistack';
 import { LocationState } from '../../types';
 import { SignInFormData } from '../../types/SignIn';
 import signInSchema from '../../validation/signInSchema';
@@ -23,6 +24,7 @@ const SignInForm: React.VFC = () => {
   const location = useLocation();
   const classes = useSignInFormStyles();
   const { setUser } = useUserContext();
+  const { enqueueSnackbar } = useSnackbar();
 
   const [signInError, setSignInError] = React.useState<string>();
 
@@ -50,7 +52,16 @@ const SignInForm: React.VFC = () => {
       const userRes = await signIn(username, password);
       setUser(userRes);
       history.replace(from);
+      enqueueSnackbar('Signed in successfully', {
+        variant: 'success',
+        autoHideDuration: 3000,
+        anchorOrigin: {
+          vertical: 'bottom',
+          horizontal: 'center',
+        },
+      });
     } catch ({ response }) {
+      console.log(response);
       console.log(response.data.message);
       setSignInError(response.data.message);
     }
@@ -58,8 +69,6 @@ const SignInForm: React.VFC = () => {
 
   return (
     <div className="SignInForm">
-      {signInError && <Error error={signInError} />}
-
       <Container component="main" maxWidth="xs">
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
@@ -113,6 +122,7 @@ const SignInForm: React.VFC = () => {
                 />
               )}
             />
+            {signInError && <Error error={signInError} />}
             <Button
               type="submit"
               fullWidth

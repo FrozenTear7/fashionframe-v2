@@ -18,6 +18,7 @@ import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 import CreateNewFolderIcon from '@material-ui/icons/CreateNewFolder';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import LockIcon from '@material-ui/icons/Lock';
+import { useSnackbar } from 'notistack';
 import headerStyle from './useHeaderStyles';
 import { useUserContext } from '../../UserContext';
 import { signOut } from '../../utils/auth';
@@ -25,6 +26,8 @@ import { signOut } from '../../utils/auth';
 const Header: React.VFC = () => {
   const classes = headerStyle();
   const { user, setUser } = useUserContext();
+  const { enqueueSnackbar } = useSnackbar();
+
   const [drawerOpen, setDrawerOpen] = React.useState(false);
 
   const toggleDrawer = (open: boolean) => (
@@ -100,6 +103,14 @@ const Header: React.VFC = () => {
                     onClick={async (): Promise<void> => {
                       await signOut();
                       setUser(null);
+                      enqueueSnackbar('Signed up successfully', {
+                        variant: 'success',
+                        autoHideDuration: 3000,
+                        anchorOrigin: {
+                          vertical: 'bottom',
+                          horizontal: 'center',
+                        },
+                      });
                     }}
                   >
                     <ListItemIcon>

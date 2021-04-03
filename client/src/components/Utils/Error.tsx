@@ -1,7 +1,13 @@
+import { Alert, AlertTitle } from '@material-ui/lab';
 import * as React from 'react';
 
 const Error: React.VFC<{ error: string }> = ({ error }) => {
-  return <div className="Error">Error: {error}</div>;
+  return (
+    <Alert severity="error">
+      <AlertTitle>Error</AlertTitle>
+      <strong>{error}</strong>
+    </Alert>
+  );
 };
 
 export default Error;
