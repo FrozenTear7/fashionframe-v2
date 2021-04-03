@@ -3,242 +3,482 @@
     "Ash": [
       "Ash Helmet",
       "Ash Prime Helmet",
-      "Ash Carabid Helmet",
+      "Ash Scorpion Helmet",
       "Ash Locust Helmet",
-      "Ash Scorpion Helmet"
+      "Ash Koga Helmet",
+      "Ash Carabid Helmet",
+      "Ash Shroud Helmet",
+      "Ash Koga Helmet",
+      "Ash Bai Hu Helmet",
+      "Ash Ichneumon Helmet",
+      "Ash Ryuga Helmet",
+      "Ash Tsukuyomi Helmet"
     ],
     "Atlas": [
       "Atlas Helmet",
       "Atlas Prime Helmet",
-      "Atlas Arhat Helmet",
-      "Atlas Shikoro Helmet",
       "Atlas Tartarus Helmet",
-      "Atlas Telamon Helmet"
+      "Atlas Shikoro Helmet",
+      "Atlas Arhat Helmet",
+      "Atlas Telamon Helmet",
+      "Atlas Karst Helmet",
+      "Atlas Graxx Helmet",
+      "Atlas Monolith Helmet"
     ],
     "Banshee": [
       "Banshee Helmet",
       "Banshee Prime Helmet",
       "Banshee Chorus Helmet",
+      "Banshee Reverb Helmet",
       "Banshee Dominia Helmet",
       "Banshee Echo Helmet",
-      "Banshee Reverb Helmet"
+      "Banshee Soprana Helmet",
+      "Banshee Blade of the Lotus Helmet",
+      "Banshee Sonority Helmet"
     ],
-    "Baruuk": ["Baruuk Helmet", "Baruuk Meroe Helmet"],
+    "Baruuk": [
+      "Baruuk Helmet",
+      "Baruuk Meroe Helmet",
+      "Baruuk Bedouin Skin",
+      "Baruuk Graxx Skin"
+    ],
     "Chroma": [
       "Chroma Helmet",
       "Chroma Prime Helmet",
-      "Chroma Amaru Helmet",
       "Chroma Drac Helmet",
+      "Chroma Amaru Helmet",
       "Chroma Kaiju Helmet",
-      "Chroma Tarrasque Helmet"
+      "Chroma Tarrasque Helmet",
+      "Chroma Dynasty Helmet",
+      "Chroma Graxx Helmet",
+      "Chroma Morkai Helmet",
+      "Chroma Thyrus Helmet",
+      "Chroma Drevni Helmet",
+      "Chroma Vojnik Helmet"
     ],
     "Ember": [
       "Ember Helmet",
       "Ember Prime Helmet",
       "Ember Backdraft Helmet",
-      "Ember Phoenix Helmet"
+      "Ember Phoenix Helmet",
+      "Ember Vermillion Helmet",
+      "Ember Graxx Helmet",
+      "Ember Ignition Helmet",
+      "Ember Magesty Helmet"
     ],
     "Equinox": [
       "Equinox Helm",
       "Equinox Prime Helm",
-      "Equinox Clisthert Helm",
-      "Equinox Solstice Helmet"
+      "Equinox Solstice Helmet",
+      "Equinox Clisthert Helmet",
+      "Equinox Antonym Helmet",
+      "Equinox Divisa Helmet",
+      "Equinox Insomnia Helmet",
+      "Equinox Megaera Helmet"
     ],
     "Excalibur": [
       "Excalibur Helmet",
+      "Excalibur Prime Helmet",
       "Excalibur Umbra Helmet",
-      "Excalibur Arturius Helmet",
-      "Excalibur Avalon Helmet",
-      "Excalibur Isurus Helmet",
-      "Excalibur Mordred Helmet",
-      "Excalibur Ogrant Helmet",
-      "Excalibur Pendragon Helmet",
+      "Excalibur Umbra Sunder Helmet",
       "Excalibur Umbra Beast Helmet",
-      "Excalibur Umbra Sunder Helmet"
+      "Excalibur Avalon Helmet",
+      "Excalibur Mordred Helmet",
+      "Excalibur Pendragon Helmet",
+      "Excalibur Zato Helmet",
+      "Excalibur Arturius Helmet",
+      "Excalibur Isurus Helmet",
+      "Excalibur Ogrant Helmet",
+      "Excalibur Dex Helmet",
+      "Excalibur Prisma Helmet",
+      "Excalibur Proto-Armor Helmet",
+      "Excalibur Zato Helmet",
+      "Excalibur Amethyst Helmet",
+      "Excalibur Jade Helmet",
+      "Excalibur Obsidian Helmet",
+      "Excalibur Obsidian Azura Helmet",
+      "Excalibur Onyx Helmet",
+      "Excalibur Opal Helmet",
+      "Excalibur Prominence Helmet",
+      "Excalibur Blade of the Lotus Helmet",
+      "Excalibur Caduto Helmet",
+      "Excalibur Corpra Helmet",
+      "Excalibur Exaltation Helmet",
+      "Excalibur Graxx Helmet",
+      "Excalibur Ion Helmet",
+      "Excalibur Ronin Helmet"
     ],
     "Frost": [
       "Frost Helmet",
       "Frost Prime Helmet",
       "Frost Aurora Helmet",
+      "Frost Squall Helmet",
       "Frost Himavat Helmet",
       "Frost Jotun Helmet",
-      "Frost Squall Helmet",
+      "Frost Manta-Z Helmet",
       "Frost Summit Helmet",
-      "Frost Zastruga Helmet"
+      "Frost Zastruga Helmet",
+      "Frost Festive Helmet",
+      "Frost Harka Helmet",
+      "Frost Grost Helmet",
+      "Frost Hailstorm Helmet",
+      "Frost Vojnik Helmet",
+      "Frost Emperor Helmet",
+      "Frost Hisame Helmet",
+      "Frost Ion Helmet"
     ],
-    "Gara": ["Gara Helmet", "Gara Silica Helmet", "Gara Virago Helmet"],
-    "Garuda": ["Garuda Helmet", "Garuda Bathory Helmet"],
-    "Gauss": ["Gauss Helmet", "Gauss Mag Helmet"],
+    "Gara": [
+      "Gara Helmet",
+      "Gara Virago Helmet",
+      "Gara Rouen Helmet",
+      "Gara Silica Helmet",
+      "Gara Kaleida Helmet",
+      "Gara Zamariu Helmet"
+    ],
+    "Garuda": [
+      "Garuda Helmet",
+      "Garuda Bathory Helmet",
+      "Garuda Sakhura Helmet",
+      "Garuda Hinsa Helmet",
+      "Garuda Successor Helmet",
+      "Garuda Tengushin Helmet",
+      "Garuda Tiamat Helmet"
+    ],
+    "Gauss": [
+      "Gauss Helmet",
+      "Gauss Mag Helmet",
+      "Gauss Agito Helmet",
+      "Gauss Graxx Helmet"
+    ],
     "Grendel": ["Grendel Helmet", "Grendel Glutt Helmet"],
     "Harrow": [
       "Harrow Helmet",
+      "Harrow Suffragan Helmet",
       "Harrow Hieropha Helmet",
-      "Harrow Suffragan Helmet"
+      "Harrow Reliquary Helmet",
+      "Harrow Graxx Helmet",
+      "Harrow Veles Helmet"
     ],
-    "Hildryn": ["Hildryn Helmet", "Hildryn Asuron Helmet"],
+    "Hildryn": [
+      "Hildryn Helmet",
+      "Hildryn Asuron Helmet",
+      "Hildryn Sigrun Helmet"
+    ],
     "Hydroid": [
       "Hydroid Helmet",
-      "Hydroid Karkinos Helmet",
+      "Hydroid Prime Helmet",
+      "Hydroid Triton Helmet",
       "Hydroid Ketos Helmet",
+      "Hydroid Karkinos Helmet",
       "Hydroid Rorqual Helmet",
-      "Hydroid Triton Helmet"
+      "Hydroid Rakkam Helmet",
+      "Hydroid Graxx Helmet",
+      "Hydroid Poseidon Helmet"
     ],
     "Inaros": [
       "Inaros Helmet",
+      "Inaros Prime Helmet",
       "Inaros Anubis Helmet",
       "Inaros Canopic Helmet",
-      "Inaros Kephri Helmet"
+      "Inaros Osiris Helmet",
+      "Inaros Kephri Helmet",
+      "Inaros Ramses Helmet",
+      "Inaros Horus Helmet"
     ],
     "Ivara": [
       "Ivara Helmet",
       "Ivara Prime Helmet",
       "Ivara Loxley Helmet",
-      "Ivara Zirastra Helmet"
+      "Ivara Zirastra Helmet",
+      "Ivara Skathi Helmet",
+      "Ivara Obsidian Helmet",
+      "Ivara Arcuata Helmet",
+      "Ivara Astrea Helmet",
+      "Ivara Graxx Helmet",
+      "Ivara Kuvael Huntress Helmet",
+      "Ivara Youkai Helmet",
+      "Ivara Zamariu Helmet"
     ],
-    "Khora": ["Khora Helmet", "Khora Delphi Helmet"],
+    "Khora": [
+      "Khora Helmet",
+      "Khora Delphi Helmet",
+      "Khora Laveau Helmet",
+      "Khora Urushu Helmet",
+      "Khora Mithra Helmet",
+      "Khora Miyabi Helmet"
+    ],
+    "Lavos": ["Lavos Helmet", "Lavos Cordatus Helmet"],
     "Limbo": [
       "Limbo Helmet",
       "Limbo Prime Helmet",
       "Limbo Aristeas Helmet",
-      "Limbo Aureolus Helmet",
       "Limbo Magrite Helmet",
+      "Limbo Aureolus Helmet",
       "Limbo Venari Helmet"
     ],
     "Loki": [
       "Loki Helmet",
       "Loki Prime Helmet",
+      "Loki Essence Helmet",
+      "Loki Swindle Helmet",
       "Loki Enigma Helmet",
       "Loki Ersatz Helmet",
-      "Loki Essence Helmet",
       "Loki Lupu Helmet",
       "Loki Rogue Helmet",
-      "Loki Swindle Helmet"
+      "Loki Knave Helmet",
+      "Loki Erebus Helmet",
+      "Loki Incubus Helmet",
+      "Loki Jotunheim Helmet",
+      "Loki Kodama Helmet"
     ],
     "Mag": [
       "Mag Helmet",
       "Mag Prime Helmet",
-      "Mag Anthro Helmet",
+      "Mag Coil Helmet",
       "Mag Gauss Helmet",
+      "Mag Anthro Helmet",
       "Mag Induction Helmet",
-      "Mag Toroidal Helmet"
+      "Mag Toroidal Helmet",
+      "Mag Pneuma Helmet",
+      "Mag Ametyst Helmet",
+      "Mag Knaita Helmet",
+      "Mag Alata Helmet",
+      "Mag Corpra Helmet",
+      "Mag Ferro Helmet",
+      "Mag Graxx Helmet",
+      "Mag Orbit Helmet"
     ],
     "Mesa": [
       "Mesa Helmet",
       "Mesa Prime Helmet",
-      "Mesa Dead Eye Helmet",
-      "Mesa Falcon Helmet",
       "Mesa Longhorn Helmet",
       "Mesa Ovis Helmet",
-      "Mesa Prime Montesa Helmet"
+      "Mesa Prime Montesa Helmet",
+      "Mesa Dead Eye Helmet",
+      "Mesa Falcon Helmet"
     ],
     "Mirage": [
       "Mirage Helmet",
       "Mirage Prime Helmet",
       "Mirage Harlequin Helmet",
+      "Mirage Trivelin Helmet",
       "Mirage Jolli Helmet",
-      "Mirage Trivelin Helmet"
+      "Mirage Winter Helmet",
+      "Mirage Graxx Helmet",
+      "Mirage Sigyn Helmet",
+      "Mirage Kitsune Helmet",
+      "Mirage Kuvael Jester Helmet",
+      "Mirage Mithra Helmet",
+      "Mirage Morgaine Helmet"
     ],
     "Nekros": [
       "Nekros Helmet",
       "Nekros Prime Helmet",
+      "Nekros Raknis Helmet",
+      "Nekros Shroud Helmet",
       "Nekros Charon Helmet",
       "Nekros Ion Helmet",
-      "Nekros Lazarus Helmet",
-      "Nekros Raknis Helmet",
-      "Nekros Shroud Helmet"
+      "Nekros Lazarus Helmet"
     ],
-    "Nezha": ["Nezha Helmet", "Nezha Circa Helmet"],
-    "Nidus": ["Nidus Helmet", "Nidus Myxini Helmet", "Nidus Prion Helmet"],
+    "Nezha": [
+      "Nezha Helmet",
+      "Nezha Prime Helmet",
+      "Nezha Circa Helmet",
+      "Nezha Jinza Helmet",
+      "Nezha Empyrean Helmet",
+      "Nezha Devine Helmet",
+      "Nezha Dracun Helmet",
+      "Nezha Yaksha Helmet"
+    ],
+    "Nidus": [
+      "Nidus Helmet",
+      "Nidus Prion Helmet",
+      "Nidus Myxini Helmet",
+      "Nidus Phryke Helmet",
+      "Nidus Night Hunter Helmet"
+    ],
     "Nova": [
       "Nova Helmet",
       "Nova Prime Helmet",
       "Nova Flux Helmet",
+      "Nova Quantum Helmet",
+      "Nova Slipstream Helmet",
       "Nova Fusion Helmet",
       "Nova Lamia Helmet",
-      "Nova Slipstream Helmet",
-      "Nova Tachyon Helmet"
+      "Nova Tachyon Helmet",
+      "Nova Asuri Helmet",
+      "Nova Atomica Helmet",
+      "Nova Cygni Helmet",
+      "Nova Device Helmet",
+      "Nova Gnova Helmet",
+      "Nova Lamia Helmet",
+      "Nova Stinger Helmet",
+      "Nova Corpra Helmet",
+      "Nova Graxx Helmet",
+      "Nova Mithra Helmet",
+      "Nova Visage Helmet"
     ],
     "Nyx": [
       "Nyx Helmet",
       "Nyx Prime Helmet",
-      "Nyx Ampulex Helmet",
       "Nyx Menticide Helmet",
-      "Nyx Vespa Helmet"
+      "Nyx Vespa Helmet",
+      "Nyx Ampulex Helmet",
+      "Nyx Nemesis Helmet",
+      "Nyx Pasithea Helmet",
+      "Nyx Ascophilia Helmet",
+      "Nyx Athena Helmet",
+      "Nyx Aurelia Helmet",
+      "Nyx Aures Helmet",
+      "Nyx Carnifex Helmet",
+      "Nyx Graxx Helmet",
+      "Nyx Saikou Helmet",
+      "Nyx Techopsyche Helmet"
     ],
     "Oberon": [
       "Oberon Helmet",
       "Oberon Prime Helmet",
+      "Oberon Oryx Helmet",
+      "Oberon Markhor Helmet",
       "Oberon Destrier Helmet",
       "Oberon Ferosh Helmet",
-      "Oberon Markhor Helmet",
-      "Oberon Taurus Helmet"
+      "Oberon Taurus Helmet",
+      "Oberon Feyarch Helmet",
+      "Oberon Blade of the Lotus Helmet",
+      "Oberon Wendigo Helmet",
+      "Oberon Youkai Helmet"
     ],
-    "Octavia": ["Octavia Helmet", "Octavia Cadenza Helmet"],
-    "Revenant": ["Revenant Helmet", "Revenant Immortuos Helmet"],
+    "Octavia": [
+      "Octavia Helmet",
+      "Octavia Prime Helmet",
+      "Octavia Cadenza Helmet",
+      "Octavia Diva Helmet"
+    ],
+    "Protea": ["Protea Skin", "Protea Mavv Helmet", "Protea Telema Helmet"],
+    "Revenant": [
+      "Revenant Helmet",
+      "Revenant Vania Helmet",
+      "Revenant Immortuos Helmet"
+    ],
     "Rhino": [
       "Rhino Helmet",
       "Rhino Prime Helmet",
-      "Rhino Teutonic Helmet",
       "Rhino Thrak Helmet",
       "Rhino Vanguard Helmet",
-      "Rhino Warlust Helmet"
+      "Rhino Teutonic Helmet",
+      "Rhino Warlust Helmet",
+      "Rhino Palatine Helmet",
+      "Rhino Rubedo Helmet",
+      "Rhino Gilt Helmet",
+      "Rhino Graxx Helmet",
+      "Rhino Vojnik Helmet",
+      "Rhino Blade of the Lotus Helmet",
+      "Rhino Ion Helmet",
+      "Rhino Mastodon Helmet",
+      "Rhino Scarab Sect Helmet"
     ],
     "Saryn": [
       "Saryn Helmet",
       "Saryn Prime Helmet",
-      "Saryn Belladonna Helmet",
+      "Saryn Hemlock Helmet",
       "Saryn Chlora Helmet",
-      "Saryn Hemlock Helmet"
+      "Saryn Belladonna Helmet",
+      "Saryn Orphid Helmet",
+      "Saryn Nita's Moda Helmet",
+      "Saryn Amalgama Helmet",
+      "Saryn Blade of the Lotus Helmet",
+      "Saryn Graxx Helmet",
+      "Saryn Integra Helmet",
+      "Saryn Ion Helmet",
+      "Saryn Napellus Helmet",
+      "Saryn Night Hunter Helmet",
+      "Saryn Velenosa Helmet"
     ],
-    "Titania": ["Titania Helmet", "Titania Aurai Helmet", "Titania Mab Helmet"],
+    "Titania": [
+      "Titania Helmet",
+      "Titania Prime Helmet",
+      "Titania Aurai Helmet",
+      "Titania Mab Helmet",
+      "Titania Viraji Helmet",
+      "Titania Empress Helmet",
+      "Titania Solstice Helmet",
+      "Titania Lympharis Helmet",
+      "Titania Unseelie Helmet"
+    ],
     "Trinity": [
       "Trinity Helmet",
       "Trinity Prime Helmet",
-      "Trinity Ancyra Helmet",
       "Trinity Aura Helmet",
       "Trinity Meridian Helmet",
-      "Trinity Messiah Helmet"
+      "Trinity Ancyra Helmet",
+      "Trinity Messiah Helmet",
+      "Trinity Strega Helmet",
+      "Trinity Blade of the Lotus Helmet",
+      "Trinity Knightess Helmet",
+      "Trinity Nightingale Helmet"
     ],
     "Valkyr": [
       "Valkyr Helmet",
       "Valkyr Prime Helmet",
       "Valkyr Bastet Helmet",
+      "Valkyr Kara Helmet",
       "Valkyr Cheetah Helmet",
-      "Valkyr Ion Helmet",
-      "Valkyr Kara Helmet"
+      "Valkyr Ion Helmet"
     ],
     "Vauban": [
       "Vauban Helmet",
       "Vauban Prime Helmet",
+      "Vauban Esprit Helmet",
+      "Vauban Gambit Helmet",
       "Vauban Armistice Helmet",
       "Vauban Chapelon Helmet",
-      "Vauban Esprit Helmet",
-      "Vauban Gambit Helmet"
+      "Vauban Citadel Helmet",
+      "Vauban Phased Helmet",
+      "Vauban Graxx Helmet",
+      "Vauban Suppressor Helmet"
     ],
     "Volt": [
       "Volt Helmet",
       "Volt Prime Helmet",
-      "Volt Arrester Helmet",
-      "Volt Pulse Helmet",
-      "Volt Relay Helmet",
       "Volt Storm Helmet",
-      "Volt Thales Helmet"
+      "Volt Pulse Helmet",
+      "Volt Arrester Helmet",
+      "Volt Relay Helmet",
+      "Volt Thales Helmet",
+      "Volt Proto Helmet",
+      "Volt Amethyst Helmet",
+      "Volt Prominence Helmet",
+      "Volt Amp Helmet",
+      "Volt Capacitor Helmet",
+      "Volt Fulgorsor Helmet",
+      "Volt Graxx Helmet",
+      "Volt Zener Helmet"
     ],
-    "Wisp": ["Wisp Helmet", "Wisp Damas Helmet", "Wisp Gaoth Helmet"],
+    "Wisp": [
+      "Wisp Helmet",
+      "Wisp Gaoth Helmet",
+      "Wisp Damas Helmet",
+      "Wisp Delusion Helmet",
+      "Wisp Graxx Helmet"
+    ],
     "Wukong": [
       "Wukong Helmet",
       "Wukong Prime Helmet",
       "Wukong Dasheng Helmet",
       "Wukong Macak Helmet",
-      "Wukong Xingzhe Helmet"
+      "Wukong Xingzhe Helmet",
+      "Wukong Samadhi Helmet",
+      "Wukong Auman Helmet",
+      "Wukong Mithra Helmet"
     ],
+    "Xaku": ["Xaku Helmet", "Xaku Kintsu Helmet"],
     "Zephyr": [
       "Zephyr Helmet",
       "Zephyr Prime Helmet",
       "Zephyr Cierzo Helmet",
+      "Zephyr Tengu Helmet",
       "Zephyr Migisi Helmet",
-      "Zephyr Monsoon Helmet",
-      "Zephyr Tengu Helmet"
+      "Zephyr Monsoon Helmet"
     ]
   }
 }

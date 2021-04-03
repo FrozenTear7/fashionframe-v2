@@ -2,307 +2,360 @@
   "skins": {
     "Ash": [
       "Ash Skin",
+      "Ash Prime Skin",
+      "Ash Immortal Skin",
+      "Ash Shroud Skin",
       "Ash Koga Skin",
       "Ash Bai Hu Skin",
-      "Ash Tsukuyomi Skin",
-      "Ash Immortal Skin",
-      "Ash Prime Skin"
+      "Ash Ichneumon Skin",
+      "Ash Ryuga Skin",
+      "Ash Tsukuyomi Skin"
     ],
     "Atlas": [
       "Atlas Skin",
-      "Atlas Graxx Skin",
-      "Atlas Monolith Skin",
+      "Atlas Prime Skin",
       "Atlas Karst Skin",
-      "Atlas Prime Skin"
+      "Atlas Graxx Skin",
+      "Atlas Monolith Skin"
     ],
     "Banshee": [
       "Banshee Skin",
+      "Banshee Prime Skin",
+      "Banshee Immortal Skin",
       "Banshee Soprana Skin",
       "Banshee Blade of the Lotus Skin",
-      "Banshee Sonority Skin",
-      "Banshee Immortal Skin",
-      "Banshee Prime Skin"
+      "Banshee Sonority Skin"
     ],
-    "Baruuk": ["Baruuk Skin"],
+    "Baruuk": ["Baruuk Skin", "Baruuk Bedouin Skin", "Baruuk Graxx Skin"],
     "Chroma": [
       "Chroma Skin",
+      "Chroma Prime Skin",
+      "Chroma Immortal Skin",
       "Chroma Dynasty Skin",
-      "Chroma Drevni Skin",
-      "Chroma Vojnik Skin",
       "Chroma Graxx Skin",
+      "Chroma Morkai Skin",
       "Chroma Thyrus Skin",
-      "Chroma Prime Skin"
+      "Chroma Drevni Skin",
+      "Chroma Vojnik Skin"
     ],
     "Ember": [
       "Ember Skin",
+      "Ember Prime Skin",
+      "Ember Immortal Skin",
       "Ember Vermillion Skin",
       "Ember Graxx Skin",
       "Ember Ignition Skin",
-      "Ember Magesty Skin",
-      "Ember Prime Skin"
+      "Ember Magesty Skin"
     ],
     "Equinox": [
       "Equinox Skin",
-      "Equinox Insomnia Skin",
-      "Equinox Megaera Skin",
-      "Equinox Divisa Skin",
+      "Equinox Prime Skin",
       "Equinox Antonym Skin",
-      "Equinox Prime Skin"
+      "Equinox Divisa Skin",
+      "Equinox Insomnia Skin",
+      "Equinox Megaera Skin"
     ],
     "Excalibur": [
       "Excalibur Skin",
+      "Excalibur Prime Skin",
+      "Excalibur Umbra Skin",
+      "Excalibur Immortal Skin",
       "Excalibur Dex Skin",
       "Excalibur Prisma Skin",
       "Excalibur Proto-Armor Skin",
       "Excalibur Zato Skin",
-      "Excalibur Sentient Slayer Skin",
-      "Excalibur Apex Skin",
-      "Excalibur Vespula Skin",
-      "Excalibur Corpra Skin",
-      "Excalibur Caduto Skin",
-      "Excalibur Exaltation Skin",
-      "Excalibur Graxx Skin",
+      "Excalibur Amethyst Skin",
       "Excalibur Jade Skin",
       "Excalibur Obsidian Skin",
       "Excalibur Obsidian Azura Skin",
-      "Excalibur Opal Skin",
-      "Excalibur Ronin Skin",
-      "Excalibur Twitch Skin",
       "Excalibur Onyx Skin",
-      "Excalibur Immortal Skin",
-      "Excalibur Umbra Skin",
-      "Excalibur Prime Skin"
+      "Excalibur Opal Skin",
+      "Excalibur Prominence Skin",
+      "Excalibur Blade of the Lotus Skin",
+      "Excalibur Caduto Skin",
+      "Excalibur Corpra Skin",
+      "Excalibur Exaltation Skin",
+      "Excalibur Graxx Skin",
+      "Excalibur Ion Skin",
+      "Excalibur Ronin Skin"
     ],
     "Frost": [
       "Frost Skin",
+      "Frost Prime Skin",
+      "Frost Immortal Skin",
+      "Frost Festive Skin",
       "Frost Harka Skin",
       "Frost Grost Skin",
       "Frost Hailstorm Skin",
       "Frost Vojnik Skin",
-      "Frost Festive Skin",
       "Frost Emperor Skin",
-      "Frost Ion Skin",
-      "Frost Prime Skin"
+      "Frost Hisame Skin",
+      "Frost Ion Skin"
     ],
-    "Gara": ["Gara Skin", "Gara Zamariu Skin"],
-    "Garuda": ["Garuda Skin"],
-    "Gauss": ["Gauss Skin"],
+    "Gara": ["Gara Skin", "Gara Kaleida Skin", "Gara Zamariu Skin"],
+    "Garuda": [
+      "Garuda Skin",
+      "Garuda Hinsa Skin",
+      "Garuda Successor Skin",
+      "Garuda Tengushin Skin",
+      "Garuda Tiamat Skin"
+    ],
+    "Gauss": ["Gauss Skin", "Gauss Agito Skin", "Gauss Graxx Skin"],
     "Grendel": ["Grendel Skin"],
-    "Harrow": ["Harrow Skin", "Harrow Reliquary Skin", "Harrow Graxx Skin"],
-    "Hildryn": ["Hildryn skin"],
+    "Harrow": [
+      "Harrow Skin",
+      "Harrow Reliquary Skin",
+      "Harrow Graxx Skin",
+      "Harrow Veles Skin"
+    ],
+    "Hildryn": ["Hildryn skin", "Hildryn Sigrun Skin"],
     "Hydroid": [
       "Hydroid Skin",
-      "Hydroid Graxx Skin",
-      "Hydroid Poseidon Skin",
+      "Hydroid Prime Skin",
       "Hydroid Immortal Skin",
-      "Hydroid Prime Skin"
+      "Hydroid Rakkam Skin",
+      "Hydroid Graxx Skin",
+      "Hydroid Poseidon Skin"
     ],
-    "Inaros": ["Inaros Skin", "Inaros Horus Skin", "Inaros Ramses Skin"],
+    "Inaros": [
+      "Inaros Skin",
+      "Inaros Prime Skin",
+      "Inaros Ramses Skin",
+      "Inaros Horus Skin"
+    ],
     "Ivara": [
       "Ivara Skin",
+      "Ivara Prime Skin",
       "Ivara Skathi Skin",
-      "Ivara Arcuata Skin",
-      "Ivara Youkai Skin",
-      "Ivara Kuvael Skin",
       "Ivara Obsidian Skin",
-      "Ivara Prime Skin"
+      "Ivara Arcuata Skin",
+      "Ivara Astrea Skin",
+      "Ivara Graxx Skin",
+      "Ivara Kuvael Huntress Skin",
+      "Ivara Youkai Skin",
+      "Ivara Zamariu Skin"
     ],
-    "Khora": ["Khora Skin", "Khora Mithra Skin"],
+    "Khora": [
+      "Khora Skin",
+      "Khora Urushu Skin",
+      "Khora Mithra Skin",
+      "Khora Miyabi Skin"
+    ],
+    "Lavos": ["Lavos Skin"],
     "Limbo": [
       "Limbo Skin",
-      "Limbo Graxx Skin",
+      "Limbo Prime Skin",
+      "Limbo Immortal Skin",
       "Limbo Limina Skin",
       "Limbo Vasiona Skin",
-      "Limbo Vistyxio Skin",
-      "Limbo Immortal Skin",
-      "Limbo Prime Skin"
+      "Limbo Graxx Skin",
+      "Limbo Vistyxio Skin"
     ],
     "Loki": [
       "Loki Skin",
+      "Loki Prime Skin",
+      "Loki Immortal Skin",
       "Loki Knave Skin",
       "Loki Erebus Skin",
-      "Loki Kodama Skin",
       "Loki Incubus Skin",
-      "Loki Immortal Skin",
-      "Loki Prime Skin"
+      "Loki Jotunheim Skin",
+      "Loki Kodama Skin"
     ],
     "Mag": [
       "Mag Skin",
+      "Mag Prime Skin",
+      "Mag Immortal Skin",
       "Mag Pneuma Skin",
+      "Mag Ametyst Skin",
       "Mag Knaita Skin",
       "Mag Alata Skin",
+      "Mag Corpra Skin",
       "Mag Ferro Skin",
       "Mag Graxx Skin",
-      "Mag Orbit Skin",
-      "Mag Immortal Skin",
-      "Mag Prime Skin"
+      "Mag Orbit Skin"
     ],
     "Mesa": [
       "Mesa Skin",
+      "Mesa Prime Skin",
+      "Mesa Immortal Skin",
       "Mesa Presidio Skin",
       "Mesa Devil Ranger Skin",
       "Mesa Graxx Skin",
-      "Mesa Marlet Skin",
       "Mesa Kudegra Skin",
-      "Mesa Immortal Skin",
-      "Mesa Prime Skin"
+      "Mesa Marlet Skin"
     ],
     "Mirage": [
       "Mirage Skin",
+      "Mirage Prime Skin",
+      "Mirage Immortal Skin",
+      "Mirage Winter Skin",
       "Mirage Graxx Skin",
       "Mirage Sigyn Skin",
-      "Mirage Morgaine Skin",
+      "Mirage Kitsune Skin",
+      "Mirage Kuvael Jester Skin",
       "Mirage Mithra Skin",
-      "Mirage Winter Skin",
-      "Mirage Immortal Skin",
-      "Mirage Prime Skin"
+      "Mirage Morgaine Skin"
     ],
     "Nekros": [
       "Nekros Skin",
-      "Nekros Irkalla Skin",
-      "Nekros Graxx Skin",
+      "Nekros Prime Skin",
       "Nekros Immortal Skin",
-      "Nekros Prime Skin"
+      "Nekros Irkalla Skin",
+      "Nekros Graxx Skin"
     ],
     "Nezha": [
       "Nezha Skin",
+      "Nezha Prime Skin",
       "Nezha Empyrean Skin",
       "Nezha Devine Skin",
-      "Nezha Yaksha Skin",
-      "Nezha Dracun Skin"
+      "Nezha Dracun Skin",
+      "Nezha Yaksha Skin"
     ],
-    "Nidus": ["Nidus Skin", "Nidus Phryke Skin"],
+    "Nidus": ["Nidus Skin", "Nidus Phryke Skin", "Nidus Night Hunter Skin"],
     "Nova": [
       "Nova Skin",
+      "Nova Prime Skin",
+      "Nova Immortal Skin",
       "Nova Asuri Skin",
-      "Nova Corpra Skin",
-      "Nova Lamia Skin",
+      "Nova Atomica Skin",
       "Nova Cygni Skin",
       "Nova Device Skin",
       "Nova Gnova Skin",
+      "Nova Lamia Skin",
       "Nova Stinger Skin",
+      "Nova Corpra Skin",
       "Nova Graxx Skin",
-      "Nova Visage Skin",
-      "Nova Immortal Skin",
-      "Nova Prime Skin"
+      "Nova Mithra Skin",
+      "Nova Visage Skin"
     ],
     "Nyx": [
       "Nyx Skin",
+      "Nyx Prime Skin",
+      "Nyx Immortal Skin",
       "Nyx Nemesis Skin",
       "Nyx Pasithea Skin",
       "Nyx Ascophilia Skin",
       "Nyx Athena Skin",
       "Nyx Aurelia Skin",
+      "Nyx Aures Skin",
       "Nyx Carnifex Skin",
       "Nyx Graxx Skin",
       "Nyx Saikou Skin",
-      "Nyx Techopsyche Skin",
-      "Nyx Immortal Skin",
-      "Nyx Prime Skin"
+      "Nyx Techopsyche Skin"
     ],
     "Oberon": [
       "Oberon Skin",
+      "Oberon Prime Skin",
+      "Oberon Immortal Skin",
       "Oberon Feyarch Skin",
       "Oberon Blade of the Lotus Skin",
       "Oberon Wendigo Skin",
-      "Oberon Immortal Skin",
-      "Oberon Prime Skin"
+      "Oberon Youkai Skin"
     ],
-    "Octavia": ["Octavia Skin", "Octavia Diva Skin", "Octavia Maestra Skin"],
+    "Octavia": [
+      "Octavia Skin",
+      "Octavia Prime Skin",
+      "Octavia Maestra Skin",
+      "Octavia Diva Skin"
+    ],
+    "Protea": ["Protea Skin"],
     "Revenant": ["Revenant Skin"],
     "Rhino": [
       "Rhino Skin",
+      "Rhino Prime Skin",
+      "Rhino Immortal Skin",
       "Rhino Palatine Skin",
-      "Rhino Graxx Skin",
-      "Rhino Vojnik Skin",
-      "Rhino Mastodon Skin",
-      "Rhino Scarab Sect Skin",
       "Rhino Rubedo Skin",
       "Rhino Gilt Skin",
+      "Rhino Graxx Skin",
+      "Rhino Vojnik Skin",
       "Rhino Blade of the Lotus Skin",
-      "Rhino Immortal Skin",
-      "Rhino Prime Skin"
+      "Rhino Ion Skin",
+      "Rhino Mastodon Skin",
+      "Rhino Scarab Sect Skin"
     ],
     "Saryn": [
       "Saryn Skin",
+      "Saryn Prime Skin",
+      "Saryn Immortal Skin",
       "Saryn Orphid Skin",
       "Saryn Nita's Moda Skin",
+      "Saryn Amalgama Skin",
+      "Saryn Blade of the Lotus Skin",
       "Saryn Graxx Skin",
       "Saryn Integra Skin",
-      "Saryn Amalgama Skin",
+      "Saryn Ion Skin",
       "Saryn Napellus Skin",
-      "Saryn Velenosa Skin",
-      "Saryn Immortal Skin",
-      "Saryn Prime Skin"
+      "Saryn Night Hunter Skin",
+      "Saryn Velenosa Skin"
     ],
     "Titania": [
       "Titania Skin",
+      "Titania Prime Skin",
       "Titania Empress Skin",
       "Titania Solstice Skin",
-      "Titania Unseelie Skin",
-      "Titania Lympharis Skin"
+      "Titania Lympharis Skin",
+      "Titania Unseelie Skin"
     ],
     "Trinity": [
       "Trinity Skin",
+      "Trinity Prime Skin",
+      "Trinity Immortal Skin",
       "Trinity Strega Skin",
-      "Trinity Knightess Skin",
       "Trinity Blade of the Lotus Skin",
-      "Trinity Prime Skin"
+      "Trinity Knightess Skin",
+      "Trinity Nightingale Skin"
     ],
     "Valkyr": [
       "Valkyr Skin",
+      "Valkyr Prime Skin",
+      "Valkyr Immortal Skin",
       "Valkyr Gersemi Skin",
       "Valkyr Delusion Skin",
       "Valkyr Graxx Skin",
       "Valkyr Leonessa Skin",
-      "Valkyr Mithra Skin",
-      "Valkyr Immortal Skin",
-      "Valkyr Prime Skin"
+      "Valkyr Mithra Skin"
     ],
     "Vauban": [
       "Valkyr Skin",
-      "Valkyr Gersemi Skin",
-      "Valkyr Delusion Skin",
-      "Valkyr Graxx Skin",
-      "Valkyr Leonessa Skin",
-      "Valkyr Mithra Skin",
-      "Valkyr Immortal Skin",
-      "Valkyr Prime Skin",
-      "Vauban Skin",
-      "Vauban Suppressor Skin",
-      "Vauban Graxx Skin",
-      "Vauban Phased Skin",
+      "Vauban Prime Skin",
       "Vauban Immortal Skin",
-      "Vauban Prime Skin"
+      "Vauban Citadel Skin",
+      "Vauban Phased Skin",
+      "Vauban Graxx Skin",
+      "Vauban Suppressor Skin"
     ],
     "Volt": [
       "Volt Skin",
+      "Volt Prime Skin",
+      "Volt Immortal Skin",
       "Volt Proto Skin",
+      "Volt Amethyst Skin",
+      "Volt Prominence Skin",
       "Volt Amp Skin",
       "Volt Capacitor Skin",
       "Volt Fulgorsor Skin",
       "Volt Graxx Skin",
-      "Volt Zener Skin",
-      "Volt Twitch Skin",
-      "Volt Immortal Skin",
-      "Volt Prime Skin"
+      "Volt Zener Skin"
     ],
-    "Wisp": ["Wisp Skin", "Wisp Graxx Skin"],
+    "Wisp": ["Wisp Skin", "Wisp Delusion Skin", "Wisp Graxx Skin"],
     "Wukong": [
       "Wukong Skin",
+      "Wukong Prime Skin",
       "Wukong Samadhi Skin",
       "Wukong Auman Skin",
-      "Wukong Mithra Skin",
-      "Wukong Prime Skin"
+      "Wukong Mithra Skin"
     ],
+    "Xaku": ["Xaku Skin"],
     "Zephyr": [
       "Zephyr Skin",
+      "Zephyr Prime Skin",
+      "Zephyr Immortal Skin",
       "Zephyr Skeiron Skin",
+      "Zephyr Blade of the Lotus Skin",
       "Zephyr Graxx Skin",
       "Zephyr Hagoromo Skin",
-      "Zephyr Strafe Skin",
-      "Zephyr Immortal Skin",
-      "Zephyr Prime"
+      "Zephyr Strafe Skin"
     ]
   }
 }
