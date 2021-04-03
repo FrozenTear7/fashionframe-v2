@@ -1,9 +1,3 @@
-/* eslint-disable react/require-default-props */
-/* eslint-disable @typescript-eslint/ban-types */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable @typescript-eslint/unbound-method */
 import axios from 'axios';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
@@ -15,7 +9,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { Grid, TextField } from '@material-ui/core';
+import { Container, Grid, TextField } from '@material-ui/core';
 import { WarframeData } from '../../types/WarframeData';
 import Error from '../Utils/Error';
 import newSetupSchema from '../../validation/newSetupSchema';
@@ -26,7 +20,7 @@ import NewSetupAttachmentsSection from './NewSetupAttachmentsSections';
 import NewSetupTabPanel from './NewSetupTabPanel';
 // import ColorSchemeSubsection from './ColorSchemeSubsection';
 
-const a11yProps = (index: number) => {
+const a11yProps = (index: number): { id: string; 'aria-controls': string } => {
   return {
     id: `newsetup-tab-${index}`,
     'aria-controls': `newsetup-tabpanel-${index}`,
@@ -39,7 +33,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     backgroundColor: theme.palette.background.paper,
   },
   paper: {
-    marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -132,7 +125,10 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+  const handleChange = (
+    _event: React.ChangeEvent<unknown>,
+    newValue: number
+  ): void => {
     setValue(newValue);
   };
 
@@ -140,9 +136,7 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
   console.log(watch());
 
   return (
-    <div className="NewSetupForm">
-      {createSetupError && <Error error={createSetupError} />}
-
+    <Container>
       <FormProvider {...methods}>
         <div className={classes.paper}>
           <Typography component="h1" variant="h5">
@@ -153,142 +147,155 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
             className={classes.form}
             noValidate
           >
-            <Grid container spacing={3} direction="column">
-              <Grid container>
-                <Grid container item md={4} direction="column">
-                  <Grid item md={12}>
-                    <Controller
-                      name="name"
-                      control={control}
-                      render={({ field }): JSX.Element => (
-                        <TextField
-                          {...field}
-                          variant="outlined"
-                          margin="normal"
-                          required
-                          fullWidth
-                          id="name"
-                          label="Name"
-                          error={!!errors.name?.message}
-                          helperText={
-                            errors.name?.message ? errors.name?.message : ''
-                          }
-                          autoFocus
-                        />
-                      )}
-                    />
-                  </Grid>
-                  <Grid item md={12}>
-                    <Controller
-                      name="description"
-                      control={control}
-                      render={({ field }): JSX.Element => (
-                        <TextField
-                          {...field}
-                          variant="outlined"
-                          margin="normal"
-                          required
-                          multiline
-                          rowsMax={5}
-                          fullWidth
-                          id="description"
-                          label="Description"
-                          error={!!errors.description?.message}
-                          helperText={
-                            errors.description?.message
-                              ? errors.description?.message
-                              : ''
-                          }
-                        />
-                      )}
-                    />
-                  </Grid>
-                </Grid>
-                <Grid container item md={8} justify="center">
-                  <input
-                    {...register('screenshotImage')}
-                    id="screenshotImage"
-                    name="screenshotImage"
-                    type="file"
-                    accept="image/*"
-                    style={{ display: 'none' }}
+            <Grid container spacing={3}>
+              <Grid container item md={4} direction="column">
+                <Grid item md={12}>
+                  <Controller
+                    name="name"
+                    control={control}
+                    render={({ field }): JSX.Element => (
+                      <TextField
+                        {...field}
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="name"
+                        label="Name"
+                        error={!!errors.name?.message}
+                        helperText={
+                          errors.name?.message ? errors.name?.message : ''
+                        }
+                        autoFocus
+                      />
+                    )}
                   />
-                  <label htmlFor="screenshotImage">
-                    <Button
-                      component="span"
-                      variant="contained"
-                      color="primary"
-                      className={classes.submit}
-                    >
-                      Upload screenshot
-                    </Button>
-                  </label>
+                </Grid>
+                <Grid item md={12}>
+                  <Controller
+                    name="description"
+                    control={control}
+                    render={({ field }): JSX.Element => (
+                      <TextField
+                        {...field}
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        multiline
+                        rowsMax={5}
+                        fullWidth
+                        id="description"
+                        label="Description"
+                        error={!!errors.description?.message}
+                        helperText={
+                          errors.description?.message
+                            ? errors.description?.message
+                            : ''
+                        }
+                      />
+                    )}
+                  />
                 </Grid>
               </Grid>
-              <Grid item md={12}>
-                <AppBar position="static">
-                  <Tabs
-                    value={value}
-                    onChange={handleChange}
-                    aria-label="New setup components"
-                    variant="fullWidth"
+              <Grid container item md={8} justify="center">
+                <input
+                  {...register('screenshotImage')}
+                  id="screenshotImage"
+                  name="screenshotImage"
+                  type="file"
+                  accept="image/*"
+                  style={{ display: 'none' }}
+                />
+                <label htmlFor="screenshotImage">
+                  <Button
+                    component="span"
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
                   >
-                    <Tab label="Main" {...a11yProps(0)} />
-                    <Tab label="Attachments" {...a11yProps(1)} />
-                    <Tab label="Syandana" {...a11yProps(2)} />
-                  </Tabs>
-                </AppBar>
-                <NewSetupTabPanel value={value} index={0}>
-                  <Grid container>
-                    <Grid item md={4}>
-                      <NewSetupSetupSection
-                        frames={frames}
-                        helmets={helmets}
-                        skins={skins}
-                      />
-                    </Grid>
+                    Upload screenshot
+                  </Button>
+                </label>
+              </Grid>
+            </Grid>
+            <Grid item md={12}>
+              <AppBar position="static">
+                <Tabs
+                  value={value}
+                  onChange={handleChange}
+                  aria-label="New setup components"
+                  variant="fullWidth"
+                >
+                  <Tab label="Main" {...a11yProps(0)} />
+                  <Tab label="Attachments" {...a11yProps(1)} />
+                  <Tab label="Syandana" {...a11yProps(2)} />
+                </Tabs>
+              </AppBar>
+              <NewSetupTabPanel value={value} index={0}>
+                <Grid container>
+                  <Grid item md={4}>
+                    <NewSetupSetupSection
+                      frames={frames}
+                      helmets={helmets}
+                      skins={skins}
+                    />
+                  </Grid>
 
-                    <Grid item md={8}>
-                      Colors
-                      {/* <ColorSchemeSubsection
+                  <Grid item md={8}>
+                    Colors
+                    {/* <ColorSchemeSubsection
                   dataPrefix="colorScheme"
                   colorPickers={colorPickers}
                 /> */}
-                    </Grid>
                   </Grid>
-                </NewSetupTabPanel>
-                <NewSetupTabPanel value={value} index={1}>
-                  <NewSetupAttachmentsSection
-                    armAttachments={armAttachments}
-                    chestAttachments={chestAttachments}
-                    ephemeras={ephemeras}
-                    legAttachments={legAttachments}
-                  />
+                </Grid>
+              </NewSetupTabPanel>
+              <NewSetupTabPanel value={value} index={1}>
+                <Grid container>
+                  <Grid item md={4}>
+                    <NewSetupAttachmentsSection
+                      armAttachments={armAttachments}
+                      chestAttachments={chestAttachments}
+                      ephemeras={ephemeras}
+                      legAttachments={legAttachments}
+                    />
+                  </Grid>
 
-                  {/* <ColorSchemeSubsection
-                  dataPrefix="attachments.colorScheme"
-                  colorPickers={colorPickers}
-                /> */}
-                </NewSetupTabPanel>
-                <NewSetupTabPanel value={value} index={2}>
-                  <NewSetupSyandanaSection syandanas={syandanas} />
+                  <Grid item md={8}>
+                    Colors
+                    {/* <ColorSchemeSubsection
+dataPrefix="attachments.colorScheme"
+colorPickers={colorPickers}
+/> */}
+                  </Grid>
+                </Grid>
+              </NewSetupTabPanel>
+              <NewSetupTabPanel value={value} index={2}>
+                <Grid container>
+                  <Grid item md={4}>
+                    <NewSetupSyandanaSection syandanas={syandanas} />
+                  </Grid>
 
-                  {/* <ColorSchemeSubsection
+                  <Grid item md={8}>
+                    Colors
+                    {/* <ColorSchemeSubsection
                   dataPrefix="syandana.colorScheme"
                   colorPickers={colorPickers}
                 /> */}
-                </NewSetupTabPanel>
-              </Grid>
-              <Grid item md={12} container justify="center">
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  className={classes.submit}
-                >
-                  Create
-                </Button>
-              </Grid>
+                  </Grid>
+                </Grid>
+              </NewSetupTabPanel>
+            </Grid>
+            <Grid item md={12} container justify="center">
+              {createSetupError && <Error error={createSetupError} />}
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                Create
+              </Button>
             </Grid>
 
             {/* <div className={classes.root}>
@@ -297,7 +304,7 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
           </form>
         </div>
       </FormProvider>
-    </div>
+    </Container>
   );
 };
 
