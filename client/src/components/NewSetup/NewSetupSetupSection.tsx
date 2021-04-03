@@ -5,11 +5,11 @@ import * as React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import SelectField from '../Utils/SelectField';
 
-type SetupSectionProps = {
+interface SetupSectionProps {
   frames: string[];
   helmets: { [frame: string]: string[] };
   skins: { [frame: string]: string[] };
-};
+}
 
 const NewSetupSetupSection: React.VFC<SetupSectionProps> = ({
   frames,

@@ -1,11 +1,13 @@
-import { CircularProgress } from '@material-ui/core';
+import { Box, CircularProgress } from '@material-ui/core';
 import * as React from 'react';
 
 const Loading: React.VFC = () => {
   return (
-    <div className="Loading">
-      <CircularProgress />
-    </div>
+    <Box display="flex" alignItems="center" justifyContent="center">
+      <Box>
+        <CircularProgress />
+      </Box>
+    </Box>
   );
 };
 

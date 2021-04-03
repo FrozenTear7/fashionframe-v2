@@ -3,12 +3,12 @@ import * as React from 'react';
 import { useFormContext } from 'react-hook-form';
 import SelectField from '../Utils/SelectField';
 
-type AttachmentsSectionProps = {
+interface AttachmentsSectionProps {
   armAttachments: string[];
   chestAttachments: string[];
   ephemeras: string[];
   legAttachments: string[];
-};
+}
 
 const NewSetupAttachmentsSection: React.VFC<AttachmentsSectionProps> = ({
   armAttachments,

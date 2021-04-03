@@ -31,7 +31,7 @@ export interface NewSetup extends SetupBase {
   screenshotImage: File;
 }
 
-export type NewSetupFormData = {
+export interface NewSetupFormData {
   name: string;
   description: string;
   frame: string;
@@ -41,4 +41,4 @@ export type NewSetupFormData = {
   attachments: Omit<Attachments, '_id'>;
   syandana: Omit<Syandana, '_id'>;
   colorScheme: Omit<ColorScheme, '_id'>;
-};
+}

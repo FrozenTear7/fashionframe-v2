@@ -13,10 +13,9 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { TextField } from '@material-ui/core';
+import { Grid, TextField } from '@material-ui/core';
 import { WarframeData } from '../../types/WarframeData';
 import Error from '../Utils/Error';
 import newSetupSchema from '../../validation/newSetupSchema';
@@ -24,34 +23,13 @@ import { NewSetupFormData } from '../../types/Setup';
 import NewSetupSetupSection from './NewSetupSetupSection';
 import NewSetupSyandanaSection from './NewSetupSyandanaSection';
 import NewSetupAttachmentsSection from './NewSetupAttachmentsSections';
+import NewSetupTabPanel from './NewSetupTabPanel';
 // import ColorSchemeSubsection from './ColorSchemeSubsection';
-
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}
-
-const TabPanel = (props: TabPanelProps) => {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && <Box p={3}>{children}</Box>}
-    </div>
-  );
-};
 
 const a11yProps = (index: number) => {
   return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    id: `newsetup-tab-${index}`,
+    'aria-controls': `newsetup-tabpanel-${index}`,
   };
 };
 
@@ -175,123 +153,147 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
             className={classes.form}
             noValidate
           >
-            <Controller
-              name="name"
-              control={control}
-              render={({ field }): JSX.Element => (
-                <TextField
-                  {...field}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="name"
-                  label="Name"
-                  error={!!errors.name?.message}
-                  helperText={errors.name?.message ? errors.name?.message : ''}
-                  autoFocus
-                />
-              )}
-            />
-            <Controller
-              name="description"
-              control={control}
-              render={({ field }): JSX.Element => (
-                <TextField
-                  {...field}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  multiline
-                  fullWidth
-                  id="description"
-                  label="Description"
-                  error={!!errors.description?.message}
-                  helperText={
-                    errors.description?.message
-                      ? errors.description?.message
-                      : ''
-                  }
-                />
-              )}
-            />
+            <Grid container spacing={3} direction="column">
+              <Grid container>
+                <Grid container item md={4} direction="column">
+                  <Grid item md={12}>
+                    <Controller
+                      name="name"
+                      control={control}
+                      render={({ field }): JSX.Element => (
+                        <TextField
+                          {...field}
+                          variant="outlined"
+                          margin="normal"
+                          required
+                          fullWidth
+                          id="name"
+                          label="Name"
+                          error={!!errors.name?.message}
+                          helperText={
+                            errors.name?.message ? errors.name?.message : ''
+                          }
+                          autoFocus
+                        />
+                      )}
+                    />
+                  </Grid>
+                  <Grid item md={12}>
+                    <Controller
+                      name="description"
+                      control={control}
+                      render={({ field }): JSX.Element => (
+                        <TextField
+                          {...field}
+                          variant="outlined"
+                          margin="normal"
+                          required
+                          multiline
+                          rowsMax={5}
+                          fullWidth
+                          id="description"
+                          label="Description"
+                          error={!!errors.description?.message}
+                          helperText={
+                            errors.description?.message
+                              ? errors.description?.message
+                              : ''
+                          }
+                        />
+                      )}
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container item md={8} justify="center">
+                  <input
+                    {...register('screenshotImage')}
+                    id="screenshotImage"
+                    name="screenshotImage"
+                    type="file"
+                    accept="image/*"
+                    style={{ display: 'none' }}
+                  />
+                  <label htmlFor="screenshotImage">
+                    <Button
+                      component="span"
+                      variant="contained"
+                      color="primary"
+                      className={classes.submit}
+                    >
+                      Upload screenshot
+                    </Button>
+                  </label>
+                </Grid>
+              </Grid>
+              <Grid item md={12}>
+                <AppBar position="static">
+                  <Tabs
+                    value={value}
+                    onChange={handleChange}
+                    aria-label="New setup components"
+                    variant="fullWidth"
+                  >
+                    <Tab label="Main" {...a11yProps(0)} />
+                    <Tab label="Attachments" {...a11yProps(1)} />
+                    <Tab label="Syandana" {...a11yProps(2)} />
+                  </Tabs>
+                </AppBar>
+                <NewSetupTabPanel value={value} index={0}>
+                  <Grid container>
+                    <Grid item md={4}>
+                      <NewSetupSetupSection
+                        frames={frames}
+                        helmets={helmets}
+                        skins={skins}
+                      />
+                    </Grid>
 
-            <input
-              {...register('screenshotImage')}
-              id="screenshotImage"
-              name="screenshotImage"
-              type="file"
-              accept="image/*"
-              style={{ display: 'none' }}
-            />
-            <label htmlFor="screenshotImage">
-              <Button
-                component="span"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-              >
-                Upload
-              </Button>
-            </label>
-
-            <div className={classes.root}>
-              <AppBar position="static">
-                <Tabs
-                  value={value}
-                  onChange={handleChange}
-                  aria-label="simple tabs example"
-                >
-                  <Tab label="Main components" {...a11yProps(0)} />
-                  <Tab label="Attachments" {...a11yProps(1)} />
-                  <Tab label="Syandana" {...a11yProps(2)} />
-                </Tabs>
-              </AppBar>
-              <TabPanel value={value} index={0}>
-                <NewSetupSetupSection
-                  frames={frames}
-                  helmets={helmets}
-                  skins={skins}
-                />
-
-                {/* <ColorSchemeSubsection
+                    <Grid item md={8}>
+                      Colors
+                      {/* <ColorSchemeSubsection
                   dataPrefix="colorScheme"
                   colorPickers={colorPickers}
                 /> */}
-              </TabPanel>
-              <TabPanel value={value} index={1}>
-                <NewSetupAttachmentsSection
-                  armAttachments={armAttachments}
-                  chestAttachments={chestAttachments}
-                  ephemeras={ephemeras}
-                  legAttachments={legAttachments}
-                />
+                    </Grid>
+                  </Grid>
+                </NewSetupTabPanel>
+                <NewSetupTabPanel value={value} index={1}>
+                  <NewSetupAttachmentsSection
+                    armAttachments={armAttachments}
+                    chestAttachments={chestAttachments}
+                    ephemeras={ephemeras}
+                    legAttachments={legAttachments}
+                  />
 
-                {/* <ColorSchemeSubsection
+                  {/* <ColorSchemeSubsection
                   dataPrefix="attachments.colorScheme"
                   colorPickers={colorPickers}
                 /> */}
-              </TabPanel>
-              <TabPanel value={value} index={2}>
-                <NewSetupSyandanaSection syandanas={syandanas} />
+                </NewSetupTabPanel>
+                <NewSetupTabPanel value={value} index={2}>
+                  <NewSetupSyandanaSection syandanas={syandanas} />
 
-                {/* <ColorSchemeSubsection
+                  {/* <ColorSchemeSubsection
                   dataPrefix="syandana.colorScheme"
                   colorPickers={colorPickers}
                 /> */}
-              </TabPanel>
-            </div>
+                </NewSetupTabPanel>
+              </Grid>
+              <Grid item md={12} container justify="center">
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                >
+                  Create
+                </Button>
+              </Grid>
+            </Grid>
 
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Create
-            </Button>
+            {/* <div className={classes.root}>
+              
+            </div> */}
           </form>
         </div>
       </FormProvider>

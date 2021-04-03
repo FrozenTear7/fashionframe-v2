@@ -4,12 +4,12 @@ import { Controller, useFormContext } from 'react-hook-form';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Loading from './Loading';
 
-type SelectFieldProps = {
+interface SelectFieldProps {
   optionValuesToMap: string[];
   name: string;
   label: string;
   withNone?: boolean;
-};
+}
 
 const SelectField: React.VFC<SelectFieldProps> = ({
   optionValuesToMap,

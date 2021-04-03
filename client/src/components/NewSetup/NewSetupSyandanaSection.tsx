@@ -3,9 +3,9 @@ import * as React from 'react';
 import { useFormContext } from 'react-hook-form';
 import SelectField from '../Utils/SelectField';
 
-type SyandanaSectionProps = {
+interface SyandanaSectionProps {
   syandanas: string[];
-};
+}
 
 const NewSetupSyandanaSection: React.VFC<SyandanaSectionProps> = ({
   syandanas,
