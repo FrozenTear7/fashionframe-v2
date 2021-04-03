@@ -1,0 +1,10 @@
+{
+  "helmets": {
+    "Chroma": ["Dynasty Wings"],
+    "Gara": ["Starglaze Shards"],
+    "Khora": ["Khora's Spikes"],
+    "Nekros": ["Irkalla Binds", "Mortos Binds"],
+    "Nidus": ["Reshef Vipaza"],
+    "Valkyr": ["Chordalla Prime", "Valkyr's Bonds"]
+  }
+}
