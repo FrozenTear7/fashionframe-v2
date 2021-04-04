@@ -3,7 +3,7 @@ import {
   getSetupById,
   deleteSetupById,
   getSetupsByUserId,
-  likeSetupById,
+  favoriteSetupById,
   updateSetupById,
   getSetups,
 } from './../controllers/setupController';
@@ -26,7 +26,11 @@ router.post(
   [auth, csrfProtection, upload.single('screenshotImage')],
   createSetup
 );
-router.post('/:id/like', [csrfProtection, auth, validObjectId], likeSetupById);
+router.post(
+  '/:id/favorite',
+  [csrfProtection, auth, validObjectId],
+  favoriteSetupById
+);
 router.get('/', getSetups);
 router.get('/user/:userId', validObjectId, getSetupsByUserId);
 router.get('/:id', validObjectId, getSetupById);

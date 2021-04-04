@@ -189,8 +189,7 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
                   <Button
                     component="span"
                     variant="contained"
-                    color="primary"
-                    className={classes.submit}
+                    color="secondary"
                   >
                     Upload screenshot
                   </Button>
@@ -270,7 +269,7 @@ colorPickers={colorPickers}
               <Button
                 type="submit"
                 variant="contained"
-                color="primary"
+                color="secondary"
                 className={classes.submit}
               >
                 Create

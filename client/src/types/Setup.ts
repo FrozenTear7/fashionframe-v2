@@ -13,7 +13,7 @@ export interface SetupBase {
 
 export interface SetupItem extends SetupBase {
   screenshot: string;
-  likes: number;
+  score: number;
   likedByYou: boolean;
 }
 

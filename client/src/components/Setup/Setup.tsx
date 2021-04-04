@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { RouteComponentProps } from 'react-router';
+import { RouteComponentProps } from 'react-router-dom';
 import { SetupDetails } from '../../types/Setup';
 import Error from '../Utils/Error';
 import Loading from '../Utils/Loading';

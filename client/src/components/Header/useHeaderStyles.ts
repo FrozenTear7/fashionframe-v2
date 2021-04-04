@@ -17,6 +17,9 @@ const useHeaderStyles = makeStyles<Theme>((theme) => ({
   fullList: {
     width: 'auto',
   },
+  drawerList: {
+    background: theme.palette.secondary.light,
+  },
 }));
 
 export default useHeaderStyles;

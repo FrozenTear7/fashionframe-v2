@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { RouteComponentProps } from 'react-router';
+import { RouteComponentProps } from 'react-router-dom';
 
 const User: React.VFC<RouteComponentProps<{ id: string }>> = ({ match }) => {
   const userId = match.params.id;

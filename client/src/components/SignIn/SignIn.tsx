@@ -1,10 +1,11 @@
+import { Container } from '@material-ui/core';
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import SignInForm from './SignInForm';
 
 const SignIn: React.VFC = () => {
   return (
-    <div className="SignIn">
+    <Container component="main" maxWidth="xs">
       <Helmet>
         <title>Sign in | Fashionframe</title>
         <meta
@@ -13,7 +14,7 @@ const SignIn: React.VFC = () => {
         />
       </Helmet>
       <SignInForm />
-    </div>
+    </Container>
   );
 };
 

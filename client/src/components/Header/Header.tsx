@@ -19,6 +19,8 @@ import CreateNewFolderIcon from '@material-ui/icons/CreateNewFolder';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import LockIcon from '@material-ui/icons/Lock';
 import { useSnackbar } from 'notistack';
+import HomeIcon from '@material-ui/icons/Home';
+import { Button } from '@material-ui/core';
 import headerStyle from './useHeaderStyles';
 import { useUserContext } from '../../UserContext';
 import { signOut } from '../../utils/auth';
@@ -57,13 +59,39 @@ const Header: React.VFC = () => {
           <MenuIcon />
         </IconButton>
 
-        <Drawer open={drawerOpen} onClose={toggleDrawer(false)}>
+        <Drawer
+          open={drawerOpen}
+          onClose={toggleDrawer(false)}
+          className={classes.drawer}
+        >
           <div
             role="presentation"
             onClick={toggleDrawer(false)}
             onKeyDown={toggleDrawer(false)}
+            className={classes.drawerList}
           >
+            {user && (
+              <>
+                <List>
+                  <ListItem>
+                    <ListItemText>Signed in as:</ListItemText>
+                  </ListItem>
+                  <ListItem>
+                    <ListItemText>
+                      <strong>{user?.username.substr(0, 15)}</strong>
+                    </ListItemText>
+                  </ListItem>
+                </List>
+                <Divider />
+              </>
+            )}
             <List>
+              <ListItem button component={Link} to="/">
+                <ListItemIcon>
+                  <HomeIcon />
+                </ListItemIcon>
+                <ListItemText primary="Homepage" />
+              </ListItem>
               <ListItem button component={Link} to="/setups">
                 <ListItemIcon>
                   <FolderIcon />
@@ -138,9 +166,11 @@ const Header: React.VFC = () => {
             </List>
           </div>
         </Drawer>
-        <Typography variant="h6" className={classes.title}>
-          Fashionframe
-        </Typography>
+        <Button color="inherit" component={Link} to="/">
+          <Typography variant="h6" className={classes.title}>
+            Fashionframe
+          </Typography>
+        </Button>
       </Toolbar>
     </AppBar>
   );

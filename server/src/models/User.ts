@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 import config from '../config';
 
 export interface IUser extends Document {
-  likedSetups: Types.ObjectId[];
+  favoritedSetups: Types.ObjectId[];
   username: string;
   email: string;
   password: string;
@@ -18,7 +18,7 @@ export interface IUserModel extends Model<IUser> {
 }
 
 const UserSchema: Schema = new Schema({
-  likedSetups: [
+  favoritedSetups: [
     {
       type: Schema.Types.ObjectId,
       ref: 'Setup',

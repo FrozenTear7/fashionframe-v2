@@ -1,6 +1,6 @@
 import { IUser } from './../models/User';
 import jwt from 'jsonwebtoken';
-import { exists } from './../utils/parseTypes/typeChecks';
+import { exists, isString, isNumber } from './../utils/parseTypes/typeChecks';
 import { NextFunction, Response, Request } from 'express';
 import HttpException from '../exceptions/HttpException';
 import Attachments from '../models/Attachments';
@@ -97,11 +97,49 @@ export const getSetups = async (
   res: Response,
   next: NextFunction
 ): Promise<void> => {
+  const { frameFilter, sortByFilter, orderFilter } = req.query;
+
+  if (
+    sortByFilter &&
+    !isString(sortByFilter) &&
+    !['score', 'createdAt'].includes(String(sortByFilter))
+  )
+    return next(
+      new HttpException(400, "Sort by requires 'score' or 'createdAt' values")
+    );
+  if (
+    orderFilter &&
+    !isNumber(orderFilter) &&
+    ![1, -1].includes(parseInt(String(orderFilter)))
+  )
+    return next(new HttpException(400, "Sort by requires '1' or '-1' values"));
+
+  let findFilter = {};
+  if (frameFilter) findFilter = { ...findFilter, frame: frameFilter };
+
   try {
-    const setups = await Setup.find(
-      {},
-      'name createdAt frame screenshot likedUsers'
-    ).populate('author', 'username');
+    const setups = await Setup.aggregate([
+      { $match: findFilter },
+      {
+        $project: {
+          name: 1,
+          createdAt: 1,
+          frame: 1,
+          screenshot: 1,
+          score: { $size: '$favoritedUsers' },
+          author: 1,
+        },
+      },
+      {
+        $sort: {
+          [String(sortByFilter)]: parseInt(String(orderFilter)),
+        },
+      },
+    ]);
+    const setupsWithAuthors = await Setup.populate(setups, {
+      path: 'author',
+      select: 'username',
+    });
 
     const { token } = req.cookies;
 
@@ -119,14 +157,15 @@ export const getSetups = async (
     }
 
     res.send(
-      setups.map((setup) => {
+      setupsWithAuthors.map((setup) => {
         const {
           _id,
           name,
           createdAt,
           frame,
           screenshot,
-          likedUsers,
+          score,
+          favoritedUsers,
           author,
         } = setup;
 
@@ -136,8 +175,8 @@ export const getSetups = async (
           createdAt,
           frame,
           screenshot,
-          likes: likedUsers.length,
-          likedByYou: user && likedUsers.includes(user._id),
+          score,
+          favoritedByYou: user && favoritedUsers.includes(user._id),
           author,
         };
       })
@@ -270,7 +309,7 @@ export const updateSetupById = async (
   }
 };
 
-export const likeSetupById = async (
+export const favoriteSetupById = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -288,7 +327,7 @@ export const likeSetupById = async (
         id,
         {
           $addToSet: {
-            likedUsers: mongoose.Types.ObjectId(userId),
+            favoritedUsers: mongoose.Types.ObjectId(userId),
           },
         },
         { session, runValidators: true }
@@ -299,7 +338,7 @@ export const likeSetupById = async (
           userId,
           {
             $addToSet: {
-              likedSetups: mongoose.Types.ObjectId(id),
+              favoritedSetups: mongoose.Types.ObjectId(id),
             },
           },
           { session, runValidators: true }

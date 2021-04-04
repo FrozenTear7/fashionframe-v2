@@ -14,7 +14,7 @@ import Syandana from './Syandana';
 
 export interface ISetup extends Document {
   author: Types.ObjectId;
-  likedUsers: Types.ObjectId[];
+  favoritedUsers: Types.ObjectId[];
   attachments: Types.ObjectId;
   syandana: Types.ObjectId;
   colorScheme: Types.ObjectId;
@@ -25,6 +25,7 @@ export interface ISetup extends Document {
   skin: string;
   screenshot: string;
   createdAt: Date;
+  score?: number;
 }
 
 const SetupSchema: Schema = new Schema({
@@ -33,7 +34,7 @@ const SetupSchema: Schema = new Schema({
     ref: 'User',
     required: 'Author is required',
   },
-  likedUsers: [
+  favoritedUsers: [
     {
       type: Schema.Types.ObjectId,
       ref: 'User',
