@@ -24,6 +24,7 @@ import { Button } from '@material-ui/core';
 import headerStyle from './useHeaderStyles';
 import { useUserContext } from '../../UserContext';
 import { signOut } from '../../utils/auth';
+import ListItemLink from './ListItemLink';
 
 const Header: React.VFC = () => {
   const classes = headerStyle();
@@ -86,33 +87,20 @@ const Header: React.VFC = () => {
               </>
             )}
             <List>
-              <ListItem button component={Link} to="/">
-                <ListItemIcon>
-                  <HomeIcon />
-                </ListItemIcon>
-                <ListItemText primary="Homepage" />
-              </ListItem>
-              <ListItem button component={Link} to="/setups">
-                <ListItemIcon>
-                  <FolderIcon />
-                </ListItemIcon>
-                <ListItemText primary="Setups" />
-              </ListItem>
+              <ListItemLink to="/" name="Homepage">
+                <HomeIcon />
+              </ListItemLink>
+              <ListItemLink to="/setups" name="Setups">
+                <FolderIcon />
+              </ListItemLink>
               {user && (
                 <>
-                  <ListItem button component={Link} to="/setups/create">
-                    <ListItemIcon>
-                      <CreateNewFolderIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="New setup" />
-                  </ListItem>
-
-                  <ListItem button component={Link} to="/favorites">
-                    <ListItemIcon>
-                      <FolderSpecialIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Favorites" />
-                  </ListItem>
+                  <ListItemLink to="/setups/create" name="New setup">
+                    <CreateNewFolderIcon />
+                  </ListItemLink>
+                  <ListItemLink to="/favorites" name="Favorites">
+                    <FolderSpecialIcon />
+                  </ListItemLink>
                 </>
               )}
             </List>
@@ -120,12 +108,9 @@ const Header: React.VFC = () => {
             <List>
               {user ? (
                 <>
-                  <ListItem button component={Link} to="/profile">
-                    <ListItemIcon>
-                      <AccountCircle />
-                    </ListItemIcon>
-                    <ListItemText primary="Profile" />
-                  </ListItem>
+                  <ListItemLink to="/profile" name="Profile">
+                    <AccountCircle />
+                  </ListItemLink>
                   <ListItem
                     button
                     onClick={async (): Promise<void> => {
@@ -149,18 +134,12 @@ const Header: React.VFC = () => {
                 </>
               ) : (
                 <>
-                  <ListItem button component={Link} to="/signin">
-                    <ListItemIcon>
-                      <LockIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Sign in" />
-                  </ListItem>
-                  <ListItem button component={Link} to="/signup">
-                    <ListItemIcon>
-                      <PersonAddIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Sign up" />
-                  </ListItem>
+                  <ListItemLink to="/signin" name="Sign in">
+                    <LockIcon />
+                  </ListItemLink>
+                  <ListItemLink to="/signup" name="Sign Up">
+                    <PersonAddIcon />
+                  </ListItemLink>
                 </>
               )}
             </List>
