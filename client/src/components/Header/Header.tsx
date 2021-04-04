@@ -48,7 +48,7 @@ const Header: React.VFC = () => {
 
   return (
     <AppBar component="nav" position="static" className={classes.root}>
-      <Toolbar>
+      <Toolbar variant="dense">
         <IconButton
           edge="start"
           className={classes.menuButton}

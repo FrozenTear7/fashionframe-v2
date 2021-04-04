@@ -2,7 +2,6 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 
 const useNewSetupFormStyles = makeStyles<Theme>((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -17,6 +16,13 @@ const useNewSetupFormStyles = makeStyles<Theme>((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+  },
+  screenshotImage: {
+    height: '300px',
+    width: 'auto',
+  },
+  appBar: {
+    marginTop: theme.spacing(3),
   },
 }));
 

@@ -79,6 +79,8 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
     formState: { errors },
   } = methods;
 
+  const { screenshotImage: currentScreenshot } = watch();
+
   const newSetupFormOnSubmit = handleSubmit(async (setupWithImage) => {
     console.log(setupWithImage);
     const { screenshotImage, ...setup } = setupWithImage;
@@ -115,20 +117,31 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
   console.log(watch());
 
   return (
-    <Container>
+    <Container component="main" maxWidth="xl">
       <FormProvider {...methods}>
         <div className={classes.paper}>
           <Typography component="h1" variant="h5">
-            Create new setup
+            New fashion setup
           </Typography>
           <form
             onSubmit={newSetupFormOnSubmit}
             className={classes.form}
             noValidate
           >
+            <Grid item container justify="center">
+              {createSetupError && <Error error={createSetupError} />}
+              <Button
+                type="submit"
+                variant="contained"
+                color="secondary"
+                className={classes.submit}
+              >
+                Create
+              </Button>
+            </Grid>
             <Grid container spacing={3}>
               <Grid container item md={4} direction="column">
-                <Grid item md={12}>
+                <Grid item>
                   <Controller
                     name="name"
                     control={control}
@@ -150,7 +163,7 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
                     )}
                   />
                 </Grid>
-                <Grid item md={12}>
+                <Grid item>
                   <Controller
                     name="description"
                     control={control}
@@ -175,38 +188,53 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
                     )}
                   />
                 </Grid>
+                <Grid container item alignContent="center" justify="center">
+                  <input
+                    {...register('screenshotImage')}
+                    id="screenshotImage"
+                    name="screenshotImage"
+                    type="file"
+                    accept="image/*"
+                    style={{ display: 'none' }}
+                  />
+                  <label htmlFor="screenshotImage">
+                    <Button
+                      component="span"
+                      variant="contained"
+                      color="secondary"
+                    >
+                      Screenshot
+                    </Button>
+                  </label>
+                </Grid>
               </Grid>
-              <Grid container item md={8} justify="center">
-                <input
-                  {...register('screenshotImage')}
-                  id="screenshotImage"
-                  name="screenshotImage"
-                  type="file"
-                  accept="image/*"
-                  style={{ display: 'none' }}
-                />
-                <label htmlFor="screenshotImage">
-                  <Button
-                    component="span"
-                    variant="contained"
-                    color="secondary"
-                  >
-                    Upload screenshot
-                  </Button>
-                </label>
+              <Grid
+                container
+                item
+                md={8}
+                alignContent="center"
+                justify="center"
+              >
+                {currentScreenshot && currentScreenshot.length > 0 && (
+                  <img
+                    className={classes.screenshotImage}
+                    alt="Screenshot"
+                    src={URL.createObjectURL(currentScreenshot[0])}
+                  />
+                )}
               </Grid>
             </Grid>
             <Grid item md={12}>
-              <AppBar position="static">
+              <AppBar position="static" className={classes.appBar}>
                 <Tabs
                   value={value}
                   onChange={handleChange}
                   aria-label="New setup components"
                   variant="fullWidth"
                 >
-                  <Tab label="Main" {...a11yProps(0)} />
-                  <Tab label="Attachments" {...a11yProps(1)} />
-                  <Tab label="Syandana" {...a11yProps(2)} />
+                  <Tab wrapped label="Main" {...a11yProps(0)} />
+                  <Tab wrapped label="Attachments" {...a11yProps(1)} />
+                  <Tab wrapped label="Syandana" {...a11yProps(2)} />
                 </Tabs>
               </AppBar>
               <NewSetupTabPanel value={value} index={0}>
@@ -263,17 +291,6 @@ colorPickers={colorPickers}
                   </Grid>
                 </Grid>
               </NewSetupTabPanel>
-            </Grid>
-            <Grid item md={12} container justify="center">
-              {createSetupError && <Error error={createSetupError} />}
-              <Button
-                type="submit"
-                variant="contained"
-                color="secondary"
-                className={classes.submit}
-              >
-                Create
-              </Button>
             </Grid>
           </form>
         </div>
