@@ -130,11 +130,7 @@ const Setups: React.VFC = () => {
               'Date (ascending)',
             ]}
             renderInput={(params): JSX.Element => (
-              <TextField
-                {...params}
-                label="Filter by frame"
-                variant="outlined"
-              />
+              <TextField {...params} label="Sort by" variant="outlined" />
             )}
             disableClearable
           />

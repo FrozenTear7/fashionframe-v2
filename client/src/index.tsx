@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { createMuiTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
 import App from './App';
+import './index.css';
 
 const theme = createMuiTheme({
   palette: {
@@ -16,6 +17,9 @@ const theme = createMuiTheme({
       light: '#c04b80',
       dark: '#5a002b',
     },
+  },
+  typography: {
+    fontFamily: ['Cardo', 'serif'].join(','),
   },
 });
 
