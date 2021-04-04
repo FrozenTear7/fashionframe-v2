@@ -54,7 +54,7 @@ const SignUpForm: React.VFC = () => {
         autoHideDuration: 3000,
         anchorOrigin: {
           vertical: 'bottom',
-          horizontal: 'center',
+          horizontal: 'left',
         },
       });
     } catch ({ response }) {
