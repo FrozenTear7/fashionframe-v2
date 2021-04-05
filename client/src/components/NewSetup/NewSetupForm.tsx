@@ -37,16 +37,6 @@ const newSetupFormDefaultValues = {
   syandana: {
     name: 'None',
   },
-  colorScheme: {
-    primary: 'Classic.0.0.#461011',
-    secondary: 'Easter.0.0.#cda75e',
-    tertiary: 'Easter.0.0.#cda75e',
-    accents: 'Classic.0.0.#461011',
-    emmissive1: 'Easter.0.0.#cda75e',
-    emmissive2: 'Classic.0.0.#461011',
-    energy1: 'Classic.0.0.#461011',
-    energy2: 'Classic.0.0.#461011',
-  },
 };
 
 const a11yProps = (index: number): { id: string; 'aria-controls': string } => {
@@ -115,13 +105,6 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
       setCreateSetupError(response.data.message);
     }
   });
-
-  const handleChange = (
-    _event: React.ChangeEvent<unknown>,
-    newValue: number
-  ): void => {
-    setCurrentTab(newValue);
-  };
 
   console.log('Errors: ', errors);
   console.log(watch());
@@ -237,7 +220,12 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
               <AppBar position="static" className={classes.appBar}>
                 <Tabs
                   value={currentTab}
-                  onChange={handleChange}
+                  onChange={(
+                    _event: React.ChangeEvent<unknown>,
+                    newValue: number
+                  ): void => {
+                    setCurrentTab(newValue);
+                  }}
                   aria-label="New setup components"
                   variant="fullWidth"
                 >
@@ -284,11 +272,10 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
                     </Grid>
 
                     <Grid item md={8}>
-                      Colors
-                      {/* <ColorSchemeSubsection
-dataPrefix="attachments.colorScheme"
-colorPickers={colorPickers}
-/> */}
+                      <ColorSchemeSubsection
+                        dataPrefix="attachments.colorScheme"
+                        colorPickers={colorPickers}
+                      />
                     </Grid>
                   </Grid>
                 </Fade>
@@ -301,11 +288,10 @@ colorPickers={colorPickers}
                     </Grid>
 
                     <Grid item md={8}>
-                      Colors
-                      {/* <ColorSchemeSubsection
-                  dataPrefix="syandana.colorScheme"
-                  colorPickers={colorPickers}
-                /> */}
+                      <ColorSchemeSubsection
+                        dataPrefix="syandana.colorScheme"
+                        colorPickers={colorPickers}
+                      />
                     </Grid>
                   </Grid>
                 </Fade>

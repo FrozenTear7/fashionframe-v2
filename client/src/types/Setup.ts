@@ -38,7 +38,20 @@ export interface NewSetupFormData {
   helmet: string;
   skin: string;
   screenshotImage: FileList;
-  attachments: Omit<Attachments, '_id'>;
-  syandana: Omit<Syandana, '_id'>;
+  // attachments: Omit<Attachments, '_id'>;
+  attachments: {
+    colorScheme: Omit<ColorScheme, '_id'>;
+    chest?: string;
+    leftArm?: string;
+    rightArm?: string;
+    leftLeg?: string;
+    rightLeg?: string;
+    ephemera?: string;
+  };
+  syandana: {
+    colorScheme: Omit<ColorScheme, '_id'>;
+    name?: string;
+  };
+  // syandana: Omit<Syandana, '_id'>;
   colorScheme: Omit<ColorScheme, '_id'>;
 }

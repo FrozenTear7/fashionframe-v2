@@ -20,10 +20,18 @@ const ColorSchemeSubsection: React.VFC<SetupSectionProps> = ({
 
   const colorSchemeButton = (color: string): JSX.Element => (
     <ColorSchemeButton
-      color={String(watch(`${dataPrefix}.${color}`)).split('.')[3]}
+      color={
+        watch(`${dataPrefix}.${color}`)
+          ? String(watch(`${dataPrefix}.${color}`)).split('.')[3]
+          : null
+      }
       onClick={(): void => setCurrentColor(color)}
     />
   );
+
+  console.log(dataPrefix);
+  console.log('Watch xd: ', watch());
+  console.log('Watch: ', watch(`${dataPrefix}.${currentColor}`));
 
   return (
     <>
@@ -94,13 +102,11 @@ const ColorSchemeSubsection: React.VFC<SetupSectionProps> = ({
         <Grid item md={8}>
           <ColorPicker
             colorPickers={colorPickers}
-            value={watch(`${dataPrefix}.${currentColor}`)}
-            onChange={(newValue): void => {
-              setValue(`${dataPrefix}`, {
-                ...watch(`${dataPrefix}`),
-                [currentColor]: newValue,
-              });
+            onChange={(valueName, newValue): void => {
+              setValue(valueName, newValue);
             }}
+            value={watch(`${dataPrefix}.${currentColor}`)}
+            valueToChange={`${dataPrefix}.${currentColor}`}
           />
         </Grid>
       </Grid>

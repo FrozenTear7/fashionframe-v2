@@ -40,6 +40,15 @@ const useColorPickerStyles = makeStyles<Theme>((_theme) => ({
     height: '35px',
     border: '1px solid',
   },
+  colorSchemeButtonCheckered: {
+    width: '75px',
+    height: '35px',
+    border: '1px solid',
+    'background-image':
+      'linear-gradient(45deg, #808080 25%, transparent 25%), linear-gradient(-45deg, #808080 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #808080 75%), linear-gradient(-45deg, transparent 75%, #808080 75%)',
+    'background-size': '20px 20px',
+    'background-position': '0 0, 0 10px, 10px -10px, -10px 0px',
+  },
 }));
 
 export default useColorPickerStyles;

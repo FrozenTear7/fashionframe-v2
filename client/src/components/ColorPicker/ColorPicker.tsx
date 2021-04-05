@@ -10,21 +10,20 @@ const gridButtonHeight = 18;
 
 interface ColorPickerProps {
   colorPickers: { [colorPicker: string]: string[] };
+  onChange: (valueToChange: string, newValue: string) => void;
   value: string;
-  onChange: (newValue: string) => void;
+  valueToChange: string;
 }
 
 const ColorPicker: React.VFC<ColorPickerProps> = ({
   colorPickers,
-  value,
   onChange,
+  value = 'Classic',
+  valueToChange,
 }) => {
   const classes = useColorPickerStyles();
 
   const [valueColorPicker, valueColumn, valueRow] = value.split('.');
-
-  console.log(valueColorPicker, valueColumn, valueRow);
-
   const [currentColorPicker, setCurrentColorPicker] = React.useState<string>(
     valueColorPicker
   );
@@ -32,8 +31,6 @@ const ColorPicker: React.VFC<ColorPickerProps> = ({
   React.useEffect(() => {
     setCurrentColorPicker(valueColorPicker);
   }, [value]);
-
-  console.log('BEEP BOOP');
 
   const checkIfButtonSelected = (index: number): boolean => {
     if (
@@ -87,7 +84,7 @@ const ColorPicker: React.VFC<ColorPickerProps> = ({
                       background: color,
                     }}
                     onClick={(): void => {
-                      onChange(colorName);
+                      onChange(valueToChange, colorName);
                     }}
                   />
                 </Grid>
@@ -101,7 +98,12 @@ const ColorPicker: React.VFC<ColorPickerProps> = ({
   );
 };
 
+// Re-render only if the value changes - passing colorPickers or onChange each time is very expensive
 export default React.memo(ColorPicker, (prevProps, nextProps) => {
-  if (prevProps.value !== nextProps.value) return false;
+  if (
+    prevProps.value !== nextProps.value ||
+    prevProps.valueToChange !== nextProps.valueToChange
+  )
+    return false;
   return true;
 });

@@ -3,7 +3,7 @@ import * as React from 'react';
 import useColorPickerStyles from './useColorPickerStyles';
 
 interface ColorSchemeButtonProps {
-  color: string;
+  color: string | null;
   onClick: () => void;
 }
 
@@ -11,16 +11,21 @@ const ColorSchemeButton: React.VFC<ColorSchemeButtonProps> = ({
   color,
   onClick,
 }) => {
-  const colorPickerClasses = useColorPickerStyles();
+  const classes = useColorPickerStyles();
 
+  if (color) {
+    return (
+      <Button
+        className={classes.colorSchemeButton}
+        style={{
+          backgroundColor: color || '#FFFFFF',
+        }}
+        onClick={onClick}
+      />
+    );
+  }
   return (
-    <Button
-      className={colorPickerClasses.colorSchemeButton}
-      style={{
-        backgroundColor: color,
-      }}
-      onClick={onClick}
-    />
+    <Button className={classes.colorSchemeButtonCheckered} onClick={onClick} />
   );
 };
 
