@@ -7,10 +7,10 @@ const About: React.VFC = () => {
 
   return (
     <Container component="main" maxWidth="md">
-      <Typography variant="h1" component="h1">
+      <Typography className={classes.title} component="h1">
         Fashionframe
       </Typography>
-      <Typography variant="h4" component="p">
+      <Typography className={classes.subTitle} component="p">
         Social hub for sharing Warframe fashion setups
       </Typography>
       <Divider className={classes.titleDivider} />

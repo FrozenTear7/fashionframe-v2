@@ -39,8 +39,13 @@ app.use('/api/users', auth);
 app.use('/api/data', warframeData);
 app.use('/api/setups', setups);
 
+// serve the sitemap
+app.get('/sitemap.xml', (_req, res) => {
+  res.sendFile(path.join(__dirname, '../public/sitemap.xml'));
+});
+
 // Server the client on all other paths except for api
-app.get(/^\/(?!api).*$/, (_req, res) => {
+app.get(/^\/((?!(api|sitemap)).*)$/, (_req, res) => {
   if (config.mode === 'production')
     res.sendFile(path.join(__dirname, '../clientBuild', 'index.html'));
   else res.sendFile(path.join(__dirname, '../../client/build', 'index.html'));
