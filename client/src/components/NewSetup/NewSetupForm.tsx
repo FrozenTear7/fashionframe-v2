@@ -8,7 +8,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { Container, Grid, TextField } from '@material-ui/core';
+import { Container, Fade, Grid, TextField } from '@material-ui/core';
 import { WarframeData } from '../../types/WarframeData';
 import Error from '../Utils/Error';
 import newSetupSchema from '../../validation/newSetupSchema';
@@ -18,6 +18,7 @@ import NewSetupSyandanaSection from './NewSetupSyandanaSection';
 import NewSetupAttachmentsSection from './NewSetupAttachmentsSections';
 import NewSetupTabPanel from './NewSetupTabPanel';
 import useNewSetupFormStyles from './useNewSetupFormStyles';
+import ColorPicker from '../ColorPicker/ColorPicker';
 // import ColorSchemeSubsection from './ColorSchemeSubsection';
 
 const newSetupFormDefaultValues = {
@@ -53,7 +54,7 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
   const classes = useNewSetupFormStyles();
 
   const [createSetupError, setCreateSetupError] = React.useState<string>();
-  const [value, setValue] = React.useState(0);
+  const [currentTab, setCurrentTab] = React.useState(0);
 
   const {
     frames,
@@ -64,7 +65,7 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
     legAttachments,
     ephemeras,
     syandanas,
-    // colorPickers,
+    colorPickers,
   } = warframeData;
 
   const methods = useForm<NewSetupFormData>({
@@ -110,7 +111,7 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
     _event: React.ChangeEvent<unknown>,
     newValue: number
   ): void => {
-    setValue(newValue);
+    setCurrentTab(newValue);
   };
 
   console.log('Errors: ', errors);
@@ -172,7 +173,6 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
                         {...field}
                         variant="outlined"
                         margin="normal"
-                        required
                         multiline
                         rowsMax={5}
                         fullWidth
@@ -227,7 +227,7 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
             <Grid item md={12}>
               <AppBar position="static" className={classes.appBar}>
                 <Tabs
-                  value={value}
+                  value={currentTab}
                   onChange={handleChange}
                   aria-label="New setup components"
                   variant="fullWidth"
@@ -237,59 +237,68 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
                   <Tab wrapped label="Syandana" {...a11yProps(2)} />
                 </Tabs>
               </AppBar>
-              <NewSetupTabPanel value={value} index={0}>
-                <Grid container>
-                  <Grid item md={4}>
-                    <NewSetupSetupSection
-                      frames={frames}
-                      helmets={helmets}
-                      skins={skins}
-                    />
-                  </Grid>
+              <NewSetupTabPanel value={currentTab} index={0}>
+                <Fade in={currentTab === 0} timeout={500}>
+                  <Grid container>
+                    <Grid item md={4}>
+                      <NewSetupSetupSection
+                        frames={frames}
+                        helmets={helmets}
+                        skins={skins}
+                      />
+                    </Grid>
 
-                  <Grid item md={8}>
-                    Colors
-                    {/* <ColorSchemeSubsection
+                    <Grid item md={8}>
+                      <ColorPicker
+                        colorPickers={colorPickers}
+                        value="Classic.0.0.#461011"
+                      />
+                      {/* <ColorSchemeSubsection
                   dataPrefix="colorScheme"
                   colorPickers={colorPickers}
                 /> */}
+                    </Grid>
                   </Grid>
-                </Grid>
+                </Fade>
               </NewSetupTabPanel>
-              <NewSetupTabPanel value={value} index={1}>
-                <Grid container>
-                  <Grid item md={4}>
-                    <NewSetupAttachmentsSection
-                      armAttachments={armAttachments}
-                      chestAttachments={chestAttachments}
-                      ephemeras={ephemeras}
-                      legAttachments={legAttachments}
-                    />
-                  </Grid>
+              <NewSetupTabPanel value={currentTab} index={1}>
+                <Fade in={currentTab === 1} timeout={500}>
+                  <Grid container>
+                    <Grid item md={4}>
+                      <NewSetupAttachmentsSection
+                        armAttachments={armAttachments}
+                        chestAttachments={chestAttachments}
+                        ephemeras={ephemeras}
+                        legAttachments={legAttachments}
+                      />
+                    </Grid>
 
-                  <Grid item md={8}>
-                    Colors
-                    {/* <ColorSchemeSubsection
+                    <Grid item md={8}>
+                      Colors
+                      {/* <ColorSchemeSubsection
 dataPrefix="attachments.colorScheme"
 colorPickers={colorPickers}
 /> */}
+                    </Grid>
                   </Grid>
-                </Grid>
+                </Fade>
               </NewSetupTabPanel>
-              <NewSetupTabPanel value={value} index={2}>
-                <Grid container>
-                  <Grid item md={4}>
-                    <NewSetupSyandanaSection syandanas={syandanas} />
-                  </Grid>
+              <NewSetupTabPanel value={currentTab} index={2}>
+                <Fade in={currentTab === 2} timeout={500}>
+                  <Grid container>
+                    <Grid item md={4}>
+                      <NewSetupSyandanaSection syandanas={syandanas} />
+                    </Grid>
 
-                  <Grid item md={8}>
-                    Colors
-                    {/* <ColorSchemeSubsection
+                    <Grid item md={8}>
+                      Colors
+                      {/* <ColorSchemeSubsection
                   dataPrefix="syandana.colorScheme"
                   colorPickers={colorPickers}
                 /> */}
+                    </Grid>
                   </Grid>
-                </Grid>
+                </Fade>
               </NewSetupTabPanel>
             </Grid>
           </form>

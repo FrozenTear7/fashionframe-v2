@@ -13,7 +13,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { Container } from '@material-ui/core';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, useLocation } from 'react-router-dom';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import FolderIcon from '@material-ui/icons/Folder';
@@ -34,7 +34,7 @@ import SignIn from '../SignIn/SignIn';
 import NotFound from '../Utils/NotFound';
 import { signOut } from '../../utils/auth';
 import ListItemLink from './ListItemLink';
-import useHeaderStyles from './useHeaderStyles';
+import useResponsiveDrawerWrapperStyles from './useResponsiveDrawerWrapperStyles';
 import { useUserContext } from '../../UserContext';
 
 interface ResponsiveDrawerProps {
@@ -43,9 +43,10 @@ interface ResponsiveDrawerProps {
 }
 
 const ResponsiveDrawerWrapper: React.VFC = (props: ResponsiveDrawerProps) => {
-  const classes = useHeaderStyles();
+  const classes = useResponsiveDrawerWrapperStyles();
   const { user, setUser } = useUserContext();
   const { enqueueSnackbar } = useSnackbar();
+  const location = useLocation();
 
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -108,7 +109,7 @@ const ResponsiveDrawerWrapper: React.VFC = (props: ResponsiveDrawerProps) => {
               onClick={async (): Promise<void> => {
                 await signOut();
                 setUser(null);
-                enqueueSnackbar('Signed up successfully', {
+                enqueueSnackbar('Signed out successfully', {
                   variant: 'success',
                   autoHideDuration: 3000,
                   anchorOrigin: {
@@ -159,7 +160,7 @@ const ResponsiveDrawerWrapper: React.VFC = (props: ResponsiveDrawerProps) => {
       </AppBar>
       <nav className={classes.drawer} aria-label="side menu">
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-        <Hidden smUp implementation="js">
+        <Hidden mdUp implementation="js">
           <Drawer
             container={container}
             variant="temporary"
@@ -176,7 +177,7 @@ const ResponsiveDrawerWrapper: React.VFC = (props: ResponsiveDrawerProps) => {
             {drawer}
           </Drawer>
         </Hidden>
-        <Hidden xsDown implementation="css">
+        <Hidden smDown implementation="css">
           <Drawer
             classes={{
               paper: classes.drawerPaper,
@@ -191,7 +192,7 @@ const ResponsiveDrawerWrapper: React.VFC = (props: ResponsiveDrawerProps) => {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Container maxWidth="xl" className={classes.container}>
-          <Switch>
+          <Switch location={location}>
             <Route exact path="/" component={Homepage} />
             <SignedInRoute exact path="/signup" component={SignUp} />
             <SignedInRoute exact path="/signin" component={SignIn} />
