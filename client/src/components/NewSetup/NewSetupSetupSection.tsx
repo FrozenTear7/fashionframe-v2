@@ -26,7 +26,7 @@ const NewSetupSetupSection: React.VFC<SetupSectionProps> = ({
   const { frame: currentFrame } = watch();
 
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={3} direction="column" alignContent="center">
       <Grid item>
         <Controller
           name="frame"
@@ -44,7 +44,7 @@ const NewSetupSetupSection: React.VFC<SetupSectionProps> = ({
                   setValue('skin', `${String(newValue)} Skin`);
                 }}
                 options={frames}
-                style={{ width: 300 }}
+                style={{ width: 200 }}
                 renderInput={(params): JSX.Element => (
                   <TextField {...params} label="Frame" variant="outlined" />
                 )}

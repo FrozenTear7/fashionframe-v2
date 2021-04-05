@@ -18,8 +18,7 @@ import NewSetupSyandanaSection from './NewSetupSyandanaSection';
 import NewSetupAttachmentsSection from './NewSetupAttachmentsSections';
 import NewSetupTabPanel from './NewSetupTabPanel';
 import useNewSetupFormStyles from './useNewSetupFormStyles';
-import ColorPicker from '../ColorPicker/ColorPicker';
-// import ColorSchemeSubsection from './ColorSchemeSubsection';
+import ColorSchemeSubsection from './ColorSchemeSubsection';
 
 const newSetupFormDefaultValues = {
   name: '',
@@ -37,6 +36,16 @@ const newSetupFormDefaultValues = {
   },
   syandana: {
     name: 'None',
+  },
+  colorScheme: {
+    primary: 'Classic.0.0.#461011',
+    secondary: 'Easter.0.0.#cda75e',
+    tertiary: 'Easter.0.0.#cda75e',
+    accents: 'Classic.0.0.#461011',
+    emmissive1: 'Easter.0.0.#cda75e',
+    emmissive2: 'Classic.0.0.#461011',
+    energy1: 'Classic.0.0.#461011',
+    energy2: 'Classic.0.0.#461011',
   },
 };
 
@@ -188,7 +197,7 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
                     )}
                   />
                 </Grid>
-                <Grid container item alignContent="center" justify="center">
+                <Grid container item direction="column" alignContent="center">
                   <input
                     {...register('screenshotImage')}
                     id="screenshotImage"
@@ -239,8 +248,13 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
               </AppBar>
               <NewSetupTabPanel value={currentTab} index={0}>
                 <Fade in={currentTab === 0} timeout={500}>
-                  <Grid container>
-                    <Grid item md={4}>
+                  <Grid
+                    container
+                    justify="center"
+                    alignContent="center"
+                    spacing={3}
+                  >
+                    <Grid item lg={4}>
                       <NewSetupSetupSection
                         frames={frames}
                         helmets={helmets}
@@ -248,15 +262,11 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
                       />
                     </Grid>
 
-                    <Grid item md={8}>
-                      <ColorPicker
+                    <Grid item lg={8}>
+                      <ColorSchemeSubsection
+                        dataPrefix="colorScheme"
                         colorPickers={colorPickers}
-                        value="Classic.0.0.#461011"
                       />
-                      {/* <ColorSchemeSubsection
-                  dataPrefix="colorScheme"
-                  colorPickers={colorPickers}
-                /> */}
                     </Grid>
                   </Grid>
                 </Fade>

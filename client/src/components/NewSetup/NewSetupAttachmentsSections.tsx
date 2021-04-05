@@ -22,7 +22,7 @@ const NewSetupAttachmentsSection: React.VFC<AttachmentsSectionProps> = ({
   } = useFormContext();
 
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={3} direction="column" alignContent="center">
       <Grid item>
         <SelectField
           optionValuesToMap={chestAttachments}

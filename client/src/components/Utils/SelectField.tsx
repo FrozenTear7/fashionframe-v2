@@ -38,7 +38,7 @@ const SelectField: React.VFC<SelectFieldProps> = ({
             options={
               withNone ? ['None', ...optionValuesToMap] : optionValuesToMap
             }
-            style={{ width: 300 }}
+            style={{ width: 200 }}
             renderInput={(params): JSX.Element => (
               <TextField {...params} label={label} variant="outlined" />
             )}

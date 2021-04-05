@@ -37,7 +37,7 @@ const useHeaderStyles = makeStyles<Theme>((theme) => ({
     padding: theme.spacing(3),
   },
   container: {
-    paddingTop: '3rem',
+    paddingTop: '1.5rem',
   },
   drawerList: {
     background: theme.palette.secondary.light,

@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/unbound-method */
+import { Grid } from '@material-ui/core';
 import * as React from 'react';
 import { useFormContext } from 'react-hook-form';
 import SelectField from '../Utils/SelectField';
@@ -16,12 +17,16 @@ const NewSetupSyandanaSection: React.VFC<SyandanaSectionProps> = ({
 
   return (
     <>
-      <SelectField
-        optionValuesToMap={syandanas}
-        name="syandana.name"
-        label="Syandana"
-      />
-      <>{errors.syandana?.name?.message}</>
+      <Grid container spacing={3} direction="column" alignContent="center">
+        <Grid item>
+          <SelectField
+            optionValuesToMap={syandanas}
+            name="syandana.name"
+            label="Syandana"
+          />
+          <>{errors.syandana?.name?.message}</>
+        </Grid>
+      </Grid>
     </>
   );
 };

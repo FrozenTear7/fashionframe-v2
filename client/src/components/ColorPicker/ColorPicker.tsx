@@ -5,7 +5,6 @@ import { Autocomplete } from '@material-ui/lab';
 import * as React from 'react';
 import useColorPickerStyles from './useColorPickerStyles';
 
-const colorPicker = 'Classic';
 const gridButtonWidth = 5;
 const gridButtonHeight = 18;
 
@@ -25,12 +24,15 @@ const ColorPicker: React.VFC<ColorPickerProps> = ({ colorPickers, value }) => {
     valueColorPicker
   );
 
-  console.log(colorPickers);
   console.log(valueColorPicker, valueColumn, valueRow, valueColor);
+
+  React.useEffect(() => {
+    setCurrentColorPicker(valueColorPicker);
+  }, [value]);
 
   return (
     <>
-      <Grid container spacing={6}>
+      <Grid container spacing={1} direction="column" alignItems="center">
         <Grid item>
           <Autocomplete
             id="color-picker-filter"
@@ -38,7 +40,7 @@ const ColorPicker: React.VFC<ColorPickerProps> = ({ colorPickers, value }) => {
             onChange={(_event, newValue): void => {
               setCurrentColorPicker(newValue);
             }}
-            style={{ width: 300 }}
+            style={{ width: 150 }}
             options={Object.keys(colorPickers)}
             renderInput={(params): JSX.Element => (
               <TextField {...params} label="Color picker" variant="outlined" />
@@ -49,7 +51,7 @@ const ColorPicker: React.VFC<ColorPickerProps> = ({ colorPickers, value }) => {
         <Grid item>
           <Grid container className={classes.colorPickerGrid}>
             {colorPickers[currentColorPicker].map((color, i) => {
-              const colorName = `${colorPicker}.${i % gridButtonWidth}.${
+              const colorName = `${currentColorPicker}.${i % gridButtonWidth}.${
                 Math.floor(i / gridButtonWidth) % gridButtonHeight
               }.${color}`;
 

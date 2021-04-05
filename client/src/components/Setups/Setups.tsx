@@ -101,7 +101,7 @@ const Setups: React.VFC = () => {
                 frameFilter: newValue,
               });
             }}
-            style={{ width: 300 }}
+            style={{ width: 200 }}
             options={frames}
             renderInput={(params): JSX.Element => (
               <TextField
@@ -122,7 +122,7 @@ const Setups: React.VFC = () => {
                 sortByFilter: newValue,
               });
             }}
-            style={{ width: 300 }}
+            style={{ width: 200 }}
             options={[
               'Score (descending)',
               'Score (ascending)',
