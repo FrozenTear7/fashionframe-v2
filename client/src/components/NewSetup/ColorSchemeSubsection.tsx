@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/unbound-method */
-import { Button, Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import * as React from 'react';
 import { useFormContext } from 'react-hook-form';
 import ColorPicker from '../ColorPicker/ColorPicker';
+import ColorSchemeButton from '../ColorPicker/ColorSchemeButton';
 
 type SetupSectionProps = {
   dataPrefix: string;
@@ -13,17 +14,13 @@ const ColorSchemeSubsection: React.VFC<SetupSectionProps> = ({
   dataPrefix,
   colorPickers,
 }) => {
-  const [currentColor, setCurrentColor] = React.useState('primary');
-
   const { setValue, watch } = useFormContext();
 
+  const [currentColor, setCurrentColor] = React.useState('primary');
+
   const colorSchemeButton = (color: string): JSX.Element => (
-    <Button
-      style={{
-        backgroundColor: String(watch(`${dataPrefix}.${color}`)).split('.')[3],
-        width: '75px',
-        height: '35px',
-      }}
+    <ColorSchemeButton
+      color={String(watch(`${dataPrefix}.${color}`)).split('.')[3]}
       onClick={(): void => setCurrentColor(color)}
     />
   );

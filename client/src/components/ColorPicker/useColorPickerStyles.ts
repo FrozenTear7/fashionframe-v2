@@ -15,11 +15,30 @@ const useColorPickerStyles = makeStyles<Theme>((_theme) => ({
     width: buttonWidth,
     height: buttonWidth,
   },
-  colorPickerButton: {
+  colorPickerButtonSelected: {
+    border: '2px solid white',
+    width: buttonWidth,
+    height: buttonWidth,
+    outline: 'none',
+    cursor: 'pointer',
+    '&:hover': {
+      border: '2px solid white',
+    },
+  },
+  colorPickerButtonNotSelected: {
     border: 0,
     width: buttonWidth,
     height: buttonWidth,
     outline: 'none',
+    cursor: 'pointer',
+    '&:hover': {
+      border: '2px solid white',
+    },
+  },
+  colorSchemeButton: {
+    width: '75px',
+    height: '35px',
+    border: '1px solid',
   },
 }));
 

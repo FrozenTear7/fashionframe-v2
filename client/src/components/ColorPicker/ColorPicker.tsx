@@ -21,9 +21,9 @@ const ColorPicker: React.VFC<ColorPickerProps> = ({
 }) => {
   const classes = useColorPickerStyles();
 
-  const [valueColorPicker, valueColumn, valueRow, valueColor] = value.split(
-    '.'
-  );
+  const [valueColorPicker, valueColumn, valueRow] = value.split('.');
+
+  console.log(valueColorPicker, valueColumn, valueRow);
 
   const [currentColorPicker, setCurrentColorPicker] = React.useState<string>(
     valueColorPicker
@@ -34,6 +34,16 @@ const ColorPicker: React.VFC<ColorPickerProps> = ({
   }, [value]);
 
   console.log('BEEP BOOP');
+
+  const checkIfButtonSelected = (index: number): boolean => {
+    if (
+      valueColorPicker === currentColorPicker &&
+      index === gridButtonWidth * +valueRow + +valueColumn
+    )
+      return true;
+
+    return false;
+  };
 
   return (
     <>
@@ -68,7 +78,11 @@ const ColorPicker: React.VFC<ColorPickerProps> = ({
                 >
                   <button
                     type="button"
-                    className={classes.colorPickerButton}
+                    className={
+                      checkIfButtonSelected(i)
+                        ? classes.colorPickerButtonSelected
+                        : classes.colorPickerButtonNotSelected
+                    }
                     style={{
                       background: color,
                     }}
