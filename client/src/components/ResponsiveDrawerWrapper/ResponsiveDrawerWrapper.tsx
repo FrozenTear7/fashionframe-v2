@@ -23,6 +23,7 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import LockIcon from '@material-ui/icons/Lock';
 import HomeIcon from '@material-ui/icons/Home';
 import { useSnackbar } from 'notistack';
+import InfoIcon from '@material-ui/icons/Info';
 import { PrivateRoute, SignedInRoute } from '../../utils/PrivateRoute';
 import Setup from '../Setup/Setup';
 import Setups from '../Setups/Setups';
@@ -36,6 +37,7 @@ import { signOut } from '../../utils/auth';
 import ListItemLink from './ListItemLink';
 import useResponsiveDrawerWrapperStyles from './useResponsiveDrawerWrapperStyles';
 import { useUserContext } from '../../UserContext';
+import About from '../About/About';
 
 interface ResponsiveDrawerProps {
   // eslint-disable-next-line react/require-default-props
@@ -97,6 +99,10 @@ const ResponsiveDrawerWrapper: React.VFC = (props: ResponsiveDrawerProps) => {
           </>
         )}
       </List>
+      <Divider />
+      <ListItemLink to="/about" name="About">
+        <InfoIcon />
+      </ListItemLink>
       <Divider />
       <List>
         {user ? (
@@ -194,13 +200,14 @@ const ResponsiveDrawerWrapper: React.VFC = (props: ResponsiveDrawerProps) => {
         <Container maxWidth="xl" className={classes.container}>
           <Switch location={location}>
             <Route exact path="/" component={Homepage} />
+            <Route exact path="/about" component={About} />
             <SignedInRoute exact path="/signup" component={SignUp} />
             <SignedInRoute exact path="/signin" component={SignIn} />
             <Route exact path="/setups" component={Setups} />
             <PrivateRoute exact path="/setups/create" component={NewSetup} />
             <Route exact path="/setups/:id" component={Setup} />
             <PrivateRoute path="/profile" component={User} />
-            <Route path="/user/:id" component={User} />
+            <Route exact path="/user/:id" component={User} />
             <Route component={NotFound} />
           </Switch>
         </Container>
