@@ -11,9 +11,14 @@ const gridButtonHeight = 18;
 interface ColorPickerProps {
   colorPickers: { [colorPicker: string]: string[] };
   value: string;
+  onChange: (newValue: string) => void;
 }
 
-const ColorPicker: React.VFC<ColorPickerProps> = ({ colorPickers, value }) => {
+const ColorPicker: React.VFC<ColorPickerProps> = ({
+  colorPickers,
+  value,
+  onChange,
+}) => {
   const classes = useColorPickerStyles();
 
   const [valueColorPicker, valueColumn, valueRow, valueColor] = value.split(
@@ -67,7 +72,10 @@ const ColorPicker: React.VFC<ColorPickerProps> = ({ colorPickers, value }) => {
                     style={{
                       background: color,
                     }}
-                    onClick={(): void => console.log(colorName)}
+                    onClick={(): void => {
+                      onChange(colorName);
+                      console.log(colorName);
+                    }}
                   />
                 </Grid>
               );

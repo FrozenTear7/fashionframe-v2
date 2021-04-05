@@ -15,7 +15,7 @@ const ColorSchemeSubsection: React.VFC<SetupSectionProps> = ({
 }) => {
   const [currentColor, setCurrentColor] = React.useState('primary');
 
-  const { watch } = useFormContext();
+  const { setValue, watch } = useFormContext();
 
   console.log('ColorScheme: ', watch(dataPrefix));
   console.log(
@@ -106,6 +106,12 @@ const ColorSchemeSubsection: React.VFC<SetupSectionProps> = ({
           <ColorPicker
             colorPickers={colorPickers}
             value={watch(`${dataPrefix}.${currentColor}`)}
+            onChange={(newValue): void => {
+              setValue(`${dataPrefix}`, {
+                ...watch(`${dataPrefix}`),
+                [currentColor]: newValue,
+              });
+            }}
           />
         </Grid>
       </Grid>
