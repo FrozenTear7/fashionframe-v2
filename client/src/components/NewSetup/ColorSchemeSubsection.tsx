@@ -17,14 +17,6 @@ const ColorSchemeSubsection: React.VFC<SetupSectionProps> = ({
 
   const { setValue, watch } = useFormContext();
 
-  console.log('ColorScheme: ', watch(dataPrefix));
-  console.log(
-    'Current color: ',
-    currentColor,
-    watch(`${dataPrefix}.${currentColor}`)
-  );
-  console.log(String(watch(`${dataPrefix}.primary`)).split('.')[3]);
-
   const colorSchemeButton = (color: string): JSX.Element => (
     <Button
       style={{

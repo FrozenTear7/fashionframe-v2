@@ -62,7 +62,6 @@ const SignInForm: React.VFC = () => {
         },
       });
     } catch ({ response }) {
-      console.log(response);
       console.log(response.data.message);
       setSignInError(response.data.message);
     }

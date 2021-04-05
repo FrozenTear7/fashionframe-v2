@@ -29,11 +29,11 @@ const ColorPicker: React.VFC<ColorPickerProps> = ({
     valueColorPicker
   );
 
-  console.log(valueColorPicker, valueColumn, valueRow, valueColor);
-
   React.useEffect(() => {
     setCurrentColorPicker(valueColorPicker);
   }, [value]);
+
+  console.log('BEEP BOOP');
 
   return (
     <>
@@ -74,7 +74,6 @@ const ColorPicker: React.VFC<ColorPickerProps> = ({
                     }}
                     onClick={(): void => {
                       onChange(colorName);
-                      console.log(colorName);
                     }}
                   />
                 </Grid>
@@ -88,4 +87,7 @@ const ColorPicker: React.VFC<ColorPickerProps> = ({
   );
 };
 
-export default ColorPicker;
+export default React.memo(ColorPicker, (prevProps, nextProps) => {
+  if (prevProps.value !== nextProps.value) return false;
+  return true;
+});
