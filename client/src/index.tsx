@@ -8,14 +8,14 @@ import './index.css';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#4a148c',
-      light: '#7c43bd',
-      dark: '#12005e',
+      main: '#00bcd4',
+      light: '#62efff',
+      dark: '#008ba3',
     },
     secondary: {
-      main: '#8c1454',
-      light: '#c04b80',
-      dark: '#5a002b',
+      main: '#00bcd4',
+      light: '#62efff',
+      dark: '#008ba3',
     },
   },
   typography: {
