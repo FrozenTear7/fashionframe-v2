@@ -8,7 +8,6 @@ const Homepage: React.VFC = () => {
   const classes = useHomepageStyles();
 
   React.useEffect(() => {
-    console.log(document.body.className);
     document.body.className = 'gradient-background';
 
     return (): void => {

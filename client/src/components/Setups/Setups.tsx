@@ -3,17 +3,30 @@ import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Container, Grid, TextField } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
+import { useHistory } from 'react-router-dom';
 import { SetupItem } from '../../types/Setup';
 import Error from '../Utils/Error';
 import Loading from '../Utils/Loading';
 import SetupList from './SetupList';
+import useQuery from '../../utils/useQuery';
 
 interface SetupFilters {
   frameFilter: string | null;
   sortByFilter: string;
 }
 
+const fixFrameFilter = (frame: string | null): string | null => {
+  if (!frame) return null;
+
+  return `${frame[0].toUpperCase()}${frame
+    .substr(1, frame.length - 1)
+    .toLowerCase()}`;
+};
+
 const Setups: React.VFC = () => {
+  const query = useQuery();
+  const history = useHistory();
+
   const [frames, setFrames] = React.useState<string[]>([]);
   const [framesLoading, setFramesLoading] = React.useState(false);
   const [framesError, setFramesError] = React.useState<string>();
@@ -23,7 +36,7 @@ const Setups: React.VFC = () => {
   const [setupsError, setSetupsError] = React.useState<string>();
 
   const [filters, setFilters] = React.useState<SetupFilters>({
-    frameFilter: null,
+    frameFilter: fixFrameFilter(query.get('frame')),
     sortByFilter: 'Score (descending)',
   });
 
@@ -44,6 +57,24 @@ const Setups: React.VFC = () => {
 
     void fetchFrames();
   }, []);
+
+  React.useEffect(() => {
+    if (filters.frameFilter) {
+      const queryParams = new URLSearchParams();
+      queryParams.append('frame', filters.frameFilter);
+      history.push({ search: queryParams.toString() });
+    } else {
+      history.push({ search: '' });
+    }
+  }, [filters.frameFilter]);
+
+  const helmetTitle = (): string => {
+    let result = 'Fashion setups | Fashionframe';
+    if (filters.frameFilter)
+      result = `${String(filters.frameFilter)} | ${result}`;
+
+    return result;
+  };
 
   React.useEffect(() => {
     const fetchSetups = async (): Promise<void> => {
@@ -84,7 +115,7 @@ const Setups: React.VFC = () => {
   return (
     <Container component="main" maxWidth="xl">
       <Helmet>
-        <title>Fashion setups | Fashionframe</title>
+        <title>{helmetTitle()}</title>
         <meta
           name="description"
           content="Search for fashion setups created by other players, filter by frames or popularity."

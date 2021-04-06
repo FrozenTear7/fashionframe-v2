@@ -29,10 +29,6 @@ const ColorSchemeSubsection: React.VFC<SetupSectionProps> = ({
     />
   );
 
-  console.log(dataPrefix);
-  console.log('Watch xd: ', watch());
-  console.log('Watch: ', watch(`${dataPrefix}.${currentColor}`));
-
   return (
     <>
       <Grid container justify="center" alignContent="center" spacing={3}>
