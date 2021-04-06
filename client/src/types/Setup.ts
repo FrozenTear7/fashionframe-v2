@@ -18,17 +18,13 @@ export interface SetupItem extends SetupBase {
 }
 
 export interface SetupDetails extends SetupBase {
+  description?: string;
+  helmet: string;
+  skin: string;
   screenshot: string;
   attachments: Attachments;
   syandana: Syandana;
   colorScheme: ColorScheme;
-}
-
-export interface NewSetup extends SetupBase {
-  attachments: Attachments;
-  syandana: Syandana;
-  colorScheme: ColorScheme;
-  screenshotImage: File;
 }
 
 export interface NewSetupFormData {
@@ -38,7 +34,6 @@ export interface NewSetupFormData {
   helmet: string;
   skin: string;
   screenshotImage: FileList;
-  // attachments: Omit<Attachments, '_id'>;
   attachments: {
     colorScheme: Omit<ColorScheme, '_id'>;
     chest?: string;
@@ -52,6 +47,5 @@ export interface NewSetupFormData {
     colorScheme: Omit<ColorScheme, '_id'>;
     name?: string;
   };
-  // syandana: Omit<Syandana, '_id'>;
   colorScheme: Omit<ColorScheme, '_id'>;
 }

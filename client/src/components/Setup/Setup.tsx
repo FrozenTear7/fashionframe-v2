@@ -5,6 +5,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { SetupDetails } from '../../types/Setup';
 import Error from '../Utils/Error';
 import Loading from '../Utils/Loading';
+import SetupPage from './SetupPage';
 
 const Setup: React.VFC<RouteComponentProps<{ id: string }>> = ({ match }) => {
   const setupId = match.params.id;
@@ -33,6 +34,7 @@ const Setup: React.VFC<RouteComponentProps<{ id: string }>> = ({ match }) => {
 
   if (setupLoading) return <Loading />;
   if (setupError) return <Error error={setupError} />;
+  if (!setup) return <Error error="Something went wrong" />;
   return (
     <div className="Setup">
       <Helmet>
@@ -45,8 +47,7 @@ const Setup: React.VFC<RouteComponentProps<{ id: string }>> = ({ match }) => {
         </title>
         <meta name="description" content="DESCRIPTION" />
       </Helmet>
-      Setup {setupId}
-      Name: {setup?.name}
+      <SetupPage setup={setup} />
     </div>
   );
 };

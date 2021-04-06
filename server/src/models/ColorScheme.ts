@@ -1,7 +1,10 @@
 import { model, Schema, Model, Document } from 'mongoose';
 
 const validateColorRGB = (color: string): void => {
-  if (color && !/^#([a-fA-F0-9]{6})$/.test(color))
+  if (
+    color &&
+    !/^\w+( \w+)?(\(L\))?\.\d{1,2}\.\d{1,2}\.#([a-fA-F0-9]{6})$/.test(color) // For example 'Classic Saturated(L).2.6.#4eb9d1'
+  )
     throw new Error('Invalid color hex format');
 };
 
