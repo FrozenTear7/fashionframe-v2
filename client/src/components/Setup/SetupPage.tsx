@@ -11,7 +11,6 @@ import * as React from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import useSetupPageStyles from './useSetupPageStyles';
 import { SetupDetails } from '../../types/Setup';
 
@@ -66,7 +65,7 @@ const SetupPage: React.VFC<SetupDetailsProps> = ({ setup }) => {
     screenshot,
     attachments,
     syandana,
-    colorScheme,
+    // colorScheme,
   } = setup;
 
   const descriptionElementRef = React.useRef<HTMLElement>(null);
@@ -80,8 +79,8 @@ const SetupPage: React.VFC<SetupDetailsProps> = ({ setup }) => {
   }, [open]);
 
   return (
-    <Grid container>
-      <Grid container item lg={6} direction="column" justify="flex-start">
+    <Grid container justify="center" alignItems="flex-start">
+      <Grid container item lg={6} direction="column">
         <Grid item xs>
           <Typography className={classes.title} component="h1">
             {name}

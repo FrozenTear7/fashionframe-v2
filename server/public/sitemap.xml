@@ -250,4 +250,9 @@
     <lastmod>2021-04-06</lastmod>
     <priority>0.4</priority>
   </url>
+  <url>
+    <loc>https://fashionframe.herokuapp.com/about-api</loc>
+    <lastmod>2021-04-06</lastmod>
+    <priority>0.2</priority>
+  </url>
 </urlset>

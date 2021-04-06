@@ -24,6 +24,7 @@ import LockIcon from '@material-ui/icons/Lock';
 import HomeIcon from '@material-ui/icons/Home';
 import { useSnackbar } from 'notistack';
 import InfoIcon from '@material-ui/icons/Info';
+import BuildIcon from '@material-ui/icons/Build';
 import { PrivateRoute, SignedInRoute } from '../../utils/PrivateRoute';
 import Setup from '../Setup/Setup';
 import Setups from '../Setups/Setups';
@@ -38,6 +39,7 @@ import ListItemLink from './ListItemLink';
 import useResponsiveDrawerWrapperStyles from './useResponsiveDrawerWrapperStyles';
 import { useUserContext } from '../../UserContext';
 import About from '../About/About';
+import APIPage from '../APIPage/APIPage';
 
 interface ResponsiveDrawerProps {
   // eslint-disable-next-line react/require-default-props
@@ -102,6 +104,9 @@ const ResponsiveDrawerWrapper: React.VFC = (props: ResponsiveDrawerProps) => {
       <Divider />
       <ListItemLink to="/about" name="About">
         <InfoIcon />
+      </ListItemLink>
+      <ListItemLink to="/about-api" name="API">
+        <BuildIcon />
       </ListItemLink>
       <Divider />
       <List>
@@ -200,6 +205,7 @@ const ResponsiveDrawerWrapper: React.VFC = (props: ResponsiveDrawerProps) => {
         <Container maxWidth="xl" className={classes.container}>
           <Switch location={location}>
             <Route exact path="/" component={Homepage} />
+            <Route exact path="/about-api" component={APIPage} />
             <Route exact path="/about" component={About} />
             <SignedInRoute exact path="/signup" component={SignUp} />
             <SignedInRoute exact path="/signin" component={SignIn} />
