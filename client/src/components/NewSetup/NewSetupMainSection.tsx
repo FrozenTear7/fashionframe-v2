@@ -1,21 +1,13 @@
-/* eslint-disable @typescript-eslint/unbound-method */
 import { Grid, TextField } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import * as React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
+import { WarframeData } from '../../types/WarframeData';
 import SelectField from '../Utils/SelectField';
 
-interface SetupSectionProps {
-  frames: string[];
-  helmets: { [frame: string]: string[] };
-  skins: { [frame: string]: string[] };
-}
-
-const NewSetupSetupSection: React.VFC<SetupSectionProps> = ({
-  frames,
-  helmets,
-  skins,
-}) => {
+const NewSetupMainSection: React.VFC<
+  Pick<WarframeData, 'frames' | 'helmets' | 'skins'>
+> = ({ frames, helmets, skins }) => {
   const methods = useFormContext();
   const {
     control,
@@ -77,4 +69,4 @@ const NewSetupSetupSection: React.VFC<SetupSectionProps> = ({
   );
 };
 
-export default NewSetupSetupSection;
+export default NewSetupMainSection;

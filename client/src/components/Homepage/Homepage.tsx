@@ -7,6 +7,7 @@ import useHomepageStyles from './useHomepageStyles';
 const Homepage: React.VFC = () => {
   const classes = useHomepageStyles();
 
+  // Not the greatest solution for changing homepage's background but works
   React.useEffect(() => {
     document.body.className = 'gradient-background';
 
@@ -16,7 +17,7 @@ const Homepage: React.VFC = () => {
   }, []);
 
   return (
-    <div className="Homepage test">
+    <>
       <Helmet>
         <title>Fashionframe</title>
         <meta
@@ -38,7 +39,7 @@ const Homepage: React.VFC = () => {
           Explore
         </Button>
       </Container>
-    </div>
+    </>
   );
 };
 

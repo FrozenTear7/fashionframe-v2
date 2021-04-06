@@ -1,11 +1,23 @@
+export interface ColorPickers {
+  [colorPicker: string]: string[];
+}
+
+interface Helmets {
+  [frame: string]: string[];
+}
+
+interface Skins {
+  [frame: string]: string[];
+}
+
 export interface WarframeData {
   armAttachments: string[];
   chestAttachments: string[];
-  colorPickers: { [colorPicker: string]: string[] };
+  colorPickers: ColorPickers;
   ephemeras: string[];
   frames: string[];
-  helmets: { [frame: string]: string[] };
+  helmets: Helmets;
   legAttachments: string[];
-  skins: { [frame: string]: string[] };
+  skins: Skins;
   syandanas: string[];
 }

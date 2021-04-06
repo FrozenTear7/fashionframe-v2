@@ -1,56 +1,21 @@
-import {
-  AppBar,
-  Box,
-  Button,
-  Grid,
-  Tab,
-  Tabs,
-  Typography,
-} from '@material-ui/core';
+import { AppBar, Button, Grid, Tab, Tabs, Typography } from '@material-ui/core';
 import * as React from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import useSetupPageStyles from './useSetupPageStyles';
 import { SetupDetails } from '../../types/Setup';
-
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}
-
-const SetupTabPanel: React.VFC<TabPanelProps> = ({
-  children,
-  value,
-  index,
-  ...other
-}) => {
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`setup-tabpanel-${index}`}
-      aria-labelledby={`setup-tab-${index}`}
-      {...other}
-    >
-      {value === index && <Box p={3}>{children}</Box>}
-    </div>
-  );
-};
+import SetupColorScheme from './SetupColorScheme';
+import a11yProps from '../../utils/a11yProps';
+import SetupTabPanel from './SetupTabPanel';
+import { ColorPickers } from '../../types/WarframeData';
 
 interface SetupDetailsProps {
   setup: SetupDetails;
+  colorPickers: ColorPickers;
 }
 
-const a11yProps = (index: number): { id: string; 'aria-controls': string } => {
-  return {
-    id: `setup-tab-${index}`,
-    'aria-controls': `setup-tabpanel-${index}`,
-  };
-};
-
-const SetupPage: React.VFC<SetupDetailsProps> = ({ setup }) => {
+const SetupPage: React.VFC<SetupDetailsProps> = ({ setup, colorPickers }) => {
   const classes = useSetupPageStyles();
 
   const [currentTab, setCurrentTab] = React.useState(0);
@@ -65,7 +30,7 @@ const SetupPage: React.VFC<SetupDetailsProps> = ({ setup }) => {
     screenshot,
     attachments,
     syandana,
-    // colorScheme,
+    colorScheme,
   } = setup;
 
   const descriptionElementRef = React.useRef<HTMLElement>(null);
@@ -77,6 +42,22 @@ const SetupPage: React.VFC<SetupDetailsProps> = ({ setup }) => {
       }
     }
   }, [open]);
+
+  const genericInfoGridItem = (
+    itemName: string,
+    itemValue: string | undefined
+  ): JSX.Element => {
+    return (
+      <Grid item>
+        <Typography variant="body1" component="p">
+          {itemName}
+        </Typography>
+        <Typography variant="h5" component="p">
+          <strong>{itemValue}</strong>
+        </Typography>
+      </Grid>
+    );
+  };
 
   return (
     <Grid container justify="center" alignItems="flex-start">
@@ -138,115 +119,45 @@ const SetupPage: React.VFC<SetupDetailsProps> = ({ setup }) => {
             aria-label="Setup components"
             variant="fullWidth"
           >
-            <Tab wrapped label="Main" {...a11yProps(0)} />
-            <Tab wrapped label="Attachments" {...a11yProps(1)} />
-            <Tab wrapped label="Syandana" {...a11yProps(2)} />
+            <Tab wrapped label="Main" {...a11yProps('setup', 0)} />
+            <Tab wrapped label="Attachments" {...a11yProps('setup', 1)} />
+            <Tab wrapped label="Syandana" {...a11yProps('setup', 2)} />
           </Tabs>
         </AppBar>
         <SetupTabPanel value={currentTab} index={0}>
-          <Grid container>
+          <Grid container spacing={3}>
             <Grid container item lg={6} spacing={3} direction="column">
-              <Grid item>
-                <Typography variant="body1" component="p">
-                  Frame
-                </Typography>
-                <Typography variant="h5" component="p">
-                  <strong>{frame}</strong>
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Typography variant="body1" component="p">
-                  Helmet
-                </Typography>
-                <Typography variant="h5" component="p">
-                  <strong>{helmet}</strong>
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Typography variant="body1" component="p">
-                  Skin
-                </Typography>
-                <Typography variant="h5" component="p">
-                  <strong>{skin}</strong>
-                </Typography>
-              </Grid>
+              {genericInfoGridItem('Frame', frame)}
+              {genericInfoGridItem('Helmet', helmet)}
+              {genericInfoGridItem('Skin', skin)}
             </Grid>
             <Grid item lg={6}>
-              Colors
+              <SetupColorScheme colorScheme={colorScheme} />
             </Grid>
           </Grid>
         </SetupTabPanel>
         <SetupTabPanel value={currentTab} index={1}>
-          <Grid container>
+          <Grid container spacing={3}>
             <Grid container item lg={6} spacing={3} direction="column">
-              <Grid item>
-                <Typography variant="body1" component="p">
-                  Chest
-                </Typography>
-                <Typography variant="h5" component="p">
-                  <strong>{attachments.chest}</strong>
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Typography variant="body1" component="p">
-                  Left arm
-                </Typography>
-                <Typography variant="h5" component="p">
-                  <strong>{attachments.leftArm}</strong>
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Typography variant="body1" component="p">
-                  Right arm
-                </Typography>
-                <Typography variant="h5" component="p">
-                  <strong>{attachments.rightArm}</strong>
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Typography variant="body1" component="p">
-                  Left leg
-                </Typography>
-                <Typography variant="h5" component="p">
-                  <strong>{attachments.leftLeg}</strong>
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Typography variant="body1" component="p">
-                  Right leg
-                </Typography>
-                <Typography variant="h5" component="p">
-                  <strong>{attachments.rightLeg}</strong>
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Typography variant="body1" component="p">
-                  Ephemera
-                </Typography>
-                <Typography variant="h5" component="p">
-                  <strong>{attachments.ephemera}</strong>
-                </Typography>
-              </Grid>
+              {genericInfoGridItem('Chest', attachments.chest)}
+              {genericInfoGridItem('Left arm', attachments.leftArm)}
+              {genericInfoGridItem('Right arm', attachments.rightArm)}
+              {genericInfoGridItem('Left leg', attachments.leftLeg)}
+              {genericInfoGridItem('Right leg', attachments.rightLeg)}
+              {genericInfoGridItem('Ephemera', attachments.ephemera)}
             </Grid>
             <Grid item lg={6}>
-              Colors
+              <SetupColorScheme colorScheme={attachments.colorScheme} />
             </Grid>
           </Grid>
         </SetupTabPanel>
         <SetupTabPanel value={currentTab} index={2}>
-          <Grid container>
+          <Grid container spacing={3}>
             <Grid container item lg={6} spacing={3} direction="column">
-              <Grid item>
-                <Typography variant="body1" component="p">
-                  Syandana
-                </Typography>
-                <Typography variant="h5" component="p">
-                  <strong>{syandana.name}</strong>
-                </Typography>
-              </Grid>
+              {genericInfoGridItem('Syandana', syandana.name)}
             </Grid>
             <Grid item lg={6}>
-              Colors
+              <SetupColorScheme colorScheme={syandana.colorScheme} />
             </Grid>
           </Grid>
         </SetupTabPanel>

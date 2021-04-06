@@ -220,9 +220,21 @@ export const getSetupById = async (
   try {
     const setup = await Setup.findById(id)
       .populate('user')
-      .populate('attachments')
-      .populate('colorScheme')
-      .populate('syandana');
+      .populate({
+        path: 'attachments',
+        populate: {
+          path: 'colorScheme',
+          model: 'ColorScheme',
+        },
+      })
+      .populate({
+        path: 'syandana',
+        populate: {
+          path: 'colorScheme',
+          model: 'ColorScheme',
+        },
+      })
+      .populate('colorScheme');
 
     if (!setup) next(new HttpException(404, 'Setup does not exist'));
     else res.send(setup);

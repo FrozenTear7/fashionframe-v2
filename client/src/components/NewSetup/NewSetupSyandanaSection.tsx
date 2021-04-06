@@ -2,13 +2,10 @@
 import { Grid } from '@material-ui/core';
 import * as React from 'react';
 import { useFormContext } from 'react-hook-form';
+import { WarframeData } from '../../types/WarframeData';
 import SelectField from '../Utils/SelectField';
 
-interface SyandanaSectionProps {
-  syandanas: string[];
-}
-
-const NewSetupSyandanaSection: React.VFC<SyandanaSectionProps> = ({
+const NewSetupSyandanaSection: React.VFC<Pick<WarframeData, 'syandanas'>> = ({
   syandanas,
 }) => {
   const {

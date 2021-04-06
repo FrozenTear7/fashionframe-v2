@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/unbound-method */
 import * as React from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
@@ -62,6 +61,7 @@ const SignUpForm: React.VFC = () => {
       setSignUpError(response.data.message);
     }
   };
+
   return (
     <div className={classes.paper}>
       <Avatar className={classes.avatar}>

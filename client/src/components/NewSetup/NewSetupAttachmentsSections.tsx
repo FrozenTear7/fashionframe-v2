@@ -2,21 +2,15 @@
 import { Grid } from '@material-ui/core';
 import * as React from 'react';
 import { useFormContext } from 'react-hook-form';
+import { WarframeData } from '../../types/WarframeData';
 import SelectField from '../Utils/SelectField';
 
-interface AttachmentsSectionProps {
-  armAttachments: string[];
-  chestAttachments: string[];
-  ephemeras: string[];
-  legAttachments: string[];
-}
-
-const NewSetupAttachmentsSection: React.VFC<AttachmentsSectionProps> = ({
-  armAttachments,
-  chestAttachments,
-  ephemeras,
-  legAttachments,
-}) => {
+const NewSetupAttachmentsSection: React.VFC<
+  Pick<
+    WarframeData,
+    'armAttachments' | 'chestAttachments' | 'ephemeras' | 'legAttachments'
+  >
+> = ({ armAttachments, chestAttachments, ephemeras, legAttachments }) => {
   const {
     formState: { errors },
   } = useFormContext();

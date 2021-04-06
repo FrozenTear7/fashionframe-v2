@@ -29,14 +29,15 @@ const NewSetup: React.VFC = () => {
       setWarframeDataLoading(true);
 
       try {
+        // Multi-fetch on all data types
         const warframeDataRes = await axios.all(
           warframeDataTypes.map((warframeDataType) =>
             axios.get(`/api/data/${warframeDataType}`)
           )
         );
-        const warframeDataReduced = warframeDataRes.reduce((a, { data }) => {
+        const warframeDataReduced = warframeDataRes.reduce((acc, { data }) => {
           // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-          return { ...a, ...data };
+          return { ...acc, ...data };
         }, {});
         setWarframeData(warframeDataReduced as WarframeData);
       } catch ({ response }) {

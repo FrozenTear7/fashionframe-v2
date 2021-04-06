@@ -14,6 +14,12 @@ const Setup: React.VFC<RouteComponentProps<{ id: string }>> = ({ match }) => {
   const [setupLoading, setSetupLoading] = React.useState(true);
   const [setupError, setSetupError] = React.useState<string>();
 
+  const [colorPickers, setColorPickers] = React.useState<{
+    [colorPicker: string]: string[];
+  }>();
+  const [colorPickersLoading, setColorPickersLoading] = React.useState(true);
+  const [colorPickersError, setColorPickersError] = React.useState<string>();
+
   React.useEffect(() => {
     const fetchSetups = async (): Promise<void> => {
       setSetupError(undefined);
@@ -29,12 +35,30 @@ const Setup: React.VFC<RouteComponentProps<{ id: string }>> = ({ match }) => {
       }
     };
 
+    const fetchColorPickers = async (): Promise<void> => {
+      setColorPickersError(undefined);
+      setColorPickersLoading(true);
+
+      try {
+        const { data } = await axios.get(`/api/data/colorPickers`);
+        setColorPickers(data);
+      } catch ({ response }) {
+        setColorPickersError(response.data.message);
+      } finally {
+        setColorPickersLoading(false);
+      }
+    };
+
     void fetchSetups();
+    void fetchColorPickers();
   }, []);
 
-  if (setupLoading) return <Loading />;
+  console.log(setup);
+
+  if (setupLoading || colorPickersLoading) return <Loading />;
   if (setupError) return <Error error={setupError} />;
-  if (!setup) return <Error error="Something went wrong" />;
+  if (colorPickersError) return <Error error={colorPickersError} />;
+  if (!setup || !colorPickers) return <Error error="Something went wrong" />;
   return (
     <div className="Setup">
       <Helmet>
@@ -47,7 +71,7 @@ const Setup: React.VFC<RouteComponentProps<{ id: string }>> = ({ match }) => {
         </title>
         <meta name="description" content="DESCRIPTION" />
       </Helmet>
-      <SetupPage setup={setup} />
+      <SetupPage setup={setup} colorPickers={colorPickers} />
     </div>
   );
 };

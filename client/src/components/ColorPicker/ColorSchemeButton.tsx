@@ -24,6 +24,7 @@ const ColorSchemeButton: React.VFC<ColorSchemeButtonProps> = ({
       />
     );
   }
+
   return (
     <Button className={classes.colorSchemeButtonCheckered} onClick={onClick} />
   );

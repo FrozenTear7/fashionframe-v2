@@ -18,8 +18,9 @@ const useNewSetupFormStyles = makeStyles<Theme>((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
   screenshotImage: {
-    height: '300px',
     width: 'auto',
+    height: '100%',
+    maxHeight: 'calc(30vw * 9/16 + 30vh * 9/16)',
   },
   appBar: {
     marginTop: theme.spacing(3),

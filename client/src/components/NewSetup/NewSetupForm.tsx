@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Controller, FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import * as React from 'react';
 import { useHistory } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
@@ -8,17 +8,19 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { Container, Fade, Grid, TextField } from '@material-ui/core';
+import { Container, Grid } from '@material-ui/core';
 import { WarframeData } from '../../types/WarframeData';
 import Error from '../Utils/Error';
 import newSetupSchema from '../../validation/newSetupSchema';
 import { NewSetupFormData } from '../../types/Setup';
-import NewSetupSetupSection from './NewSetupSetupSection';
+import NewSetupMainSection from './NewSetupMainSection';
 import NewSetupSyandanaSection from './NewSetupSyandanaSection';
 import NewSetupAttachmentsSection from './NewSetupAttachmentsSections';
 import NewSetupTabPanel from './NewSetupTabPanel';
 import useNewSetupFormStyles from './useNewSetupFormStyles';
 import ColorSchemeSubsection from './ColorSchemeSubsection';
+import a11yProps from '../../utils/a11yProps';
+import NewSetupTopSection from './NewSetupTopSection';
 
 const newSetupFormDefaultValues = {
   name: '',
@@ -37,13 +39,6 @@ const newSetupFormDefaultValues = {
   syandana: {
     name: 'None',
   },
-};
-
-const a11yProps = (index: number): { id: string; 'aria-controls': string } => {
-  return {
-    id: `newsetup-tab-${index}`,
-    'aria-controls': `newsetup-tabpanel-${index}`,
-  };
 };
 
 const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
@@ -73,13 +68,9 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
   });
   const {
     handleSubmit,
-    register,
-    control,
     watch,
     formState: { errors },
   } = methods;
-
-  const { screenshotImage: currentScreenshot } = watch();
 
   const newSetupFormOnSubmit = handleSubmit(async (setupWithImage) => {
     console.log(setupWithImage);
@@ -133,88 +124,7 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
               </Button>
             </Grid>
             <Grid container spacing={3}>
-              <Grid container item md={4} direction="column">
-                <Grid item>
-                  <Controller
-                    name="name"
-                    control={control}
-                    render={({ field }): JSX.Element => (
-                      <TextField
-                        {...field}
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="name"
-                        label="Name"
-                        error={!!errors.name?.message}
-                        helperText={
-                          errors.name?.message ? errors.name?.message : ''
-                        }
-                        autoFocus
-                      />
-                    )}
-                  />
-                </Grid>
-                <Grid item>
-                  <Controller
-                    name="description"
-                    control={control}
-                    render={({ field }): JSX.Element => (
-                      <TextField
-                        {...field}
-                        variant="outlined"
-                        margin="normal"
-                        multiline
-                        rowsMax={5}
-                        fullWidth
-                        id="description"
-                        label="Description"
-                        error={!!errors.description?.message}
-                        helperText={
-                          errors.description?.message
-                            ? errors.description?.message
-                            : ''
-                        }
-                      />
-                    )}
-                  />
-                </Grid>
-                <Grid container item direction="column" alignContent="center">
-                  <input
-                    {...register('screenshotImage')}
-                    id="screenshotImage"
-                    name="screenshotImage"
-                    type="file"
-                    accept="image/*"
-                    style={{ display: 'none' }}
-                  />
-                  <label htmlFor="screenshotImage">
-                    <Button
-                      component="span"
-                      variant="contained"
-                      color="secondary"
-                    >
-                      Screenshot
-                    </Button>
-                  </label>
-                </Grid>
-              </Grid>
-              <Grid
-                container
-                item
-                md={8}
-                alignContent="center"
-                justify="center"
-              >
-                {currentScreenshot && currentScreenshot.length > 0 && (
-                  <img
-                    className={classes.screenshotImage}
-                    alt="Screenshot"
-                    src={URL.createObjectURL(currentScreenshot[0])}
-                  />
-                )}
-              </Grid>
+              <NewSetupTopSection />
             </Grid>
             <Grid item md={12}>
               <AppBar position="static" className={classes.appBar}>
@@ -229,72 +139,65 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
                   aria-label="New setup components"
                   variant="fullWidth"
                 >
-                  <Tab wrapped label="Main" {...a11yProps(0)} />
-                  <Tab wrapped label="Attachments" {...a11yProps(1)} />
-                  <Tab wrapped label="Syandana" {...a11yProps(2)} />
+                  <Tab wrapped label="Main" {...a11yProps('newsetup', 0)} />
+                  <Tab
+                    wrapped
+                    label="Attachments"
+                    {...a11yProps('newsetup', 1)}
+                  />
+                  <Tab wrapped label="Syandana" {...a11yProps('newsetup', 2)} />
                 </Tabs>
               </AppBar>
               <NewSetupTabPanel value={currentTab} index={0}>
-                <Fade in={currentTab === 0} timeout={500}>
-                  <Grid
-                    container
-                    justify="center"
-                    alignContent="center"
-                    spacing={3}
-                  >
-                    <Grid item lg={4}>
-                      <NewSetupSetupSection
-                        frames={frames}
-                        helmets={helmets}
-                        skins={skins}
-                      />
-                    </Grid>
-
-                    <Grid item lg={8}>
-                      <ColorSchemeSubsection
-                        dataPrefix="colorScheme"
-                        colorPickers={colorPickers}
-                      />
-                    </Grid>
+                <Grid container>
+                  <Grid item lg={4}>
+                    <NewSetupMainSection
+                      frames={frames}
+                      helmets={helmets}
+                      skins={skins}
+                    />
                   </Grid>
-                </Fade>
+
+                  <Grid item lg={8}>
+                    <ColorSchemeSubsection
+                      dataPrefix="colorScheme"
+                      colorPickers={colorPickers}
+                    />
+                  </Grid>
+                </Grid>
               </NewSetupTabPanel>
               <NewSetupTabPanel value={currentTab} index={1}>
-                <Fade in={currentTab === 1} timeout={500}>
-                  <Grid container>
-                    <Grid item md={4}>
-                      <NewSetupAttachmentsSection
-                        armAttachments={armAttachments}
-                        chestAttachments={chestAttachments}
-                        ephemeras={ephemeras}
-                        legAttachments={legAttachments}
-                      />
-                    </Grid>
-
-                    <Grid item md={8}>
-                      <ColorSchemeSubsection
-                        dataPrefix="attachments.colorScheme"
-                        colorPickers={colorPickers}
-                      />
-                    </Grid>
+                <Grid container>
+                  <Grid item md={4}>
+                    <NewSetupAttachmentsSection
+                      armAttachments={armAttachments}
+                      chestAttachments={chestAttachments}
+                      ephemeras={ephemeras}
+                      legAttachments={legAttachments}
+                    />
                   </Grid>
-                </Fade>
+
+                  <Grid item md={8}>
+                    <ColorSchemeSubsection
+                      dataPrefix="attachments.colorScheme"
+                      colorPickers={colorPickers}
+                    />
+                  </Grid>
+                </Grid>
               </NewSetupTabPanel>
               <NewSetupTabPanel value={currentTab} index={2}>
-                <Fade in={currentTab === 2} timeout={500}>
-                  <Grid container>
-                    <Grid item md={4}>
-                      <NewSetupSyandanaSection syandanas={syandanas} />
-                    </Grid>
-
-                    <Grid item md={8}>
-                      <ColorSchemeSubsection
-                        dataPrefix="syandana.colorScheme"
-                        colorPickers={colorPickers}
-                      />
-                    </Grid>
+                <Grid container>
+                  <Grid item md={4}>
+                    <NewSetupSyandanaSection syandanas={syandanas} />
                   </Grid>
-                </Fade>
+
+                  <Grid item md={8}>
+                    <ColorSchemeSubsection
+                      dataPrefix="syandana.colorScheme"
+                      colorPickers={colorPickers}
+                    />
+                  </Grid>
+                </Grid>
               </NewSetupTabPanel>
             </Grid>
           </form>
