@@ -34,6 +34,7 @@ app.use(
 if (config.mode === 'production')
   app.use(express.static(path.join(__dirname, '../clientBuild')));
 else app.use(express.static(path.join(__dirname, '../../client/build')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/users', auth);
 app.use('/api/data', warframeData);
