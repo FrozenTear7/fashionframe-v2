@@ -6,6 +6,7 @@ COPY ./client/build ./clientBuild
 COPY ./server/build ./
 COPY ./server/package.json ./
 COPY ./server/yarn.lock ./
+COPY ./server/public ./
 
 RUN yarn install --ignore-scripts
 
