@@ -35,7 +35,7 @@ if (config.mode === 'production')
   app.use(express.static(path.join(__dirname, '../clientBuild')));
 else app.use(express.static(path.join(__dirname, '../../client/build')));
 
-app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/users', auth);
 app.use('/api/data', warframeData);
@@ -43,7 +43,7 @@ app.use('/api/setups', setups);
 
 // serve the sitemap
 app.get('/sitemap.xml', (_req, res) => {
-  res.sendFile(path.join(__dirname, '../public/sitemap.xml'));
+  res.sendFile(path.join(__dirname, 'public/sitemap.xml'));
 });
 
 // Server the client on all other paths except for api
