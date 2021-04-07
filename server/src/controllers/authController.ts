@@ -44,8 +44,10 @@ export const getOwnProfile = async (
   _next: NextFunction
 ): Promise<void> => {
   const { token } = req.cookies;
+  const csrfToken = req.csrfToken();
 
-  if (!token) res.send(null);
+  if (!token) res.send({ csrfToken });
+  // Send only the token if the user is not signed in
   else {
     const data = jwt.verify(token, config.jwtKey);
 
@@ -55,7 +57,7 @@ export const getOwnProfile = async (
     });
 
     if (!user) res.send(null);
-    else res.send({ _id: user._id, username: user.username });
+    else res.send({ _id: user._id, username: user.username, csrfToken });
   }
 };
 
@@ -75,8 +77,4 @@ export const logoutUser = async (
   } catch (e) {
     next(new HttpException(500, e));
   }
-};
-
-export const getCsrfToken = (req: Request, res: Response): void => {
-  res.send({ csrfToken: req.csrfToken() });
 };

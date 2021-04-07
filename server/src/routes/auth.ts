@@ -3,7 +3,6 @@ import {
   loginUser,
   getOwnProfile,
   logoutUser,
-  getCsrfToken,
 } from './../controllers/authController';
 import express from 'express';
 import auth from '../middleware/auth';
@@ -17,8 +16,7 @@ const router = express.Router();
 
 router.post('/', csrfProtection, createUser);
 router.post('/login', csrfProtection, loginUser);
-router.get('/me', csrfProtection, getOwnProfile);
+router.get('/me', getOwnProfile);
 router.post('/logout', [csrfProtection, auth], logoutUser);
-router.get('/csrf-token', getCsrfToken);
 
 export default router;

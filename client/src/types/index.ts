@@ -13,3 +13,8 @@ export interface LocationState {
     pathname: string;
   };
 }
+
+export interface GetRequestGeneric {
+  loading: boolean;
+  error: string | undefined;
+}

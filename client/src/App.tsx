@@ -14,26 +14,34 @@ const App: React.VFC = () => {
   const [initialDataError, setInitialDataError] = React.useState<string>();
 
   React.useEffect(() => {
+    let mounted = true;
+
     // Fetch CSRF token for security measures and then user profile
     const getUserData = async (): Promise<void> => {
-      setInitialDataError(undefined);
-      setInitialDataLoading(true);
+      if (mounted) {
+        setInitialDataError(undefined);
+        setInitialDataLoading(true);
+      }
 
       try {
-        const { data: csrfData } = await axios.get('/api/users/csrf-token');
-        axios.defaults.headers.post['X-CSRF-Token'] = csrfData.csrfToken;
+        const { data: userData } = await axios.get('/api/users/me');
 
-        const { data: profileData } = await axios.get('/api/users/me');
-        setUser(profileData);
+        axios.defaults.headers.post['X-CSRF-Token'] = userData.csrfToken;
+        if (mounted && userData._id && userData.username)
+          setUser({ _id: userData._id, username: userData.username });
       } catch ({ response }) {
         console.log(response.data.message);
-        setInitialDataError(response.data.message);
+        if (mounted) setInitialDataError(response.data.message);
       } finally {
-        setInitialDataLoading(false);
+        if (mounted) setInitialDataLoading(false);
       }
     };
 
     void getUserData();
+
+    return (): void => {
+      mounted = false;
+    };
   }, []);
 
   if (initialDataLoading) return <Loading />;

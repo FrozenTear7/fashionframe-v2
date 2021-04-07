@@ -25,6 +25,8 @@ const DrawerContent: React.VFC = () => {
   const { user, setUser } = useUserContext();
   const { enqueueSnackbar } = useSnackbar();
 
+  console.log(user);
+
   return (
     <>
       <div className={classes.toolbar} />
@@ -36,7 +38,7 @@ const DrawerContent: React.VFC = () => {
             </ListItem>
             <ListItem>
               <ListItemText>
-                <strong>{user?.username.substr(0, 15)}</strong>
+                <strong>{user.username}</strong>
               </ListItemText>
             </ListItem>
           </List>

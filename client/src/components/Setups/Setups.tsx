@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { AxiosRequestConfig } from 'axios';
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Container, Grid, TextField } from '@material-ui/core';
@@ -9,10 +9,20 @@ import Error from '../Utils/Error';
 import Loading from '../Utils/Loading';
 import SetupList from './SetupList';
 import useQuery from '../../utils/useQuery';
+import { GetRequestGeneric } from '../../types';
+import useAxiosGet from '../requests/useAxiosGet';
 
 interface SetupFilters {
   frameFilter: string | null;
   sortByFilter: string;
+}
+
+interface AxiosGetSetups extends GetRequestGeneric {
+  data: SetupItem[];
+}
+
+interface AxiosGetFrames extends GetRequestGeneric {
+  data: string[];
 }
 
 const fixFrameFilter = (frame: string | null): string | null => {
@@ -27,36 +37,41 @@ const Setups: React.VFC = () => {
   const query = useQuery();
   const history = useHistory();
 
-  const [frames, setFrames] = React.useState<string[]>([]);
-  const [framesLoading, setFramesLoading] = React.useState(false);
-  const [framesError, setFramesError] = React.useState<string>();
-
-  const [setups, setSetups] = React.useState<SetupItem[]>([]);
-  const [setupsLoading, setSetupsLoading] = React.useState(true);
-  const [setupsError, setSetupsError] = React.useState<string>();
-
   const [filters, setFilters] = React.useState<SetupFilters>({
     frameFilter: fixFrameFilter(query.get('frame')),
     sortByFilter: 'Score (descending)',
   });
 
-  React.useEffect(() => {
-    const fetchFrames = async (): Promise<void> => {
-      setFramesError(undefined);
-      setFramesLoading(true);
+  const {
+    data: frames,
+    loading: framesLoading,
+    error: framesError,
+  }: AxiosGetFrames = useAxiosGet(`/api/data/frames`);
 
-      try {
-        const { data } = await axios.get('/api/data/frames');
-        setFrames(data.frames);
-      } catch ({ response }) {
-        setFramesError(response.data.message);
-      } finally {
-        setFramesLoading(false);
-      }
+  const constructQueryParams = (): AxiosRequestConfig => {
+    const { frameFilter, sortByFilter } = filters;
+
+    let sortBy = 'score';
+    let order = '-1';
+    if (['Date (descending)', 'Date (ascending)'].includes(sortByFilter))
+      sortBy = 'createdAt';
+    if (['Score (ascending)', 'Date (ascending)'].includes(sortByFilter))
+      order = '1';
+
+    return {
+      params: {
+        frameFilter,
+        sortByFilter: sortBy,
+        orderFilter: order,
+      },
     };
+  };
 
-    void fetchFrames();
-  }, []);
+  const {
+    data: setups,
+    loading: setupsLoading,
+    error: setupsError,
+  }: AxiosGetSetups = useAxiosGet(`/api/setups`, constructQueryParams());
 
   React.useEffect(() => {
     if (filters.frameFilter) {
@@ -75,39 +90,6 @@ const Setups: React.VFC = () => {
 
     return result;
   };
-
-  React.useEffect(() => {
-    const fetchSetups = async (): Promise<void> => {
-      const { frameFilter, sortByFilter } = filters;
-
-      setSetupsError(undefined);
-      setSetupsLoading(true);
-
-      let sortBy = 'score';
-      let order = '-1';
-      if (['Date (descending)', 'Date (ascending)'].includes(sortByFilter))
-        sortBy = 'createdAt';
-      if (['Score (ascending)', 'Date (ascending)'].includes(sortByFilter))
-        order = '1';
-
-      try {
-        const { data } = await axios.get('/api/setups', {
-          params: {
-            frameFilter,
-            sortByFilter: sortBy,
-            orderFilter: order,
-          },
-        });
-        setSetups(data);
-      } catch ({ response }) {
-        setSetupsError(response.data.message);
-      } finally {
-        setSetupsLoading(false);
-      }
-    };
-
-    void fetchSetups();
-  }, [filters]);
 
   if (setupsLoading || framesLoading) return <Loading />;
   if (setupsError) return <Error error={setupsError} />;
