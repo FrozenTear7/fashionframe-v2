@@ -41,7 +41,6 @@ const NewSetup: React.VFC = () => {
         }, {});
         setWarframeData(warframeDataReduced as WarframeData);
       } catch ({ response }) {
-        console.log(response.data.message);
         setWarframeDataError(response.data.message);
       } finally {
         setWarframeDataLoading(false);

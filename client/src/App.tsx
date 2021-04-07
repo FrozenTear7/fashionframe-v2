@@ -30,7 +30,6 @@ const App: React.VFC = () => {
         if (mounted && userData._id && userData.username)
           setUser({ _id: userData._id, username: userData.username });
       } catch ({ response }) {
-        console.log(response.data.message);
         if (mounted) setInitialDataError(response.data.message);
       } finally {
         if (mounted) setInitialDataLoading(false);

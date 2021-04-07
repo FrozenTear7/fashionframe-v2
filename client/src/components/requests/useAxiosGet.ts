@@ -17,7 +17,7 @@ const useAxiosGet = (
   React.useEffect(() => {
     let mounted = true;
 
-    const fetchSetups = async (): Promise<void> => {
+    const fetchData = async (): Promise<void> => {
       if (mounted) {
         setError(undefined);
         setLoading(true);
@@ -27,14 +27,13 @@ const useAxiosGet = (
         const { data: responseData } = await axios.get(url, config);
         if (mounted) setData(responseData);
       } catch ({ response }) {
-        console.log(response);
         if (mounted) setError(response.data.message);
       } finally {
         if (mounted) setLoading(false);
       }
     };
 
-    void fetchSetups();
+    void fetchData();
 
     return (): void => {
       mounted = false;

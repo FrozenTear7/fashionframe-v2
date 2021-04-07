@@ -92,7 +92,6 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       history.replace(`/setups/${data._id}`);
     } catch ({ response }) {
-      console.log(response.data.message);
       setCreateSetupError(response.data.message);
     }
   });

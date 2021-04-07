@@ -29,6 +29,7 @@ const SignInForm: React.VFC = () => {
   const { setUser } = useUserContext();
   const { enqueueSnackbar } = useSnackbar();
 
+  const [signInLoading, setSignInLoading] = React.useState(false);
   const [signInError, setSignInError] = React.useState<string>();
 
   const {
@@ -48,6 +49,9 @@ const SignInForm: React.VFC = () => {
       from: { pathname: '/' },
     };
 
+    setSignInError(undefined);
+    setSignInLoading(true);
+
     try {
       const userRes = await signIn(username, password);
       setUser(userRes);
@@ -61,8 +65,9 @@ const SignInForm: React.VFC = () => {
         },
       });
     } catch ({ response }) {
-      console.log(response.data.message);
       setSignInError(response.data.message);
+    } finally {
+      setSignInLoading(false);
     }
   };
 
@@ -126,6 +131,7 @@ const SignInForm: React.VFC = () => {
           variant="contained"
           color="secondary"
           className={classes.submit}
+          disabled={signInLoading}
         >
           Sign In
         </Button>

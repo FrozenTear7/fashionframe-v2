@@ -28,6 +28,7 @@ const SignUpForm: React.VFC = () => {
   const { setUser } = useUserContext();
   const { enqueueSnackbar } = useSnackbar();
 
+  const [signUpLoading, setSignUpLoading] = React.useState(false);
   const [signUpError, setSignUpError] = React.useState<string>();
 
   const {
@@ -45,6 +46,9 @@ const SignUpForm: React.VFC = () => {
     password,
     password2,
   }: SignUpFormData): Promise<void> => {
+    setSignUpError(undefined);
+    setSignUpLoading(true);
+
     try {
       const userRes = await signUp(username, email, password, password2);
       setUser(userRes);
@@ -57,8 +61,9 @@ const SignUpForm: React.VFC = () => {
         },
       });
     } catch ({ response }) {
-      console.log(response.data.message);
       setSignUpError(response.data.message);
+    } finally {
+      setSignUpLoading(false);
     }
   };
 
@@ -160,6 +165,7 @@ const SignUpForm: React.VFC = () => {
           variant="contained"
           color="secondary"
           className={classes.submit}
+          disabled={signUpLoading}
         >
           Sign Up
         </Button>

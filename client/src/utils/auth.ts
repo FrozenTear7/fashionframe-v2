@@ -33,7 +33,3 @@ export const signIn = async (
     username: loginRes.data.username,
   };
 };
-
-export const signOut = async (): Promise<void> => {
-  await axios.post('/api/users/logout');
-};

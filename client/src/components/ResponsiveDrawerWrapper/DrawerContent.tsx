@@ -15,17 +15,45 @@ import HomeIcon from '@material-ui/icons/Home';
 import { useSnackbar } from 'notistack';
 import InfoIcon from '@material-ui/icons/Info';
 import BuildIcon from '@material-ui/icons/Build';
+import axios from 'axios';
 import ListItemLink from './ListItemLink';
 import useResponsiveDrawerWrapperStyles from './useResponsiveDrawerWrapperStyles';
 import { useUserContext } from '../../UserContext';
-import { signOut } from '../../utils/auth';
 
 const DrawerContent: React.VFC = () => {
   const classes = useResponsiveDrawerWrapperStyles();
   const { user, setUser } = useUserContext();
   const { enqueueSnackbar } = useSnackbar();
 
-  console.log(user);
+  const [signOutLoading, setSignOutLoading] = React.useState(false);
+
+  const signOut = async (): Promise<void> => {
+    setSignOutLoading(true);
+
+    try {
+      await axios.post('/api/users/logout');
+      setUser(null);
+      enqueueSnackbar('Signed out successfully', {
+        variant: 'success',
+        autoHideDuration: 3000,
+        anchorOrigin: {
+          vertical: 'bottom',
+          horizontal: 'left',
+        },
+      });
+    } catch ({ response }) {
+      enqueueSnackbar(response.data.message, {
+        variant: 'error',
+        autoHideDuration: 3000,
+        anchorOrigin: {
+          vertical: 'bottom',
+          horizontal: 'left',
+        },
+      });
+    } finally {
+      setSignOutLoading(false);
+    }
+  };
 
   return (
     <>
@@ -38,7 +66,7 @@ const DrawerContent: React.VFC = () => {
             </ListItem>
             <ListItem>
               <ListItemText>
-                <strong>{user.username}</strong>
+                <strong>{user?.username.substr(0, 15)}</strong>
               </ListItemText>
             </ListItem>
           </List>
@@ -81,16 +109,8 @@ const DrawerContent: React.VFC = () => {
               button
               onClick={async (): Promise<void> => {
                 await signOut();
-                setUser(null);
-                enqueueSnackbar('Signed out successfully', {
-                  variant: 'success',
-                  autoHideDuration: 3000,
-                  anchorOrigin: {
-                    vertical: 'bottom',
-                    horizontal: 'left',
-                  },
-                });
               }}
+              disabled={signOutLoading}
             >
               <ListItemIcon>
                 <ExitToAppIcon />
