@@ -116,7 +116,7 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
               <Button
                 type="submit"
                 variant="contained"
-                color="secondary"
+                color="primary"
                 className={classes.submit}
               >
                 Create

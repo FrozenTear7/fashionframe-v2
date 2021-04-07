@@ -97,7 +97,13 @@ const SetupColorScheme: React.VFC<SetupColorSchemeProps> = ({
       <Typography variant="h5" component="p">
         Color scheme
       </Typography>
-      <Grid container item spacing={1} justify="space-between">
+      <Grid
+        container
+        item
+        spacing={1}
+        justify="space-between"
+        alignItems="center"
+      >
         <Grid item md={12}>
           Primary
         </Grid>
@@ -105,7 +111,13 @@ const SetupColorScheme: React.VFC<SetupColorSchemeProps> = ({
           {setupColorSchemeButton('primary', primary)}
         </Grid>
       </Grid>
-      <Grid container item spacing={1} justify="space-between">
+      <Grid
+        container
+        item
+        spacing={1}
+        justify="space-between"
+        alignItems="center"
+      >
         <Grid item md={12}>
           Secondary
         </Grid>
@@ -113,7 +125,13 @@ const SetupColorScheme: React.VFC<SetupColorSchemeProps> = ({
           {setupColorSchemeButton('secondary', secondary)}
         </Grid>
       </Grid>
-      <Grid container item spacing={1} justify="space-between">
+      <Grid
+        container
+        item
+        spacing={1}
+        justify="space-between"
+        alignItems="center"
+      >
         <Grid item md={12}>
           Tertiary
         </Grid>
@@ -121,7 +139,13 @@ const SetupColorScheme: React.VFC<SetupColorSchemeProps> = ({
           {setupColorSchemeButton('tertiary', tertiary)}
         </Grid>
       </Grid>
-      <Grid container item spacing={1} justify="space-between">
+      <Grid
+        container
+        item
+        spacing={1}
+        justify="space-between"
+        alignItems="center"
+      >
         <Grid item md={12}>
           Accents
         </Grid>
@@ -129,7 +153,13 @@ const SetupColorScheme: React.VFC<SetupColorSchemeProps> = ({
           {setupColorSchemeButton('accents', accents)}
         </Grid>
       </Grid>
-      <Grid container item spacing={1} justify="space-between">
+      <Grid
+        container
+        item
+        spacing={1}
+        justify="space-between"
+        alignItems="center"
+      >
         <Grid item md={12}>
           Emmissive
         </Grid>
@@ -140,7 +170,13 @@ const SetupColorScheme: React.VFC<SetupColorSchemeProps> = ({
           {setupColorSchemeButton('emmissive2', emmissive2)}
         </Grid>
       </Grid>
-      <Grid container item spacing={1} justify="space-between">
+      <Grid
+        container
+        item
+        spacing={1}
+        justify="space-between"
+        alignItems="center"
+      >
         <Grid item md={12}>
           Energy
         </Grid>

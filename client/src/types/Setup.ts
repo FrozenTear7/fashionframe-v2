@@ -14,7 +14,6 @@ export interface SetupBase {
 export interface SetupItem extends SetupBase {
   screenshot: string;
   score: number;
-  likedByYou: boolean;
 }
 
 export interface SetupDetails extends SetupBase {
@@ -25,6 +24,8 @@ export interface SetupDetails extends SetupBase {
   attachments: Attachments;
   syandana: Syandana;
   colorScheme: ColorScheme;
+  score: number;
+  favorited: boolean;
 }
 
 export interface NewSetupFormData {

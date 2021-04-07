@@ -5,7 +5,7 @@ const useSetupListStyles = makeStyles<Theme>((theme) => ({
     marginTop: theme.spacing(4),
   },
   tileBar: {
-    backgroundColor: theme.palette.secondary.dark,
+    backgroundColor: theme.palette.primary.dark,
     opacity: 0.75,
   },
   starIcon: {

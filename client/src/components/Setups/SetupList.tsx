@@ -51,7 +51,7 @@ const SetupList: React.VFC<SetupListItemProps> = ({ setups }) => {
                 }
                 actionIcon={
                   <Badge
-                    color="secondary"
+                    color="primary"
                     badgeContent={score}
                     showZero
                     anchorOrigin={{

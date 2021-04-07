@@ -163,7 +163,7 @@ const SignUpForm: React.VFC = () => {
           type="submit"
           fullWidth
           variant="contained"
-          color="secondary"
+          color="primary"
           className={classes.submit}
           disabled={signUpLoading}
         >

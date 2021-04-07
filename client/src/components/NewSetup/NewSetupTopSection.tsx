@@ -74,7 +74,7 @@ const NewSetupTopSection: React.VFC = () => {
             style={{ display: 'none' }}
           />
           <label htmlFor="screenshotImage">
-            <Button component="span" variant="contained" color="secondary">
+            <Button component="span" variant="contained" color="primary">
               Screenshot
             </Button>
           </label>

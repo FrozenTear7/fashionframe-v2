@@ -30,7 +30,7 @@ const useHeaderStyles = makeStyles<Theme>((theme) => ({
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
-    background: theme.palette.secondary.light,
+    background: theme.palette.primary.light,
   },
   content: {
     flexGrow: 1,
@@ -40,7 +40,7 @@ const useHeaderStyles = makeStyles<Theme>((theme) => ({
     paddingTop: '1.5rem',
   },
   drawerList: {
-    background: theme.palette.secondary.light,
+    background: theme.palette.primary.light,
   },
 }));
 

@@ -3,12 +3,16 @@ import * as React from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
+import StarIcon from '@material-ui/icons/Star';
+import axios from 'axios';
 import useSetupPageStyles from './useSetupPageStyles';
 import { SetupDetails } from '../../types/Setup';
 import SetupColorScheme from './SetupColorScheme';
 import a11yProps from '../../utils/a11yProps';
 import SetupTabPanel from './SetupTabPanel';
 import { ColorPickers } from '../../types/WarframeData';
+import { useUserContext } from '../../UserContext';
+import Error from '../Utils/Error';
 
 interface SetupDetailsProps {
   setup: SetupDetails;
@@ -17,9 +21,13 @@ interface SetupDetailsProps {
 
 const SetupPage: React.VFC<SetupDetailsProps> = ({ setup, colorPickers }) => {
   const classes = useSetupPageStyles();
+  const { user } = useUserContext();
 
   const [currentTab, setCurrentTab] = React.useState(0);
   const [open, setOpen] = React.useState(false);
+
+  const [favoriteSetupLoading, setFavoriteSetupLoading] = React.useState(false);
+  const [favoriteSetupError, setFavoriteSetupError] = React.useState<string>();
 
   const {
     name,
@@ -31,7 +39,12 @@ const SetupPage: React.VFC<SetupDetailsProps> = ({ setup, colorPickers }) => {
     attachments,
     syandana,
     colorScheme,
+    score,
+    favorited,
   } = setup;
+
+  const [currentFavorited, setCurrentFavorited] = React.useState(favorited);
+  const [currentScore, setCurrentScore] = React.useState(score);
 
   const descriptionElementRef = React.useRef<HTMLElement>(null);
   React.useEffect(() => {
@@ -59,13 +72,60 @@ const SetupPage: React.VFC<SetupDetailsProps> = ({ setup, colorPickers }) => {
     );
   };
 
+  const putFavoriteSetup = async (): Promise<void> => {
+    setFavoriteSetupError(undefined);
+    setFavoriteSetupLoading(true);
+
+    try {
+      const { data } = await axios.post(`/api/setups/${setup._id}/favorite`);
+      setCurrentFavorited(data);
+      if (data) setCurrentScore(+currentScore + 1);
+      else setCurrentScore(+currentScore - 1);
+    } catch ({ response }) {
+      setFavoriteSetupError(response.data.message);
+    } finally {
+      setFavoriteSetupLoading(false);
+    }
+  };
+
+  console.log('Favorited: ', currentFavorited);
+
   return (
     <Grid container justify="center" alignItems="flex-start">
-      <Grid container item lg={6} direction="column">
+      <Grid container item lg={6} direction="column" spacing={2}>
         <Grid item xs>
           <Typography className={classes.title} component="h1">
             {name}
           </Typography>
+        </Grid>
+        <Grid container item xs spacing={1} direction="column">
+          <Grid item>
+            <Typography variant="body1" component="p">
+              Favorites: {currentScore}
+            </Typography>
+          </Grid>
+          <Grid item>
+            {favoriteSetupError && <Error error={favoriteSetupError} />}
+          </Grid>
+          {user && (
+            <Grid item>
+              <Button
+                className={
+                  currentFavorited
+                    ? classes.favoriteButtonError
+                    : classes.favoriteButtonSuccess
+                }
+                variant="contained"
+                onClick={putFavoriteSetup}
+                disabled={favoriteSetupLoading}
+              >
+                {currentFavorited
+                  ? 'Remove from favorites'
+                  : 'Add to favorites'}{' '}
+                <StarIcon />
+              </Button>
+            </Grid>
+          )}
         </Grid>
         <Grid item xs>
           <Typography className={classes.subTitle} component="h2">

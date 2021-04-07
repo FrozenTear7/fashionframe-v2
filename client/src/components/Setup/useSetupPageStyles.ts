@@ -8,10 +8,7 @@ const useSetupPageStyles = makeStyles<Theme>((theme) => ({
     },
   },
   subTitle: {
-    fontSize: '1em',
-    [theme.breakpoints.up('lg')]: {
-      fontSize: '1.5em',
-    },
+    fontSize: '1.5em',
     maxWidth: 600,
     'word-wrap': 'break-word',
   },
@@ -42,6 +39,18 @@ const useSetupPageStyles = makeStyles<Theme>((theme) => ({
       'linear-gradient(45deg, #808080 25%, transparent 25%), linear-gradient(-45deg, #808080 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #808080 75%), linear-gradient(-45deg, transparent 75%, #808080 75%)',
     'background-size': '20px 20px',
     'background-position': '0 0, 0 10px, 10px -10px, -10px 0px',
+  },
+  favoriteButtonSuccess: {
+    background: theme.palette.success.main,
+    '&:hover': {
+      background: theme.palette.success.dark,
+    },
+  },
+  favoriteButtonError: {
+    background: theme.palette.error.main,
+    '&:hover': {
+      background: theme.palette.error.dark,
+    },
   },
 }));
 

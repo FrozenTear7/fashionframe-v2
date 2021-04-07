@@ -12,7 +12,7 @@ const useAxiosGet = (
 } => {
   const [data, setData] = React.useState();
   const [loading, setLoading] = React.useState(true);
-  const [error, setError] = React.useState();
+  const [error, setError] = React.useState<string>();
 
   React.useEffect(() => {
     let mounted = true;

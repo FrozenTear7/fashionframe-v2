@@ -1,14 +1,13 @@
-import { IUser } from './../models/User';
-import jwt from 'jsonwebtoken';
 import { exists, isString, isNumber } from './../utils/parseTypes/typeChecks';
 import { NextFunction, Response, Request } from 'express';
+import mongoose from 'mongoose';
+import jwt from 'jsonwebtoken';
 import HttpException from '../exceptions/HttpException';
 import Attachments from '../models/Attachments';
 import ColorScheme from '../models/ColorScheme';
 import Setup from '../models/Setup';
 import Syandana from '../models/Syandana';
-import User from '../models/User';
-import mongoose from 'mongoose';
+import User, { IUser } from '../models/User';
 import uploadToAlbum from '../utils/imgur/uploadToAlbum';
 import config from '../config';
 
@@ -136,51 +135,12 @@ export const getSetups = async (
         },
       },
     ]);
-    const setupsWithAuthors = await Setup.populate(setups, {
+    const populatedSetup = await Setup.populate(setups, {
       path: 'author',
       select: 'username',
     });
 
-    const { token } = req.cookies;
-
-    let user: IUser | null = null;
-    if (!token) {
-      try {
-        const data = jwt.verify(token, config.jwtKey);
-
-        user = await User.findOne({
-          _id: data,
-          'tokens.token': token,
-        });
-        // eslint-disable-next-line no-empty
-      } catch {}
-    }
-
-    res.send(
-      setupsWithAuthors.map((setup) => {
-        const {
-          _id,
-          name,
-          createdAt,
-          frame,
-          screenshot,
-          score,
-          favoritedUsers,
-          author,
-        } = setup;
-
-        return {
-          _id,
-          name,
-          createdAt,
-          frame,
-          screenshot,
-          score,
-          favoritedByYou: user && favoritedUsers.includes(user._id),
-          author,
-        };
-      })
-    );
+    res.send(populatedSetup);
   } catch (e) {
     console.log(e);
     next(new HttpException(404, e));
@@ -218,26 +178,70 @@ export const getSetupById = async (
   const id = req.params.id;
 
   try {
-    const setup = await Setup.findById(id)
-      .populate('user')
-      .populate({
+    const { token } = req.cookies;
+
+    let user: IUser | null = null;
+    if (token) {
+      try {
+        const data = jwt.verify(token, config.jwtKey);
+
+        user = await User.findOne({
+          _id: data,
+          'tokens.token': token,
+        });
+      } catch (e) {
+        console.log(e);
+        return next(new HttpException(400, 'Error while fetching the setup'));
+      }
+    }
+
+    const setup = await Setup.aggregate([
+      { $match: { _id: mongoose.Types.ObjectId(id) } },
+      {
+        $project: {
+          name: 1,
+          description: 1,
+          createdAt: 1,
+          frame: 1,
+          helmet: 1,
+          skin: 1,
+          screenshot: 1,
+          attachments: 1,
+          syandana: 1,
+          colorScheme: 1,
+          favoritedUsers: 1,
+          author: 1,
+          favorited: { $in: [user?._id || null, '$favoritedUsers'] },
+          score: { $size: '$favoritedUsers' },
+        },
+      },
+    ]);
+
+    if (!setup) return next(new HttpException(404, 'Setup does not exist'));
+
+    const populatedSetup = await Setup.populate(setup, [
+      {
+        path: 'author',
+        select: 'username',
+      },
+      {
         path: 'attachments',
         populate: {
           path: 'colorScheme',
-          model: 'ColorScheme',
         },
-      })
-      .populate({
+      },
+      {
         path: 'syandana',
         populate: {
           path: 'colorScheme',
-          model: 'ColorScheme',
         },
-      })
-      .populate('colorScheme');
+      },
+      {
+        path: 'colorScheme',
+      },
+    ]);
 
-    if (!setup) next(new HttpException(404, 'Setup does not exist'));
-    else res.send(setup);
+    res.send(populatedSetup[0]);
   } catch (e) {
     console.log(e);
     next(new HttpException(404, e));
@@ -332,20 +336,25 @@ export const favoriteSetupById = async (
   const session = await mongoose.startSession();
 
   try {
-    let setup;
+    const currentSetup = await Setup.findById(id);
 
-    await session.withTransaction(async () => {
-      setup = await Setup.findByIdAndUpdate(
-        id,
-        {
-          $addToSet: {
-            favoritedUsers: mongoose.Types.ObjectId(userId),
+    if (!currentSetup)
+      return next(new HttpException(404, 'Setup does not exist'));
+
+    if (
+      !currentSetup.favoritedUsers.includes(mongoose.Types.ObjectId(userId))
+    ) {
+      await session.withTransaction(async () => {
+        await Setup.findByIdAndUpdate(
+          id,
+          {
+            $addToSet: {
+              favoritedUsers: mongoose.Types.ObjectId(userId),
+            },
           },
-        },
-        { session, runValidators: true }
-      );
+          { session, runValidators: true }
+        );
 
-      if (setup) {
         await User.findByIdAndUpdate(
           userId,
           {
@@ -355,14 +364,34 @@ export const favoriteSetupById = async (
           },
           { session, runValidators: true }
         );
-      }
-    });
-
-    if (!setup) {
-      next(new HttpException(404, 'Setup does not exist'));
+      });
     } else {
-      res.sendStatus(200);
+      await session.withTransaction(async () => {
+        await Setup.findByIdAndUpdate(
+          id,
+          {
+            $pull: {
+              favoritedUsers: mongoose.Types.ObjectId(userId),
+            },
+          },
+          { session, runValidators: true }
+        );
+
+        await User.findByIdAndUpdate(
+          userId,
+          {
+            $pull: {
+              favoritedSetups: mongoose.Types.ObjectId(id),
+            },
+          },
+          { session, runValidators: true }
+        );
+      });
     }
+
+    res.send(
+      !currentSetup.favoritedUsers.includes(mongoose.Types.ObjectId(userId))
+    );
   } catch (e) {
     console.log(e);
     next(new HttpException(400, e));
