@@ -1,4 +1,5 @@
 import { NextFunction, Response, Request } from 'express';
+import mongoose from 'mongoose';
 import HttpException from '../../exceptions/HttpException';
 import Setup from '../../models/Setup';
 import User from '../../models/User';
@@ -16,9 +17,30 @@ const getSetupsByUserId = async (
     if (!user) {
       next(new HttpException(404, 'User does not exist'));
     } else {
-      const setups = await Setup.find({ user: user?._id });
+      const setups = await Setup.aggregate([
+        { $match: { author: mongoose.Types.ObjectId(user._id) } },
+        {
+          $project: {
+            name: 1,
+            createdAt: 1,
+            frame: 1,
+            screenshot: 1,
+            score: { $size: '$favoritedUsers' },
+            author: 1,
+          },
+        },
+        {
+          $sort: {
+            score: -1,
+          },
+        },
+      ]);
+      const populatedSetups = await Setup.populate(setups, {
+        path: 'author',
+        select: 'username',
+      });
 
-      res.send(setups);
+      res.send(populatedSetups);
     }
   } catch (e) {
     console.log(e);

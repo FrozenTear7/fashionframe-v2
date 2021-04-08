@@ -22,7 +22,7 @@ interface AxiosGetSetups extends GetRequestGeneric {
 }
 
 interface AxiosGetFrames extends GetRequestGeneric {
-  data: string[];
+  data: { frames: string[] };
 }
 
 const fixFrameFilter = (frame: string | null): string | null => {
@@ -115,7 +115,7 @@ const Setups: React.VFC = () => {
               });
             }}
             style={{ width: 200 }}
-            options={frames}
+            options={frames.frames}
             renderInput={(params): JSX.Element => (
               <TextField
                 {...params}

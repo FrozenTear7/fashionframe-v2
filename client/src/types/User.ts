@@ -4,5 +4,5 @@ export interface UserBase {
 }
 
 export interface UserDetails extends UserBase {
-  score: number;
+  totalScore: number;
 }
