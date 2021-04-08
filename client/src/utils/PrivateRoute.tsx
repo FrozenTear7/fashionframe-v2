@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Redirect, Route, RouteProps } from 'react-router-dom';
+import { Redirect, Route, RouteProps, useLocation } from 'react-router-dom';
 import { useUserContext } from '../UserContext';
 
 export const SignedInRoute = ({ ...rest }: RouteProps): JSX.Element => {
@@ -10,9 +10,10 @@ export const SignedInRoute = ({ ...rest }: RouteProps): JSX.Element => {
 
 export const PrivateRoute = ({ ...rest }: RouteProps): JSX.Element => {
   const { user } = useUserContext();
+  const { pathname } = useLocation();
 
   return !user ? (
-    <Redirect to={{ pathname: '/signin', state: { from: '/profile' } }} />
+    <Redirect to={{ pathname: '/signin', state: { from: pathname } }} />
   ) : (
     <Route {...rest} />
   );

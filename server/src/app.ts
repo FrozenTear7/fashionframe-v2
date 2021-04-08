@@ -1,5 +1,5 @@
 import express from 'express';
-import auth from './routes/auth';
+import users from './routes/users';
 import warframeData from './routes/warframeData';
 import setups from './routes/setups';
 import config from './config';
@@ -39,7 +39,7 @@ if (config.mode === 'production') {
   app.use(express.static(path.join(__dirname, 'public')));
 }
 
-app.use('/api/users', auth);
+app.use('/api/users', users);
 app.use('/api/data', warframeData);
 app.use('/api/setups', setups);
 

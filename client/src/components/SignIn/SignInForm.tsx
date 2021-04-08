@@ -54,8 +54,6 @@ const SignInForm: React.VFC = () => {
 
     try {
       const userRes = await signIn(username, password);
-      setUser(userRes);
-      history.replace(from);
       enqueueSnackbar('Signed in successfully', {
         variant: 'success',
         autoHideDuration: 3000,
@@ -64,9 +62,10 @@ const SignInForm: React.VFC = () => {
           horizontal: 'left',
         },
       });
+      setUser(userRes);
+      history.replace(from);
     } catch ({ response }) {
       setSignInError(response.data.message);
-    } finally {
       setSignInLoading(false);
     }
   };

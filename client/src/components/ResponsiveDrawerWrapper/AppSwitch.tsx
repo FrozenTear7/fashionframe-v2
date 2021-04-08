@@ -25,8 +25,7 @@ const AppSwitch: React.VFC = () => {
       <Route exact path="/setups" component={Setups} />
       <PrivateRoute exact path="/setups/create" component={NewSetup} />
       <Route exact path="/setups/:id" component={Setup} />
-      <PrivateRoute path="/profile" component={User} />
-      <Route exact path="/user/:id" component={User} />
+      <Route exact path="/users/:id" component={User} />
       <Route component={NotFound} />
     </Switch>
   );

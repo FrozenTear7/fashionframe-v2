@@ -102,7 +102,7 @@ const DrawerContent: React.VFC = () => {
       <List>
         {user ? (
           <>
-            <ListItemLink to="/profile" name="Profile">
+            <ListItemLink to={`/users/${user._id}`} name="Profile">
               <AccountCircle />
             </ListItemLink>
             <ListItem

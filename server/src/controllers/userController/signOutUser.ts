@@ -1,4 +1,4 @@
-import { IUser } from './../../models/User';
+import { IUser } from '../../models/User';
 import { NextFunction, Response, Request } from 'express';
 import HttpException from '../../exceptions/HttpException';
 
