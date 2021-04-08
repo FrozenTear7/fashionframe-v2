@@ -4,7 +4,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { GetRequestGeneric } from '../../types';
 import { SetupDetails } from '../../types/Setup';
 import { ColorPickers } from '../../types/WarframeData';
-import useAxiosGet from '../requests/useAxiosGet';
+import useAxiosGet from '../../requests/useAxiosGet';
 import Error from '../Utils/Error';
 import Loading from '../Utils/Loading';
 import SetupPage from './SetupPage';

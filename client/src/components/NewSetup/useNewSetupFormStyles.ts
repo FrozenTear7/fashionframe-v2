@@ -25,6 +25,13 @@ const useNewSetupFormStyles = makeStyles<Theme>((theme) => ({
   appBar: {
     marginTop: theme.spacing(3),
   },
+  screenshotImageError: {
+    color: theme.palette.error.main,
+  },
+  selectedColorTitle: {
+    fontSize: '1.5em',
+    color: theme.palette.primary.dark,
+  },
 }));
 
 export default useNewSetupFormStyles;

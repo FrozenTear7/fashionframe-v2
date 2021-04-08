@@ -148,7 +148,7 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
                 </Tabs>
               </AppBar>
               <NewSetupTabPanel value={currentTab} index={0}>
-                <Grid container>
+                <Grid container spacing={2}>
                   <Grid item lg={4}>
                     <NewSetupMainSection
                       frames={frames}
@@ -166,7 +166,7 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
                 </Grid>
               </NewSetupTabPanel>
               <NewSetupTabPanel value={currentTab} index={1}>
-                <Grid container>
+                <Grid container spacing={2}>
                   <Grid item md={4}>
                     <NewSetupAttachmentsSection
                       armAttachments={armAttachments}
@@ -185,7 +185,7 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
                 </Grid>
               </NewSetupTabPanel>
               <NewSetupTabPanel value={currentTab} index={2}>
-                <Grid container>
+                <Grid container spacing={2}>
                   <Grid item md={4}>
                     <NewSetupSyandanaSection syandanas={syandanas} />
                   </Grid>

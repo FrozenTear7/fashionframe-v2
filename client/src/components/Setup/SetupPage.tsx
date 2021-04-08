@@ -5,6 +5,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import StarIcon from '@material-ui/icons/Star';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 import useSetupPageStyles from './useSetupPageStyles';
 import { SetupDetails } from '../../types/Setup';
 import SetupColorScheme from './SetupColorScheme';
@@ -22,6 +24,7 @@ interface SetupDetailsProps {
 const SetupPage: React.VFC<SetupDetailsProps> = ({ setup, colorPickers }) => {
   const classes = useSetupPageStyles();
   const { user } = useUserContext();
+  const { enqueueSnackbar } = useSnackbar();
 
   const [currentTab, setCurrentTab] = React.useState(0);
   const [open, setOpen] = React.useState(false);
@@ -41,6 +44,7 @@ const SetupPage: React.VFC<SetupDetailsProps> = ({ setup, colorPickers }) => {
     colorScheme,
     score,
     favorited,
+    author,
   } = setup;
 
   const [currentFavorited, setCurrentFavorited] = React.useState(favorited);
@@ -79,8 +83,27 @@ const SetupPage: React.VFC<SetupDetailsProps> = ({ setup, colorPickers }) => {
     try {
       const { data } = await axios.post(`/api/setups/${setup._id}/favorite`);
       setCurrentFavorited(data);
-      if (data) setCurrentScore(+currentScore + 1);
-      else setCurrentScore(+currentScore - 1);
+      if (data) {
+        setCurrentScore(+currentScore + 1);
+        enqueueSnackbar('Added to favorites', {
+          variant: 'success',
+          autoHideDuration: 3000,
+          anchorOrigin: {
+            vertical: 'bottom',
+            horizontal: 'left',
+          },
+        });
+      } else {
+        setCurrentScore(+currentScore - 1);
+        enqueueSnackbar('Removed from favorites', {
+          variant: 'success',
+          autoHideDuration: 3000,
+          anchorOrigin: {
+            vertical: 'bottom',
+            horizontal: 'left',
+          },
+        });
+      }
     } catch ({ response }) {
       setFavoriteSetupError(response.data.message);
     } finally {
@@ -99,6 +122,14 @@ const SetupPage: React.VFC<SetupDetailsProps> = ({ setup, colorPickers }) => {
           </Typography>
         </Grid>
         <Grid container item xs spacing={1} direction="column">
+          <Grid item>
+            <Typography variant="body2" component="p">
+              Author:{' '}
+              <Link to={`/users/${author._id}`}>
+                <strong>{author.username}</strong>
+              </Link>
+            </Typography>
+          </Grid>
           <Grid item>
             <Typography variant="body1" component="p">
               Favorites: {currentScore}

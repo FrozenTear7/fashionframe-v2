@@ -10,7 +10,7 @@ import Loading from '../Utils/Loading';
 import SetupList from './SetupList';
 import useQuery from '../../utils/useQuery';
 import { GetRequestGeneric } from '../../types';
-import useAxiosGet from '../requests/useAxiosGet';
+import useAxiosGet from '../../requests/useAxiosGet';
 
 interface SetupFilters {
   frameFilter: string | null;

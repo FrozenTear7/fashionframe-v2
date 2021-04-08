@@ -77,6 +77,11 @@ const NewSetupTopSection: React.VFC = () => {
             <Button component="span" variant="contained" color="primary">
               Screenshot
             </Button>
+            <p>
+              <small className={classes.screenshotImageError}>
+                {errors.screenshotImage?.message}
+              </small>
+            </p>
           </label>
         </Grid>
       </Grid>
