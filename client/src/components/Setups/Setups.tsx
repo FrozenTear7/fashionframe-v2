@@ -2,7 +2,7 @@ import { AxiosRequestConfig } from 'axios';
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Container, Grid, TextField } from '@material-ui/core';
-import { Autocomplete } from '@material-ui/lab';
+import { Autocomplete, Pagination } from '@material-ui/lab';
 import { useHistory } from 'react-router-dom';
 import useAxios from 'axios-hooks';
 import { SetupItem } from '../../types/Setup';
@@ -14,6 +14,7 @@ import useQuery from '../../utils/useQuery';
 interface SetupFilters {
   frameFilter: string | null;
   sortByFilter: string;
+  pageFilter: number;
 }
 
 const fixFrameFilter = (frame: string | null): string | null => {
@@ -31,6 +32,7 @@ const Setups: React.VFC = () => {
   const [filters, setFilters] = React.useState<SetupFilters>({
     frameFilter: fixFrameFilter(query.get('frame')),
     sortByFilter: 'Score (descending)',
+    pageFilter: 1,
   });
 
   const [
@@ -38,7 +40,7 @@ const Setups: React.VFC = () => {
   ] = useAxios<{ frames: string[] }, string>('/api/data/frames');
 
   const constructSetupsQueryConfig = (): AxiosRequestConfig => {
-    const { frameFilter, sortByFilter } = filters;
+    const { frameFilter, sortByFilter, pageFilter } = filters;
 
     let sortBy = 'score';
     let order = '-1';
@@ -53,14 +55,17 @@ const Setups: React.VFC = () => {
         frameFilter,
         sortByFilter: sortBy,
         orderFilter: order,
+        pageFilter: pageFilter - 1, // Show normal people values, but send IT smart guy values from 0
       },
     };
   };
 
   const [
-    { data: setups, loading: setupsLoading, error: setupsError },
+    { data: setupsData, loading: setupsLoading, error: setupsError },
     fetchSetups,
-  ] = useAxios<SetupItem[], string>(constructSetupsQueryConfig());
+  ] = useAxios<{ setups: SetupItem[]; pages: number }, string>(
+    constructSetupsQueryConfig()
+  );
 
   React.useEffect(() => {
     if (filters.frameFilter) {
@@ -74,7 +79,7 @@ const Setups: React.VFC = () => {
 
   React.useEffect(() => {
     void fetchSetups();
-  }, []);
+  }, [filters]);
 
   const helmetTitle = (): string => {
     let result = 'Fashion setups | Fashionframe';
@@ -87,7 +92,7 @@ const Setups: React.VFC = () => {
   if (setupsLoading || framesLoading) return <Loading />;
   if (setupsError) return <Error error={setupsError.message} />;
   if (framesError) return <Error error={framesError.message} />;
-  if (!setups || !frames) return <Error error="Something went wrong" />;
+  if (!setupsData || !frames) return <Error error="Something went wrong" />;
   return (
     <Container component="main" maxWidth="xl">
       <Helmet>
@@ -97,53 +102,70 @@ const Setups: React.VFC = () => {
           content="Search for fashion setups created by other players, filter by frames or popularity."
         />
       </Helmet>
-      <Grid container spacing={3} justify="center">
-        <Grid item>
-          <Autocomplete
-            id="frame-filter"
-            value={filters.frameFilter}
+      <Grid container spacing={3}>
+        <Grid container item spacing={3} justify="center">
+          <Grid item>
+            <Autocomplete
+              id="frame-filter"
+              value={filters.frameFilter}
+              onChange={async (_event, newValue): Promise<void> => {
+                setFilters({
+                  ...filters,
+                  frameFilter: newValue,
+                  pageFilter: 1,
+                });
+              }}
+              style={{ width: 200 }}
+              options={frames.frames}
+              renderInput={(params): JSX.Element => (
+                <TextField
+                  {...params}
+                  label="Filter by frame"
+                  variant="outlined"
+                />
+              )}
+            />
+          </Grid>
+          <Grid item>
+            <Autocomplete
+              id="setup-sort"
+              value={filters.sortByFilter}
+              onChange={(_event, newValue): void => {
+                setFilters({
+                  ...filters,
+                  sortByFilter: newValue,
+                  pageFilter: 1,
+                });
+              }}
+              style={{ width: 200 }}
+              options={[
+                'Score (descending)',
+                'Score (ascending)',
+                'Date (descending)',
+                'Date (ascending)',
+              ]}
+              renderInput={(params): JSX.Element => (
+                <TextField {...params} label="Sort by" variant="outlined" />
+              )}
+              disableClearable
+            />
+          </Grid>
+        </Grid>
+        <Grid container item justify="center">
+          <Pagination
+            count={setupsData ? setupsData.pages : 1}
+            page={filters.pageFilter}
             onChange={async (_event, newValue): Promise<void> => {
               setFilters({
                 ...filters,
-                frameFilter: newValue,
+                pageFilter: newValue,
               });
             }}
-            style={{ width: 200 }}
-            options={frames.frames}
-            renderInput={(params): JSX.Element => (
-              <TextField
-                {...params}
-                label="Filter by frame"
-                variant="outlined"
-              />
-            )}
-          />
-        </Grid>
-        <Grid item>
-          <Autocomplete
-            id="setup-sort"
-            value={filters.sortByFilter}
-            onChange={(_event, newValue): void => {
-              setFilters({
-                ...filters,
-                sortByFilter: newValue,
-              });
-            }}
-            style={{ width: 200 }}
-            options={[
-              'Score (descending)',
-              'Score (ascending)',
-              'Date (descending)',
-              'Date (ascending)',
-            ]}
-            renderInput={(params): JSX.Element => (
-              <TextField {...params} label="Sort by" variant="outlined" />
-            )}
-            disableClearable
+            disabled={setupsData.pages === 0}
           />
         </Grid>
       </Grid>
-      <SetupList setups={setups} />
+      <SetupList setups={setupsData.setups} />
     </Container>
   );
 };

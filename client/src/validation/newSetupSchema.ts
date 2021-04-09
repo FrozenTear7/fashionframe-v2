@@ -5,7 +5,7 @@ const newSetupSchema = yup.object().shape({
     .string()
     .min(3, 'Must be at least 3 characters long')
     .required('Required'),
-  description: yup.string().max(3, 'Must be at most 300 characters long'),
+  description: yup.string().max(300, 'Must be at most 300 characters long'),
   frame: yup.string().required('Required'),
   helmet: yup.string().required('Required'),
   skin: yup.string().required('Required'),

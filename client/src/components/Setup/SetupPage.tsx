@@ -21,7 +21,7 @@ interface SetupDetailsProps {
   colorPickers: ColorPickers;
 }
 
-const SetupPage: React.VFC<SetupDetailsProps> = ({ setup, colorPickers }) => {
+const SetupPage: React.VFC<SetupDetailsProps> = ({ setup }) => {
   const classes = useSetupPageStyles();
   const { user } = useUserContext();
   const { enqueueSnackbar } = useSnackbar();
