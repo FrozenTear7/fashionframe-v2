@@ -13,7 +13,7 @@ const Setup: React.VFC<RouteComponentProps<{ id: string }>> = ({ match }) => {
 
   const [
     { data: setup, loading: setupLoading, error: setupError },
-    refetchSetup,
+    fetchSetup,
   ] = useAxios<SetupDetails, string>(`/api/setups/${setupId}`);
   const [
     {
@@ -22,6 +22,10 @@ const Setup: React.VFC<RouteComponentProps<{ id: string }>> = ({ match }) => {
       error: colorPickersError,
     },
   ] = useAxios<ColorPickers, string>('/api/data/colorPickers');
+
+  React.useEffect(() => {
+    void fetchSetup();
+  }, []);
 
   if (setupLoading || colorPickersLoading) return <Loading />;
   if (setupError) return <Error error={setupError.message} />;
@@ -39,11 +43,7 @@ const Setup: React.VFC<RouteComponentProps<{ id: string }>> = ({ match }) => {
         </title>
         <meta name="description" content={setup.description} />
       </Helmet>
-      <SetupPage
-        setup={setup}
-        colorPickers={colorPickers}
-        refetchSetup={refetchSetup}
-      />
+      <SetupPage setup={setup} colorPickers={colorPickers} />
     </>
   );
 };

@@ -59,6 +59,7 @@ const Setups: React.VFC = () => {
 
   const [
     { data: setups, loading: setupsLoading, error: setupsError },
+    fetchSetups,
   ] = useAxios<SetupItem[], string>(constructSetupsQueryConfig());
 
   React.useEffect(() => {
@@ -70,6 +71,10 @@ const Setups: React.VFC = () => {
       history.push({ search: '' });
     }
   }, [filters.frameFilter]);
+
+  React.useEffect(() => {
+    void fetchSetups();
+  }, []);
 
   const helmetTitle = (): string => {
     let result = 'Fashion setups | Fashionframe';

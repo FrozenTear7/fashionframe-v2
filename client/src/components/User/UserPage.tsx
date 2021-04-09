@@ -33,7 +33,7 @@ const UserPage: React.VFC<UserPageProps> = ({ user, userSetups }) => {
         </Grid>
         <Grid container item alignItems="center" direction="column">
           <Grid item>
-            <Typography className="body1" component="p">
+            <Typography variant="h5" component="p">
               Setups created by user:
             </Typography>
           </Grid>
