@@ -12,7 +12,7 @@ const signUpUser = async (
     const token = await user.generateAuthToken();
 
     res.cookie('token', token, { httpOnly: true });
-    res.send({ user });
+    res.send({ _id: user._id, username: user.username });
   } catch (e) {
     next(new HttpException(400, e.message));
   }

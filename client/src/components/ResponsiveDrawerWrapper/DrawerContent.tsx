@@ -66,7 +66,7 @@ const DrawerContent: React.VFC = () => {
             </ListItem>
             <ListItem>
               <ListItemText>
-                <strong>{user?.username.substr(0, 15)}</strong>
+                <strong>{user && user.username}</strong>
               </ListItemText>
             </ListItem>
           </List>
@@ -85,7 +85,7 @@ const DrawerContent: React.VFC = () => {
             <ListItemLink to="/setups/create" name="New setup">
               <CreateNewFolderIcon />
             </ListItemLink>
-            <ListItemLink to="/favorites" name="Favorites">
+            <ListItemLink to="/setups/favorites" name="Favorites">
               <FolderSpecialIcon />
             </ListItemLink>
           </>

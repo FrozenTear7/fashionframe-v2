@@ -4,25 +4,16 @@ import { Helmet } from 'react-helmet-async';
 import { Container, Grid, TextField } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import { useHistory } from 'react-router-dom';
+import useAxios from 'axios-hooks';
 import { SetupItem } from '../../types/Setup';
 import Error from '../Utils/Error';
 import Loading from '../Utils/Loading';
 import SetupList from './SetupList';
 import useQuery from '../../utils/useQuery';
-import { GetRequestGeneric } from '../../types';
-import useAxiosGet from '../../requests/useAxiosGet';
 
 interface SetupFilters {
   frameFilter: string | null;
   sortByFilter: string;
-}
-
-interface AxiosGetSetups extends GetRequestGeneric {
-  data: SetupItem[];
-}
-
-interface AxiosGetFrames extends GetRequestGeneric {
-  data: { frames: string[] };
 }
 
 const fixFrameFilter = (frame: string | null): string | null => {
@@ -42,13 +33,11 @@ const Setups: React.VFC = () => {
     sortByFilter: 'Score (descending)',
   });
 
-  const {
-    data: frames,
-    loading: framesLoading,
-    error: framesError,
-  }: AxiosGetFrames = useAxiosGet(`/api/data/frames`);
+  const [
+    { data: frames, loading: framesLoading, error: framesError },
+  ] = useAxios<{ frames: string[] }, string>('/api/data/frames');
 
-  const constructQueryParams = (): AxiosRequestConfig => {
+  const constructSetupsQueryConfig = (): AxiosRequestConfig => {
     const { frameFilter, sortByFilter } = filters;
 
     let sortBy = 'score';
@@ -59,6 +48,7 @@ const Setups: React.VFC = () => {
       order = '1';
 
     return {
+      url: '/api/setups',
       params: {
         frameFilter,
         sortByFilter: sortBy,
@@ -67,11 +57,9 @@ const Setups: React.VFC = () => {
     };
   };
 
-  const {
-    data: setups,
-    loading: setupsLoading,
-    error: setupsError,
-  }: AxiosGetSetups = useAxiosGet(`/api/setups`, constructQueryParams());
+  const [
+    { data: setups, loading: setupsLoading, error: setupsError },
+  ] = useAxios<SetupItem[], string>(constructSetupsQueryConfig());
 
   React.useEffect(() => {
     if (filters.frameFilter) {
@@ -91,9 +79,13 @@ const Setups: React.VFC = () => {
     return result;
   };
 
+  console.log(setups);
+  console.log(frames);
+
   if (setupsLoading || framesLoading) return <Loading />;
-  if (setupsError) return <Error error={setupsError} />;
-  if (framesError) return <Error error={framesError} />;
+  if (setupsError) return <Error error={setupsError.message} />;
+  if (framesError) return <Error error={framesError.message} />;
+  if (!setups || !frames) return <Error error="Something went wrong" />;
   return (
     <Container component="main" maxWidth="xl">
       <Helmet>

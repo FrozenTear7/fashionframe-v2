@@ -111,8 +111,6 @@ const SetupPage: React.VFC<SetupDetailsProps> = ({ setup, colorPickers }) => {
     }
   };
 
-  console.log('Favorited: ', currentFavorited);
-
   return (
     <Grid container justify="center" alignItems="flex-start">
       <Grid container item lg={6} direction="column" spacing={2}>

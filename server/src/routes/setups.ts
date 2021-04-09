@@ -6,10 +6,11 @@ import csrf from 'csurf';
 import createSetup from '../controllers/setupController/createSetup';
 import favoriteSetupById from '../controllers/setupController/favoriteSetupById';
 import getSetups from '../controllers/setupController/getSetups';
-import getSetupByUserId from '../controllers/setupController/getSetupByUserId';
+import getSetupsByUserId from '../controllers/setupController/getSetupsByUserId';
 import getSetupById from '../controllers/setupController/getSetupById';
 import updateSetupById from '../controllers/setupController/updateSetupById';
 import deleteSetupById from '../controllers/setupController/deleteSetupById';
+import getUserFavorites from '../controllers/setupController/getUserFavorites';
 
 const csrfProtection = csrf({
   cookie: true,
@@ -30,8 +31,9 @@ router.post(
   favoriteSetupById
 );
 router.get('/', getSetups);
-router.get('/user/:userId', validObjectId, getSetupByUserId);
+router.get('/user/:userId', validObjectId, getSetupsByUserId);
 router.get('/:id', validObjectId, getSetupById);
+router.get('/favorites', [csrfProtection, auth], getUserFavorites);
 router.put('/:id', [csrfProtection, auth, validObjectId], updateSetupById);
 router.delete('/:id', [csrfProtection, auth, validObjectId], deleteSetupById);
 

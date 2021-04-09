@@ -21,7 +21,7 @@ const getOwnProfile = async (
       'tokens.token': token,
     });
 
-    if (!user) res.send(null);
+    if (!user) res.send(csrfToken);
     else res.send({ _id: user._id, username: user.username, csrfToken });
   }
 };

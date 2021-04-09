@@ -11,6 +11,7 @@ import SignIn from '../SignIn/SignIn';
 import NotFound from '../Utils/NotFound';
 import About from '../About/About';
 import APIPage from '../APIPage/APIPage';
+import Favorites from '../Favorites/Favorites';
 
 const AppSwitch: React.VFC = () => {
   const location = useLocation();
@@ -24,6 +25,7 @@ const AppSwitch: React.VFC = () => {
       <SignedInRoute exact path="/signin" component={SignIn} />
       <Route exact path="/setups" component={Setups} />
       <PrivateRoute exact path="/setups/create" component={NewSetup} />
+      <PrivateRoute exact path="/setups/favorites" component={Favorites} />
       <Route exact path="/setups/:id" component={Setup} />
       <Route exact path="/users/:id" component={User} />
       <Route component={NotFound} />
