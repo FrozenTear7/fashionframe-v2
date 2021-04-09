@@ -4,9 +4,10 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import StarIcon from '@material-ui/icons/Star';
-import axios from 'axios';
+import axios, { AxiosPromise, AxiosRequestConfig } from 'axios';
 import { Link } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
+import { RefetchOptions } from 'axios-hooks';
 import useSetupPageStyles from './useSetupPageStyles';
 import { SetupDetails } from '../../types/Setup';
 import SetupColorScheme from './SetupColorScheme';
@@ -19,9 +20,17 @@ import Error from '../Utils/Error';
 interface SetupDetailsProps {
   setup: SetupDetails;
   colorPickers: ColorPickers;
+  refetchSetup: (
+    config?: AxiosRequestConfig | undefined,
+    options?: RefetchOptions | undefined
+  ) => AxiosPromise<SetupDetails>;
 }
 
-const SetupPage: React.VFC<SetupDetailsProps> = ({ setup, colorPickers }) => {
+const SetupPage: React.VFC<SetupDetailsProps> = ({
+  setup,
+  colorPickers: _colorPickers,
+  refetchSetup,
+}) => {
   const classes = useSetupPageStyles();
   const { user } = useUserContext();
   const { enqueueSnackbar } = useSnackbar();
@@ -46,9 +55,6 @@ const SetupPage: React.VFC<SetupDetailsProps> = ({ setup, colorPickers }) => {
     favorited,
     author,
   } = setup;
-
-  const [currentFavorited, setCurrentFavorited] = React.useState(favorited);
-  const [currentScore, setCurrentScore] = React.useState(score);
 
   const descriptionElementRef = React.useRef<HTMLElement>(null);
   React.useEffect(() => {
@@ -82,9 +88,7 @@ const SetupPage: React.VFC<SetupDetailsProps> = ({ setup, colorPickers }) => {
 
     try {
       const { data } = await axios.post(`/api/setups/${setup._id}/favorite`);
-      setCurrentFavorited(data);
-      if (data) {
-        setCurrentScore(+currentScore + 1);
+      if (data)
         enqueueSnackbar('Added to favorites', {
           variant: 'success',
           autoHideDuration: 3000,
@@ -93,8 +97,7 @@ const SetupPage: React.VFC<SetupDetailsProps> = ({ setup, colorPickers }) => {
             horizontal: 'left',
           },
         });
-      } else {
-        setCurrentScore(+currentScore - 1);
+      else
         enqueueSnackbar('Removed from favorites', {
           variant: 'success',
           autoHideDuration: 3000,
@@ -103,7 +106,8 @@ const SetupPage: React.VFC<SetupDetailsProps> = ({ setup, colorPickers }) => {
             horizontal: 'left',
           },
         });
-      }
+
+      await refetchSetup();
     } catch ({ response }) {
       setFavoriteSetupError(response.data.message);
     } finally {
@@ -130,7 +134,7 @@ const SetupPage: React.VFC<SetupDetailsProps> = ({ setup, colorPickers }) => {
           </Grid>
           <Grid item>
             <Typography variant="body1" component="p">
-              Favorites: {currentScore}
+              Favorites: {score}
             </Typography>
           </Grid>
           <Grid item>
@@ -140,7 +144,7 @@ const SetupPage: React.VFC<SetupDetailsProps> = ({ setup, colorPickers }) => {
             <Grid item>
               <Button
                 className={
-                  currentFavorited
+                  favorited
                     ? classes.favoriteButtonError
                     : classes.favoriteButtonSuccess
                 }
@@ -148,9 +152,7 @@ const SetupPage: React.VFC<SetupDetailsProps> = ({ setup, colorPickers }) => {
                 onClick={putFavoriteSetup}
                 disabled={favoriteSetupLoading}
               >
-                {currentFavorited
-                  ? 'Remove from favorites'
-                  : 'Add to favorites'}{' '}
+                {favorited ? 'Remove from favorites' : 'Add to favorites'}{' '}
                 <StarIcon />
               </Button>
             </Grid>

@@ -11,10 +11,10 @@ import SetupPage from './SetupPage';
 const Setup: React.VFC<RouteComponentProps<{ id: string }>> = ({ match }) => {
   const setupId = match.params.id;
 
-  const [{ data: setup, loading: setupLoading, error: setupError }] = useAxios<
-    SetupDetails,
-    string
-  >(`/api/setups/${setupId}`);
+  const [
+    { data: setup, loading: setupLoading, error: setupError },
+    refetchSetup,
+  ] = useAxios<SetupDetails, string>(`/api/setups/${setupId}`);
   const [
     {
       data: colorPickers,
@@ -37,9 +37,13 @@ const Setup: React.VFC<RouteComponentProps<{ id: string }>> = ({ match }) => {
               )} | Fashionframe`
             : 'Fashionframe'}
         </title>
-        <meta name="description" content="DESCRIPTION" />
+        <meta name="description" content={setup.description} />
       </Helmet>
-      <SetupPage setup={setup} colorPickers={colorPickers} />
+      <SetupPage
+        setup={setup}
+        colorPickers={colorPickers}
+        refetchSetup={refetchSetup}
+      />
     </>
   );
 };

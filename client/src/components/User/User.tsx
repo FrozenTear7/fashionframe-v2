@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { RouteComponentProps } from 'react-router-dom';
 import useAxios from 'axios-hooks';
+import { Container } from '@material-ui/core';
 import { UserDetails } from '../../types/User';
 import Loading from '../Utils/Loading';
 import Error from '../Utils/Error';
@@ -24,7 +25,7 @@ const User: React.VFC<RouteComponentProps<{ id: string }>> = ({ match }) => {
   if (userSetupsError) return <Error error={userSetupsError.message} />;
   if (!userData || !userSetups) return <Error error="Something went wrong" />;
   return (
-    <>
+    <Container component="main" maxWidth="xl">
       <Helmet>
         <title>{userData.username} | Users | Fashionframe</title>
         <meta
@@ -35,7 +36,7 @@ const User: React.VFC<RouteComponentProps<{ id: string }>> = ({ match }) => {
         />
       </Helmet>
       <UserPage user={userData} userSetups={userSetups} />
-    </>
+    </Container>
   );
 };
 

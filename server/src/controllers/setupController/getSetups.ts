@@ -47,12 +47,12 @@ const getSetups = async (
         },
       },
     ]);
-    const populatedSetup = await Setup.populate(setups, {
+    const populatedSetups = await Setup.populate(setups, {
       path: 'author',
       select: 'username',
     });
 
-    res.send(populatedSetup);
+    res.send(populatedSetups);
   } catch (e) {
     console.log(e);
     next(new HttpException(404, e));

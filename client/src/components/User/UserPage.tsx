@@ -1,4 +1,4 @@
-import { Container, Grid, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import * as React from 'react';
 import StarIcon from '@material-ui/icons/Star';
 import { SetupItem } from '../../types/Setup';
@@ -13,10 +13,11 @@ interface UserPageProps {
 
 const UserPage: React.VFC<UserPageProps> = ({ user, userSetups }) => {
   const classes = useUserPageStyles();
+
   const { username, totalScore } = user;
 
   return (
-    <Container component="main" maxWidth="xl">
+    <>
       <Grid container item direction="column" spacing={3}>
         <Grid container item direction="column">
           <Grid item>
@@ -39,7 +40,7 @@ const UserPage: React.VFC<UserPageProps> = ({ user, userSetups }) => {
         </Grid>
       </Grid>
       <SetupList setups={userSetups} />
-    </Container>
+    </>
   );
 };
 

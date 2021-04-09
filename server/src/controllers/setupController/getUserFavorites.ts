@@ -1,16 +1,15 @@
 import { NextFunction, Response, Request } from 'express';
 import HttpException from '../../exceptions/HttpException';
-import Setup from '../../models/Setup';
 import User, { IUser } from '../../models/User';
 import jwt from 'jsonwebtoken';
 import config from '../../config';
+import Setup from '../../models/Setup';
 
 const getUserFavorites = async (
   req: Request,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  console.log(req);
   try {
     const { token } = req.cookies;
 
@@ -36,30 +35,35 @@ const getUserFavorites = async (
         new HttpException(400, "Error while fetching user's favorited setups")
       );
 
-    const populatedSetups = await Setup.populate(user, [
+    const setups = await Setup.aggregate([
       {
-        path: 'favoritedSetups',
+        $match: {
+          $expr: {
+            $in: ['$_id', user.favoritedSetups],
+          },
+        },
       },
-      //   {
-      //     path: 'author',
-      //     select: 'username',
-      //   },
-      //   {
-      //     path: 'attachments',
-      //     populate: {
-      //       path: 'colorScheme',
-      //     },
-      //   },
-      //   {
-      //     path: 'syandana',
-      //     populate: {
-      //       path: 'colorScheme',
-      //     },
-      //   },
-      //   {
-      //     path: 'colorScheme',
-      //   },
+      {
+        $project: {
+          name: 1,
+          createdAt: 1,
+          frame: 1,
+          screenshot: 1,
+          score: { $size: '$favoritedUsers' },
+          author: 1,
+          favoritedUsers: 1,
+        },
+      },
+      {
+        $sort: {
+          score: -1,
+        },
+      },
     ]);
+    const populatedSetups = await Setup.populate(setups, {
+      path: 'author',
+      select: 'username',
+    });
 
     res.send(populatedSetups);
   } catch (e) {

@@ -11,8 +11,6 @@ const Favorites: React.VFC = () => {
     { data: setups, loading: setupsLoading, error: setupsError },
   ] = useAxios<SetupItem[], string>('/api/setups/favorites');
 
-  console.log(setups);
-
   if (setupsLoading) return <Loading />;
   if (setupsError) return <Error error={setupsError.message} />;
   if (!setups) return <Error error="Something went wrong" />;

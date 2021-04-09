@@ -79,9 +79,6 @@ const Setups: React.VFC = () => {
     return result;
   };
 
-  console.log(setups);
-  console.log(frames);
-
   if (setupsLoading || framesLoading) return <Loading />;
   if (setupsError) return <Error error={setupsError.message} />;
   if (framesError) return <Error error={framesError.message} />;
