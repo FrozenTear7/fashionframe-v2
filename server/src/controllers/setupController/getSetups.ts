@@ -62,7 +62,6 @@ const getSetups = async (
       select: 'username',
     });
     const setupsCount = await Setup.countDocuments(findFilter);
-    console.log(setupsCount);
 
     res.send({
       setups: populatedSetups,
