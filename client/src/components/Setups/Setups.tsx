@@ -94,7 +94,7 @@ const Setups: React.VFC = () => {
   if (framesError) return <Error error={framesError.message} />;
   if (!setupsData || !frames) return <Error error="Something went wrong" />;
   return (
-    <Container component="main" maxWidth="xl">
+    <Container component="main" maxWidth="lg">
       <Helmet>
         <title>{helmetTitle()}</title>
         <meta
@@ -153,7 +153,7 @@ const Setups: React.VFC = () => {
         </Grid>
         <Grid container item justify="center">
           <Pagination
-            count={setupsData ? setupsData.pages : 1}
+            count={setupsData.pages ? setupsData.pages : 1}
             page={filters.pageFilter}
             onChange={async (_event, newValue): Promise<void> => {
               setFilters({

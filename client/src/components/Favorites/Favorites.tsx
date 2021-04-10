@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import useAxios from 'axios-hooks';
-import { Grid, Typography } from '@material-ui/core';
+import { Container, Grid, Typography } from '@material-ui/core';
 import Loading from '../Utils/Loading';
 import Error from '../Utils/Error';
 import { SetupItem } from '../../types/Setup';
@@ -21,7 +21,7 @@ const Favorites: React.VFC = () => {
   if (setupsError) return <Error error={setupsError.message} />;
   if (!setups) return <Error error="Something went wrong" />;
   return (
-    <>
+    <Container component="main" maxWidth="lg">
       <Helmet>
         <title>Favorites | Fashionframe</title>
         <meta name="description" content="Your favorited fashion setups" />
@@ -32,7 +32,7 @@ const Favorites: React.VFC = () => {
         </Typography>
       </Grid>
       <SetupList setups={setups} />
-    </>
+    </Container>
   );
 };
 

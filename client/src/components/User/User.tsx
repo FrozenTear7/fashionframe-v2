@@ -25,7 +25,7 @@ const User: React.VFC<RouteComponentProps<{ id: string }>> = ({ match }) => {
   if (userSetupsError) return <Error error={userSetupsError.message} />;
   if (!userData || !userSetups) return <Error error="Something went wrong" />;
   return (
-    <Container component="main" maxWidth="xl">
+    <Container component="main" maxWidth="lg">
       <Helmet>
         <title>{userData.username} | Users | Fashionframe</title>
         <meta

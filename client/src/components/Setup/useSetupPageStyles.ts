@@ -6,6 +6,8 @@ const useSetupPageStyles = makeStyles<Theme>((theme) => ({
     [theme.breakpoints.up('lg')]: {
       fontSize: '5em',
     },
+    maxWidth: 600,
+    'word-wrap': 'break-word',
   },
   subTitle: {
     fontSize: '1.5em',
@@ -17,16 +19,16 @@ const useSetupPageStyles = makeStyles<Theme>((theme) => ({
     height: 'auto',
     width: 'auto',
     maxHeight: 'calc(30vw * 9/16 + 30vh * 9/16)',
+    minWidth: 250,
+    minHeight: 250,
   },
   screenshotDialog: {
     maxWidth: '100%',
     height: 'auto',
     width: 'auto',
     maxHeight: 'calc(50vw * 9/16 + 50vh * 9/16)',
-    // width: '100%',
-    // height: 'auto',
-    // minWidth: '40vh',
-    // maxWidth: '77vw',
+    minWidth: 250,
+    minHeight: 250,
   },
   appBar: {
     marginTop: theme.spacing(3),

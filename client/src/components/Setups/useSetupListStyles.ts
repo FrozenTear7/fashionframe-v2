@@ -7,6 +7,10 @@ const useSetupListStyles = makeStyles<Theme>((theme) => ({
   starIcon: {
     color: theme.palette.primary.light,
   },
+  gridList: {
+    // maxWidth: '70vw',
+    // height: 450,
+  },
 }));
 
 export default useSetupListStyles;

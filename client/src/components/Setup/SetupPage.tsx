@@ -176,9 +176,13 @@ const SetupPage: React.VFC<SetupDetailsProps> = ({ setup }) => {
             aria-labelledby="screenshot-dialog"
             aria-describedby="screenshot-dialog-description"
           >
-            <DialogContent dividers style={{ display: 'flex' }}>
+            <DialogContent
+              dividers
+              style={{ display: 'flex' }}
+              onClick={(): void => setOpen(false)}
+            >
               <Grid container justify="center" alignItems="center">
-                <Button onClick={(): void => setOpen(false)}>
+                <Button>
                   <img
                     alt="Screenshot"
                     className={classes.screenshotDialog}

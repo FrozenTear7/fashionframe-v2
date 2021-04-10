@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import {
   Badge,
   Container,
+  Grid,
   GridList,
   GridListTile,
   GridListTileBar,
@@ -20,11 +21,11 @@ interface SetupListItemProps {
 
 const howManyCols = (width: Breakpoint): number => {
   switch (width) {
-    case 'lg':
     case 'xl':
-      return 3;
-    case 'md':
+    case 'lg':
       return 2;
+    case 'md':
+      return 1;
     default:
       return 1;
   }
@@ -37,12 +38,16 @@ const SetupList: React.VFC<SetupListItemProps> = ({ setups }) => {
   return (
     <div className={classes.root}>
       {setups.length > 0 ? (
-        <GridList cellHeight={300} cols={howManyCols(width)}>
+        <GridList
+          className={classes.gridList}
+          cellHeight={300}
+          cols={howManyCols(width)}
+        >
           {setups.map(({ _id, name, frame, screenshot, score, author }) => (
             <GridListTile key={_id} component={Link} to={`/setups/${_id}`}>
               <img src={screenshot} alt={name} />
               <GridListTileBar
-                title={name}
+                title="xd"
                 className={classes.tileBar}
                 subtitle={
                   <span>

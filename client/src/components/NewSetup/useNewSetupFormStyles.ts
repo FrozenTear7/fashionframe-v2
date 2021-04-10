@@ -22,6 +22,8 @@ const useNewSetupFormStyles = makeStyles<Theme>((theme) => ({
     height: 'auto',
     width: 'auto',
     maxHeight: 'calc(30vw * 9/16 + 30vh * 9/16)',
+    // minWidth: 250,
+    // minHeight: 250,
   },
   appBar: {
     marginTop: theme.spacing(3),
