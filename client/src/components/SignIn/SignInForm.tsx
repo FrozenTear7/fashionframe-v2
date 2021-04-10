@@ -56,7 +56,7 @@ const SignInForm: React.VFC = () => {
       const userRes = await signIn(username, password);
       enqueueSnackbar('Signed in successfully', {
         variant: 'success',
-        autoHideDuration: 3000,
+        autoHideDuration: 5000,
         anchorOrigin: {
           vertical: 'bottom',
           horizontal: 'left',
@@ -134,9 +134,12 @@ const SignInForm: React.VFC = () => {
         >
           Sign In
         </Button>
-        <Grid container justify="center">
+        <Grid container direction="column" alignItems="center" spacing={2}>
           <Grid item>
             <Link to="/signup">Don&apos;t have an account? Sign Up</Link>
+          </Grid>
+          <Grid item>
+            <Link to="/forgot">Recover password</Link>
           </Grid>
         </Grid>
       </form>

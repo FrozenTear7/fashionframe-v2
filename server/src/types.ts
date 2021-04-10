@@ -12,6 +12,10 @@ export interface Config {
     album: string;
     refreshToken: string;
   };
+  gmail: {
+    login: string;
+    password: string;
+  };
 }
 
 export interface IGetUserAuthInfoRequest extends Request {

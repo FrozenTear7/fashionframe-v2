@@ -14,6 +14,8 @@ const {
   IMGUR_SECRET,
   IMGUR_ALBUM,
   IMGUR_TOKEN,
+  GMAIL_LOGIN,
+  GMAIL_PASSWORD,
 } = process.env;
 
 if (
@@ -25,7 +27,9 @@ if (
   !isString(IMGUR_ID) ||
   !isString(IMGUR_SECRET) ||
   !isString(IMGUR_ALBUM) ||
-  !isString(IMGUR_TOKEN)
+  !isString(IMGUR_TOKEN) ||
+  !isString(GMAIL_LOGIN) ||
+  !isString(GMAIL_PASSWORD)
 ) {
   console.log('Please provide a valid .env config');
   process.exit(0);
@@ -41,6 +45,10 @@ const config: Config = {
     secret: IMGUR_SECRET,
     album: IMGUR_ALBUM,
     refreshToken: IMGUR_TOKEN,
+  },
+  gmail: {
+    login: GMAIL_LOGIN,
+    password: GMAIL_PASSWORD,
   },
 };
 

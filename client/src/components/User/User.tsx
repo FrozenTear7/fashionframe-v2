@@ -10,7 +10,7 @@ import UserPage from './UserPage';
 import { SetupItem } from '../../types/Setup';
 
 const User: React.VFC<RouteComponentProps<{ id: string }>> = ({ match }) => {
-  const userId = match.params.id;
+  const { id: userId } = match.params;
 
   const [{ data: userData, loading: userLoading, error: userError }] = useAxios<
     UserDetails,

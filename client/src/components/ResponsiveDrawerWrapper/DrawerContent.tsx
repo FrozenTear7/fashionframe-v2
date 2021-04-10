@@ -35,7 +35,7 @@ const DrawerContent: React.VFC = () => {
       setUser(null);
       enqueueSnackbar('Signed out successfully', {
         variant: 'success',
-        autoHideDuration: 3000,
+        autoHideDuration: 5000,
         anchorOrigin: {
           vertical: 'bottom',
           horizontal: 'left',
@@ -44,7 +44,7 @@ const DrawerContent: React.VFC = () => {
     } catch ({ response }) {
       enqueueSnackbar(response.data.message, {
         variant: 'error',
-        autoHideDuration: 3000,
+        autoHideDuration: 5000,
         anchorOrigin: {
           vertical: 'bottom',
           horizontal: 'left',

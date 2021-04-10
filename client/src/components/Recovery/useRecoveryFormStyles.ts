@@ -1,6 +1,6 @@
 import { makeStyles, Theme } from '@material-ui/core/styles';
 
-const useRecoveryFormStyles = makeStyles<Theme>((theme) => ({
+const useSignInFormStyles = makeStyles<Theme>((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',
@@ -20,4 +20,4 @@ const useRecoveryFormStyles = makeStyles<Theme>((theme) => ({
   },
 }));
 
-export default useRecoveryFormStyles;
+export default useSignInFormStyles;

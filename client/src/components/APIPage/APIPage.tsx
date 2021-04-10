@@ -126,6 +126,19 @@ const APIPage: React.VFC = () => {
           </Link>{' '}
           of the project.
         </Typography>
+        <Divider className={classes.titleDivider} />
+        <Typography variant="body1" component="p">
+          Created and maintained by{' '}
+          <Link
+            href="https://github.com/FrozenTear7"
+            target="_blank"
+            rel="noopener"
+          >
+            FrozenTear7
+          </Link>
+          . If you enjoy Fashionframe, consider giving this project a star on
+          Github, it means a lot.
+        </Typography>
       </Container>
     </>
   );

@@ -87,7 +87,7 @@ const SetupPage: React.VFC<SetupDetailsProps> = ({ setup }) => {
         setCurrentScore(+currentScore + 1);
         enqueueSnackbar('Added to favorites', {
           variant: 'success',
-          autoHideDuration: 3000,
+          autoHideDuration: 5000,
           anchorOrigin: {
             vertical: 'bottom',
             horizontal: 'left',
@@ -97,7 +97,7 @@ const SetupPage: React.VFC<SetupDetailsProps> = ({ setup }) => {
         setCurrentScore(+currentScore - 1);
         enqueueSnackbar('Removed from favorites', {
           variant: 'success',
-          autoHideDuration: 3000,
+          autoHideDuration: 5000,
           anchorOrigin: {
             vertical: 'bottom',
             horizontal: 'left',

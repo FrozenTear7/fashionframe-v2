@@ -9,7 +9,7 @@ import Loading from '../Utils/Loading';
 import SetupPage from './SetupPage';
 
 const Setup: React.VFC<RouteComponentProps<{ id: string }>> = ({ match }) => {
-  const setupId = match.params.id;
+  const { id: setupId } = match.params;
 
   const [
     { data: setup, loading: setupLoading, error: setupError },

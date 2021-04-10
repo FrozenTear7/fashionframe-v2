@@ -54,7 +54,7 @@ const SignUpForm: React.VFC = () => {
       setUser(userRes);
       enqueueSnackbar('Signed up successfully', {
         variant: 'success',
-        autoHideDuration: 3000,
+        autoHideDuration: 5000,
         anchorOrigin: {
           vertical: 'bottom',
           horizontal: 'left',

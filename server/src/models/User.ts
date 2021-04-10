@@ -10,6 +10,8 @@ export interface IUser extends Document {
   email: string;
   password: string;
   tokens: Array<{ token: string }>;
+  resetPasswordToken: string | undefined;
+  resetPasswordExpires: number | undefined;
   generateAuthToken(): Promise<string>;
 }
 
@@ -56,6 +58,12 @@ const UserSchema: Schema = new Schema({
       },
     },
   ],
+  resetPasswordToken: {
+    type: String,
+  },
+  resetPasswordExpires: {
+    type: Number,
+  },
 });
 
 UserSchema.pre('save', async function (next) {

@@ -94,6 +94,19 @@ const About: React.VFC = () => {
           if you want to directly work on existing issues or implement features.
         </Typography>
         <Divider className={classes.titleDivider} />
+        <Typography variant="body1" component="p">
+          Created and maintained by{' '}
+          <Link
+            href="https://github.com/FrozenTear7"
+            target="_blank"
+            rel="noopener"
+          >
+            FrozenTear7
+          </Link>
+          . If you enjoy Fashionframe, consider giving this project a star on
+          Github, it means a lot.
+        </Typography>
+        <Divider className={classes.titleDivider} />
         <p>
           Fashionframe isn’t endorsed by Digital Extremes and doesn’t reflect
           the views or opinions of Digital Extremes or anyone officially
