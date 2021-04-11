@@ -21,7 +21,7 @@ interface SetupDetailsProps {
   colorPickers: ColorPickers;
 }
 
-const SetupPage: React.VFC<SetupDetailsProps> = ({ setup }) => {
+const SetupPage: React.VFC<SetupDetailsProps> = ({ setup, colorPickers }) => {
   const classes = useSetupPageStyles();
   const { user } = useUserContext();
   const { enqueueSnackbar } = useSnackbar();
@@ -225,7 +225,10 @@ const SetupPage: React.VFC<SetupDetailsProps> = ({ setup }) => {
               {genericInfoGridItem('Skin', skin)}
             </Grid>
             <Grid item lg={6}>
-              <SetupColorScheme colorScheme={colorScheme} />
+              <SetupColorScheme
+                colorScheme={colorScheme}
+                colorPickers={colorPickers}
+              />
             </Grid>
           </Grid>
         </SetupTabPanel>
@@ -240,7 +243,10 @@ const SetupPage: React.VFC<SetupDetailsProps> = ({ setup }) => {
               {genericInfoGridItem('Ephemera', attachments.ephemera)}
             </Grid>
             <Grid item lg={6}>
-              <SetupColorScheme colorScheme={attachments.colorScheme} />
+              <SetupColorScheme
+                colorScheme={attachments.colorScheme}
+                colorPickers={colorPickers}
+              />
             </Grid>
           </Grid>
         </SetupTabPanel>
@@ -250,7 +256,10 @@ const SetupPage: React.VFC<SetupDetailsProps> = ({ setup }) => {
               {genericInfoGridItem('Syandana', syandana.name)}
             </Grid>
             <Grid item lg={6}>
-              <SetupColorScheme colorScheme={syandana.colorScheme} />
+              <SetupColorScheme
+                colorScheme={syandana.colorScheme}
+                colorPickers={colorPickers}
+              />
             </Grid>
           </Grid>
         </SetupTabPanel>

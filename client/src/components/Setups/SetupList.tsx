@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import {
   Badge,
   Container,
-  Grid,
   GridList,
   GridListTile,
   GridListTileBar,
@@ -47,7 +46,7 @@ const SetupList: React.VFC<SetupListItemProps> = ({ setups }) => {
             <GridListTile key={_id} component={Link} to={`/setups/${_id}`}>
               <img src={screenshot} alt={name} />
               <GridListTileBar
-                title="xd"
+                title={name}
                 className={classes.tileBar}
                 subtitle={
                   <span>

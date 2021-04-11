@@ -40,7 +40,7 @@ const forgotPassword = async (
       subject: 'Fashionframe - password reset',
       text: `Hello ${
         user.username
-      },\n\nYou requested a password reset, to continue please click the link below and input a new password (the link will be valid for an hour).\nIf you did not request a password change, please ignore this email.\nhttp://${String(
+      },\n\nYou requested a password reset, to continue please click the link below and input a new password (the link will be valid for an hour).\nIf you did not request a password change, please ignore this email.\nhttps://${String(
         host
       )}/reset/${token}\n\n\nSincerely,\nFashionframe`,
     };

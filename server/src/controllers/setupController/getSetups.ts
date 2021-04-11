@@ -3,7 +3,7 @@ import HttpException from '../../exceptions/HttpException';
 import Setup from '../../models/Setup';
 import { isNumber, isString } from '../../utils/parseTypes/typeChecks';
 
-const perPage = 3;
+const perPage = 4;
 
 const getSetups = async (
   req: Request,

@@ -21,7 +21,9 @@ const Setup: React.VFC<RouteComponentProps<{ id: string }>> = ({ match }) => {
       loading: colorPickersLoading,
       error: colorPickersError,
     },
-  ] = useAxios<ColorPickers, string>('/api/data/colorPickers');
+  ] = useAxios<{ colorPickers: ColorPickers }, string>(
+    '/api/data/colorPickers'
+  );
 
   React.useEffect(() => {
     void fetchSetup();
@@ -43,7 +45,7 @@ const Setup: React.VFC<RouteComponentProps<{ id: string }>> = ({ match }) => {
         </title>
         <meta name="description" content={setup.description} />
       </Helmet>
-      <SetupPage setup={setup} colorPickers={colorPickers} />
+      <SetupPage setup={setup} colorPickers={colorPickers.colorPickers} />
     </>
   );
 };

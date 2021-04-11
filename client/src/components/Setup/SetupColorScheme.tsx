@@ -8,13 +8,17 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import useSetupPageStyles from './useSetupPageStyles';
 import { ColorScheme } from '../../types/ColorScheme';
 import capitalize from '../../utils/capitalize';
+import SetupDialogColors from './SetupDialogColors';
+import { ColorPickers } from '../../types/WarframeData';
 
 interface SetupColorSchemeProps {
   colorScheme: ColorScheme;
+  colorPickers: ColorPickers;
 }
 
 const SetupColorScheme: React.VFC<SetupColorSchemeProps> = ({
   colorScheme,
+  colorPickers,
 }) => {
   const classes = useSetupPageStyles();
 
@@ -128,13 +132,13 @@ const SetupColorScheme: React.VFC<SetupColorSchemeProps> = ({
             Find closest colors to #FFFFFF
           </DialogTitle>
           <DialogContent dividers>
-            <DialogContentText
+            {/* <DialogContentText
               id="similar-colors-description"
               ref={descriptionElementRef}
               tabIndex={-1}
-            >
-              Colors
-            </DialogContentText>
+            > */}
+            <SetupDialogColors colorPickers={colorPickers} />
+            {/* </DialogContentText> */}
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} color="primary">

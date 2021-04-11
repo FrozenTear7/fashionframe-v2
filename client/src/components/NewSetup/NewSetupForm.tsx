@@ -47,6 +47,7 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
   const history = useHistory();
   const classes = useNewSetupFormStyles();
 
+  const [createSetupLoading, setCreateSetupLoading] = React.useState(false);
   const [createSetupError, setCreateSetupError] = React.useState<string>();
   const [currentTab, setCurrentTab] = React.useState(0);
 
@@ -73,6 +74,9 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
   } = methods;
 
   const newSetupFormOnSubmit = handleSubmit(async (setupWithImage) => {
+    setCreateSetupError(undefined);
+    setCreateSetupLoading(true);
+
     console.log(setupWithImage);
     const { screenshotImage, ...setup } = setupWithImage;
 
@@ -93,6 +97,7 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
       history.replace(`/setups/${data._id}`);
     } catch ({ response }) {
       setCreateSetupError(response.data.message);
+      setCreateSetupLoading(false);
     }
   });
 
@@ -118,6 +123,7 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
                 variant="contained"
                 color="primary"
                 className={classes.submit}
+                disabled={createSetupLoading}
               >
                 Create
               </Button>

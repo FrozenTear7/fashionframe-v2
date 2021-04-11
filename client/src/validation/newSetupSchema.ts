@@ -4,6 +4,7 @@ const newSetupSchema = yup.object().shape({
   name: yup
     .string()
     .min(3, 'Must be at least 3 characters long')
+    .max(50, 'Must be at most 50 characters long')
     .required('Required'),
   description: yup.string().max(300, 'Must be at most 300 characters long'),
   frame: yup.string().required('Required'),

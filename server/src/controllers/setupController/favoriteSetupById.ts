@@ -20,9 +20,11 @@ const favoriteSetupById = async (
     if (!currentSetup)
       return next(new HttpException(404, 'Setup does not exist'));
 
-    if (
-      !currentSetup.favoritedUsers.includes(mongoose.Types.ObjectId(userId))
-    ) {
+    const alreadyFavorited = currentSetup.favoritedUsers.includes(
+      mongoose.Types.ObjectId(userId)
+    );
+
+    if (!alreadyFavorited) {
       await session.withTransaction(async () => {
         await Setup.findByIdAndUpdate(
           id,
@@ -68,9 +70,7 @@ const favoriteSetupById = async (
       });
     }
 
-    res.send(
-      !currentSetup.favoritedUsers.includes(mongoose.Types.ObjectId(userId))
-    );
+    res.send(!alreadyFavorited);
   } catch (e) {
     console.log(e);
     next(new HttpException(400, e));

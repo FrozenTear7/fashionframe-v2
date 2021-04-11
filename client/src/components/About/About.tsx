@@ -104,16 +104,18 @@ const About: React.VFC = () => {
             FrozenTear7
           </Link>
           . If you enjoy Fashionframe, consider giving this project a star on
-          Github, it means a lot.
+          Github, it means a lot. <br /> For any Warframe related topics feel
+          free to contact me in-game @FrozenTear7 - I&apos;m a 30MR true master
+          god gamer ready to help you.
         </Typography>
         <Divider className={classes.titleDivider} />
-        <p>
+        <Typography variant="body2" component="p">
           Fashionframe isn’t endorsed by Digital Extremes and doesn’t reflect
           the views or opinions of Digital Extremes or anyone officially
           involved in producing or managing Warframe. Warframe and Digital
           Extremes are trademarks or registered trademarks of Digital Extremes
           ©.
-        </p>
+        </Typography>
       </Container>
     </>
   );
