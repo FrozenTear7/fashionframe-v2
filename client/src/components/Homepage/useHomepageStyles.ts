@@ -6,20 +6,19 @@ const useHomepageStyles = makeStyles<Theme>((theme) => ({
     [theme.breakpoints.up('md')]: {
       fontSize: '6em',
     },
+    fontWeight: 'bold',
+    fontStyle: 'italic',
     color: 'white',
   },
   subTitle: {
-    marginLeft: theme.spacing(4),
     fontSize: '1.5em',
     [theme.breakpoints.up('md')]: {
-      marginLeft: theme.spacing(8),
       fontSize: '3em',
     },
     color: 'white',
   },
   exploreButton: {
     color: 'white',
-    marginLeft: theme.spacing(3),
     fontSize: '1.5em',
     [theme.breakpoints.up('md')]: {
       fontSize: '2em',

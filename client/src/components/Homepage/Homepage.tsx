@@ -4,7 +4,6 @@ import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import useHomepageStyles from './useHomepageStyles';
-import '../../homepage.css';
 
 const Homepage: React.VFC = () => {
   const classes = useHomepageStyles();
@@ -29,25 +28,32 @@ const Homepage: React.VFC = () => {
           <source src="FashionframeHomepage.mp4" type="video/mp4" />
         </video>
         <Container component="main" maxWidth="xl">
-          <Grid
-            container
-            direction="column"
-            justify="center"
-            alignItems="center"
-          >
-            <Grid item className={classes.mainContainer}>
-              <Typography className={classes.title}>Fashionframe</Typography>
-              <Typography className={classes.subTitle}>
-                The true endgame begins here
-              </Typography>
-              <Button
-                variant="outlined"
-                className={classes.exploreButton}
-                component={Link}
-                to="/setups"
-              >
-                Explore
-              </Button>
+          <Grid container>
+            <Grid
+              container
+              item
+              className={classes.mainContainer}
+              direction="column"
+              alignItems="center"
+            >
+              <Grid item>
+                <Typography className={classes.title}>Fashionframe</Typography>
+              </Grid>
+              <Grid item>
+                <Typography className={classes.subTitle}>
+                  The true endgame begins here
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Button
+                  variant="outlined"
+                  className={classes.exploreButton}
+                  component={Link}
+                  to="/setups"
+                >
+                  Explore
+                </Button>
+              </Grid>
             </Grid>
           </Grid>
         </Container>
