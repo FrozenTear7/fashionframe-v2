@@ -18,3 +18,9 @@ export interface GetRequestGeneric {
   loading: boolean;
   error: string | undefined;
 }
+
+export interface RGB {
+  r: number;
+  g: number;
+  b: number;
+}

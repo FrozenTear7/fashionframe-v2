@@ -48,7 +48,7 @@ const SetupColorScheme: React.VFC<SetupColorSchemeProps> = ({
           className={classes.colorSchemeButton}
           style={{ background: rgb }}
           onClick={(): void => {
-            setCurrentColor(colorName);
+            setCurrentColor(rgb);
             setOpen(true);
           }}
         />
@@ -124,21 +124,17 @@ const SetupColorScheme: React.VFC<SetupColorSchemeProps> = ({
         <Dialog
           open={open}
           onClose={handleClose}
-          scroll="paper"
           aria-labelledby="similar-colors-title"
           aria-describedby="similar-colors-description"
         >
           <DialogTitle id="similar-colors-title">
-            Find closest colors to #FFFFFF
+            Find closest colors to {currentColor}
           </DialogTitle>
           <DialogContent dividers>
-            {/* <DialogContentText
-              id="similar-colors-description"
-              ref={descriptionElementRef}
-              tabIndex={-1}
-            > */}
-            <SetupDialogColors colorPickers={colorPickers} />
-            {/* </DialogContentText> */}
+            <SetupDialogColors
+              colorPickers={colorPickers}
+              currentColor={currentColor}
+            />
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} color="primary">

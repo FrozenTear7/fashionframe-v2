@@ -1,39 +1,53 @@
 import * as React from 'react';
-import { Grid, List, ListItem, ListItemText } from '@material-ui/core';
+import { Grid, TextField } from '@material-ui/core';
+import { Autocomplete } from '@material-ui/lab';
 import { ColorPickers } from '../../types/WarframeData';
+import DialogColorPicker from './DialogColorPicker';
+import getColorPickerClosestColor from '../../utils/getColorPickerClosestColor';
 
 interface SetupDialogColorsProps {
   colorPickers: ColorPickers;
+  currentColor: string;
 }
 
 const SetupDialogColors: React.VFC<SetupDialogColorsProps> = ({
   colorPickers,
+  currentColor,
 }) => {
   const [currentColorPicker, setCurrentColorPicker] = React.useState(
     Object.keys(colorPickers)[0]
   );
 
-  console.log(colorPickers);
-  console.log(Object.keys(colorPickers));
-
   return (
-    // <Grid container justify="center">
-    //   <Grid item>
-    <List component="ul" aria-label="secondary mailbox folder">
-      {Object.keys(colorPickers).map((colorPicker) => (
-        <ListItem
-          key={colorPicker}
-          button
-          selected={colorPicker === currentColorPicker}
-          // onClick={(event) => handleListItemClick(event, 2)}
-        >
-          <ListItemText primary={colorPicker} />
-        </ListItem>
-      ))}
-    </List>
-    //   </Grid>
-    //   <Grid item>color scheme</Grid>
-    // </Grid>
+    <>
+      <Grid container direction="column" alignItems="center" spacing={1}>
+        <Grid item>
+          <Autocomplete
+            id="color-picker"
+            value={currentColorPicker}
+            onChange={(_event, newValue): void => {
+              setCurrentColorPicker(newValue);
+            }}
+            style={{ width: 150 }}
+            options={Object.keys(colorPickers)}
+            renderInput={(params): JSX.Element => (
+              <TextField {...params} label="Color picker" variant="outlined" />
+            )}
+            disableClearable
+          />
+        </Grid>
+        <Grid item>
+          <DialogColorPicker
+            colorPicker={colorPickers[currentColorPicker]}
+            colorPickerName={currentColorPicker}
+            value={getColorPickerClosestColor(
+              colorPickers[currentColorPicker],
+              currentColor
+            )}
+          />
+        </Grid>
+      </Grid>
+    </>
   );
 };
 

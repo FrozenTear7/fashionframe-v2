@@ -53,9 +53,6 @@ const RecoveryForm: React.VFC<RecoveryFormProps> = ({ token }) => {
     setRecoveryError(undefined);
     setRecoveryLoading(true);
 
-    console.log(password);
-    console.log(password2);
-
     try {
       await axios.post(`/api/users/reset/${token}`, {
         password,

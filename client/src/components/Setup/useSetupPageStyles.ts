@@ -1,5 +1,9 @@
 import { makeStyles, Theme } from '@material-ui/core/styles';
 
+const buttonWidth = 30;
+const gridButtonWidth = 5;
+const gridButtonHeight = 18;
+
 const useSetupPageStyles = makeStyles<Theme>((theme) => ({
   title: {
     fontSize: '2.5em',
@@ -58,6 +62,28 @@ const useSetupPageStyles = makeStyles<Theme>((theme) => ({
     '&:hover': {
       background: theme.palette.error.dark,
     },
+  },
+  colorPickerGrid: {
+    width: buttonWidth * gridButtonWidth,
+    gridButtonHeight: buttonWidth * gridButtonHeight,
+    margin: 0,
+    padding: 0,
+  },
+  colorPickerGridItem: {
+    width: buttonWidth,
+    height: buttonWidth,
+  },
+  colorPickerButtonSelected: {
+    border: '2px solid white',
+    width: buttonWidth,
+    height: buttonWidth,
+    outline: 'none',
+  },
+  colorPickerButtonNotSelected: {
+    border: 0,
+    width: buttonWidth,
+    height: buttonWidth,
+    outline: 'none',
   },
 }));
 
