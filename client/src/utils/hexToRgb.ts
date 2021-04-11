@@ -1,10 +1,10 @@
-import { RGB } from '../types';
+import * as diff from 'color-diff';
 
-const hexToRGB = (hex: string): RGB => {
+const hexToRGB = (hex: string): diff.RGBColor => {
   return {
-    r: +`0x${hex[1]}${hex[1]}`,
-    g: +`0x${hex[2]}${hex[2]}`,
-    b: +`0x${hex[3]}${hex[3]}`,
+    R: +`0x${hex[1]}${hex[2]}`,
+    G: +`0x${hex[3]}${hex[4]}`,
+    B: +`0x${hex[5]}${hex[6]}`,
   };
 };
 

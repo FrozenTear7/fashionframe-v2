@@ -35,10 +35,7 @@ const SetupColorScheme: React.VFC<SetupColorSchemeProps> = ({
     energy2,
   } = colorScheme;
 
-  const setupColorSchemeButton = (
-    colorName: string,
-    color: string | undefined
-  ): JSX.Element => {
+  const setupColorSchemeButton = (color: string | undefined): JSX.Element => {
     if (color) {
       const rgb = color.split('.')[3];
 
@@ -85,7 +82,7 @@ const SetupColorScheme: React.VFC<SetupColorSchemeProps> = ({
           {capitalize(colorName)}
         </Grid>
         <Grid item md={12}>
-          {setupColorSchemeButton(colorName, color)}
+          {setupColorSchemeButton(color)}
         </Grid>
       </Grid>
     );
@@ -108,10 +105,10 @@ const SetupColorScheme: React.VFC<SetupColorSchemeProps> = ({
           {capitalize(colorName)}
         </Grid>
         <Grid item md={6}>
-          {setupColorSchemeButton(`${colorName}1`, color1)}
+          {setupColorSchemeButton(color1)}
         </Grid>
         <Grid item md={6}>
-          {setupColorSchemeButton(`${colorName}2`, color2)}
+          {setupColorSchemeButton(color2)}
         </Grid>
       </Grid>
     );
@@ -127,7 +124,15 @@ const SetupColorScheme: React.VFC<SetupColorSchemeProps> = ({
           aria-describedby="similar-colors-description"
         >
           <DialogTitle id="similar-colors-title">
-            Find closest colors to {currentColor}
+            <Grid container>
+              <Grid item>Similar to&nbsp;</Grid>
+              <Grid item>
+                <div
+                  className={classes.colorSchemeButton}
+                  style={{ background: currentColor }}
+                />
+              </Grid>
+            </Grid>
           </DialogTitle>
           <DialogContent dividers>
             <SetupDialogColors
