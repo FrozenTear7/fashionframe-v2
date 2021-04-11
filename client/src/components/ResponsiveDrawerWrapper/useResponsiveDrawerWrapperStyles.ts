@@ -34,7 +34,7 @@ const useHeaderStyles = makeStyles<Theme>((theme) => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
+    // padding: theme.spacing(3),
   },
   container: {
     paddingTop: '1.5rem',
