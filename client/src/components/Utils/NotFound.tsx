@@ -16,7 +16,12 @@ const NotFound: React.VFC = () => {
         </Grid>
         <Grid container spacing={6} justify="center">
           <Grid item>
-            <Button variant="contained" color="primary" component={Link} to="/">
+            <Button
+              variant="contained"
+              color="primary"
+              component={Link}
+              to="/setups"
+            >
               Homepage
             </Button>
           </Grid>

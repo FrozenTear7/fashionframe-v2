@@ -122,7 +122,7 @@ const APIPage: React.VFC = () => {
         <Typography variant="body2" component="p">
           For more information, please refer to the{' '}
           <Link
-            href="https://github.com/FrozenTear7/fashionframe/blob/master/README.md"
+            href="https://github.com/FrozenTear7/fashionframe-v2/blob/master/README.md"
             target="_blank"
             rel="noopener"
           >

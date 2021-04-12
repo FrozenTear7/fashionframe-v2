@@ -5,7 +5,7 @@ import { useUserContext } from '../UserContext';
 export const SignedInRoute = ({ ...rest }: RouteProps): JSX.Element => {
   const { user } = useUserContext();
 
-  return user ? <Redirect to={{ pathname: '/' }} /> : <Route {...rest} />;
+  return user ? <Redirect to={{ pathname: '/setups' }} /> : <Route {...rest} />;
 };
 
 export const PrivateRoute = ({ ...rest }: RouteProps): JSX.Element => {

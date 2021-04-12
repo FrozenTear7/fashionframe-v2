@@ -33,7 +33,7 @@ const About: React.VFC = () => {
         <Typography variant="h6" component="p">
           The project is{' '}
           <Link
-            href="https://github.com/FrozenTear7/fashionframe/blob/master/LICENSE"
+            href="https://github.com/FrozenTear7/fashionframe-v2/blob/master/LICENSE"
             target="_blank"
             rel="noopener"
           >
@@ -41,7 +41,7 @@ const About: React.VFC = () => {
           </Link>
           , the repository is publicly available{' '}
           <Link
-            href="https://github.com/FrozenTear7/fashionframe"
+            href="https://github.com/FrozenTear7/fashionframe-v2"
             target="_blank"
             rel="noopener"
           >
@@ -81,7 +81,7 @@ const About: React.VFC = () => {
           If you&apos;d like to see a new feature added, feel free to suggest it
           via{' '}
           <Link
-            href="https://github.com/FrozenTear7/fashionframe/issues"
+            href="https://github.com/FrozenTear7/fashionframe-v2/issues"
             target="_blank"
             rel="noopener"
           >
@@ -89,7 +89,7 @@ const About: React.VFC = () => {
           </Link>{' '}
           on Github or submit a{' '}
           <Link
-            href="https://github.com/FrozenTear7/fashionframe/pulls"
+            href="https://github.com/FrozenTear7/fashionframe-v2/pulls"
             target="_blank"
             rel="noopener"
           >

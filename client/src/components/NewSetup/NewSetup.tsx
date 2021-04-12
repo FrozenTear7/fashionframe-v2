@@ -27,9 +27,13 @@ const NewSetup: React.VFC = () => {
   ] = React.useState<AxiosError>();
 
   React.useEffect(() => {
+    let mounted = true;
+
     const fetchSetups = async (): Promise<void> => {
-      setWarframeDataError(undefined);
-      setWarframeDataLoading(true);
+      if (mounted) {
+        setWarframeDataError(undefined);
+        setWarframeDataLoading(true);
+      }
 
       try {
         // Multi-fetch on all data types
@@ -42,15 +46,19 @@ const NewSetup: React.VFC = () => {
           // eslint-disable-next-line @typescript-eslint/no-unsafe-return
           return { ...acc, ...data };
         }, {});
-        setWarframeData(warframeDataReduced as WarframeData);
+        if (mounted) setWarframeData(warframeDataReduced as WarframeData);
       } catch (error) {
-        setWarframeDataError(error);
+        if (mounted) setWarframeDataError(error);
       } finally {
-        setWarframeDataLoading(false);
+        if (mounted) setWarframeDataLoading(false);
       }
     };
 
     void fetchSetups();
+
+    return (): void => {
+      mounted = false;
+    };
   }, []);
 
   if (warframeDataLoading) return <Loading />;

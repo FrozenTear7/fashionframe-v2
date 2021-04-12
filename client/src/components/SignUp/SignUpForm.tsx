@@ -62,8 +62,6 @@ const SignUpForm: React.VFC = () => {
       });
     } catch ({ response }) {
       setSignUpError(response.data.message);
-    } finally {
-      setSignUpLoading(false);
     }
   };
 
