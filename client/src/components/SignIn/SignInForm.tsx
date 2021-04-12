@@ -46,7 +46,7 @@ const SignInForm: React.VFC = () => {
     password,
   }: SignInFormData): Promise<void> => {
     const { from }: LocationState = (location.state as LocationState) || {
-      from: { pathname: '/' },
+      from: { pathname: '/setups' },
     };
 
     setSignInError(undefined);

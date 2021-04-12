@@ -1,12 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
-import config from '../config';
 import HttpException from '../exceptions/HttpException';
 import User from '../models/User';
+import decodeJwt from '../utils/decodeJwt';
 
 const auth = async (
   req: Request,
-  _res: Response,
+  res: Response,
   next: NextFunction
 ): Promise<void> => {
   const { token } = req.cookies;
@@ -14,10 +13,10 @@ const auth = async (
   if (!token) return next(new HttpException(401, 'JWT Token is missing'));
 
   try {
-    const data = jwt.verify(token, config.jwtKey);
+    const userId = await decodeJwt(token);
 
     const user = await User.findOne({
-      _id: data,
+      _id: userId,
       'tokens.token': token,
     });
 
@@ -27,7 +26,7 @@ const auth = async (
 
     next();
   } catch (e) {
-    console.log(e);
+    res.clearCookie('token');
     next(new HttpException(401, `Access forbidden, ${(e as Error).message}`));
   }
 };

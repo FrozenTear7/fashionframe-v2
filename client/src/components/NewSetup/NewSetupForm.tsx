@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FormProvider, useForm } from 'react-hook-form';
 import * as React from 'react';
@@ -48,7 +48,7 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
   const classes = useNewSetupFormStyles();
 
   const [createSetupLoading, setCreateSetupLoading] = React.useState(false);
-  const [createSetupError, setCreateSetupError] = React.useState<string>();
+  const [createSetupError, setCreateSetupError] = React.useState<AxiosError>();
   const [currentTab, setCurrentTab] = React.useState(0);
 
   const {
@@ -67,11 +67,7 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
     resolver: yupResolver(newSetupSchema),
     defaultValues: newSetupFormDefaultValues,
   });
-  const {
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = methods;
+  const { handleSubmit } = methods;
 
   const newSetupFormOnSubmit = handleSubmit(async (setupWithImage) => {
     setCreateSetupError(undefined);
@@ -95,14 +91,11 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
       });
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       history.replace(`/setups/${data._id}`);
-    } catch ({ response }) {
-      setCreateSetupError(response.data.message);
+    } catch (error) {
+      setCreateSetupError(error);
       setCreateSetupLoading(false);
     }
   });
-
-  console.log('Errors: ', errors);
-  console.log(watch());
 
   return (
     <Container component="main" maxWidth="xl">
@@ -117,16 +110,20 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
             noValidate
           >
             <Grid item container justify="center">
-              {createSetupError && <Error error={createSetupError} />}
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-                disabled={createSetupLoading}
-              >
-                Create
-              </Button>
+              <Grid item>
+                {createSetupError && <Error error={createSetupError} />}
+              </Grid>
+              <Grid container item justify="center">
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                  disabled={createSetupLoading}
+                >
+                  Create
+                </Button>
+              </Grid>
             </Grid>
             <Grid container spacing={3}>
               <NewSetupTopSection />

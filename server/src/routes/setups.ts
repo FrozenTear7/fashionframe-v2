@@ -30,10 +30,10 @@ router.post(
   [csrfProtection, auth, validObjectId],
   favoriteSetupById
 );
-router.get('/', getSetups);
-router.get('/user/:userId', validObjectId, getSetupsByUserId);
+router.get('/', csrfProtection, getSetups);
+router.get('/user/:userId', [csrfProtection, validObjectId], getSetupsByUserId);
 router.get('/favorites', [csrfProtection, auth], getUserFavorites);
-router.get('/:id', validObjectId, getSetupById);
+router.get('/:id', [csrfProtection, validObjectId], getSetupById);
 router.put('/:id', [csrfProtection, auth, validObjectId], updateSetupById);
 router.delete('/:id', [csrfProtection, auth, validObjectId], deleteSetupById);
 

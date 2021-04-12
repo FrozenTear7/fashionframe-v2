@@ -8,9 +8,10 @@ const resetPassword = async (
   next: NextFunction
 ): Promise<void> => {
   const { token } = req.params;
-  const { password } = req.body;
+  const { password, password2 } = req.body;
 
-  console.log(token, password);
+  if (password !== password2)
+    return next(new HttpException(400, 'Passwords do not match'));
 
   try {
     const user = await User.findOne({

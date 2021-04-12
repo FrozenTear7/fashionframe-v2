@@ -1,10 +1,9 @@
 import { NextFunction, Response, Request } from 'express';
 import mongoose from 'mongoose';
-import jwt from 'jsonwebtoken';
 import HttpException from '../../exceptions/HttpException';
 import Setup from '../../models/Setup';
 import User, { IUser } from '../../models/User';
-import config from '../../config';
+import decodeJwt from '../../utils/decodeJwt';
 
 const getSetupById = async (
   req: Request,
@@ -19,15 +18,14 @@ const getSetupById = async (
     let user: IUser | null = null;
     if (token) {
       try {
-        const data = jwt.verify(token, config.jwtKey);
+        const userId = await decodeJwt(token);
 
         user = await User.findOne({
-          _id: data,
+          _id: userId,
           'tokens.token': token,
         });
       } catch (e) {
         console.log(e);
-        return next(new HttpException(400, 'Error while fetching the setup'));
       }
     }
 

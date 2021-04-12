@@ -9,8 +9,10 @@ const signOutUser = async (
 ): Promise<void> => {
   try {
     const user: IUser = req.user;
-    req.user.tokens = user.tokens.filter(({ token }) => token != req.token);
 
+    req.user.tokens = user.tokens.filter(
+      ({ token }) => token != req.cookies.token
+    );
     await user.save();
 
     res.clearCookie('token');

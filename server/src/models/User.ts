@@ -91,12 +91,8 @@ UserSchema.post(
 UserSchema.methods.generateAuthToken = async function (): Promise<string> {
   const user = this as IUser;
 
-  let token: string;
-  if (user.tokens.length > 1) token = user.tokens[0].token;
-  else {
-    token = jwt.sign({ _id: user._id }, config.jwtKey);
-    user.tokens = [...user.tokens, { token }];
-  }
+  const token = jwt.sign({ _id: user._id }, config.jwtKey, { expiresIn: 3 });
+  user.tokens = [...user.tokens, { token }];
 
   await user.save();
   return token;

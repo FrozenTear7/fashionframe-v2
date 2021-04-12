@@ -1,7 +1,6 @@
-import jwt from 'jsonwebtoken';
 import { NextFunction, Response, Request } from 'express';
 import User from '../../models/User';
-import config from '../../config';
+import decodeJwt from '../../utils/decodeJwt';
 
 const getOwnProfile = async (
   req: Request,
@@ -11,18 +10,23 @@ const getOwnProfile = async (
   const { token } = req.cookies;
   const csrfToken = req.csrfToken();
 
-  if (!token) res.send({ csrfToken });
   // Send only the token if the user is not signed in
+  if (!token) res.send({ csrfToken });
   else {
-    const data = jwt.verify(token, config.jwtKey);
+    try {
+      const userId = await decodeJwt(token);
 
-    const user = await User.findOne({
-      _id: data,
-      'tokens.token': token,
-    });
+      const user = await User.findOne({
+        _id: userId,
+        'tokens.token': token,
+      });
 
-    if (!user) res.send(csrfToken);
-    else res.send({ _id: user._id, username: user.username, csrfToken });
+      if (!user) res.send(csrfToken);
+      else res.send({ _id: user._id, username: user.username, csrfToken });
+    } catch (e) {
+      console.log(e);
+      res.send({ csrfToken });
+    }
   }
 };
 

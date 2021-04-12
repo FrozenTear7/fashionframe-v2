@@ -22,3 +22,9 @@ export interface IGetUserAuthInfoRequest extends Request {
   user: IUser;
   token: string;
 }
+
+export interface JwtToken {
+  _id: string;
+  iat: number;
+  exp: number;
+}

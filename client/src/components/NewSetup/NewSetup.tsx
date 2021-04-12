@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { WarframeData } from '../../types/WarframeData';
@@ -21,7 +21,10 @@ const warframeDataTypes = [
 const NewSetup: React.VFC = () => {
   const [warframeData, setWarframeData] = React.useState<WarframeData>();
   const [warframeDataLoading, setWarframeDataLoading] = React.useState(true);
-  const [warframeDataError, setWarframeDataError] = React.useState<string>();
+  const [
+    warframeDataError,
+    setWarframeDataError,
+  ] = React.useState<AxiosError>();
 
   React.useEffect(() => {
     const fetchSetups = async (): Promise<void> => {
@@ -40,8 +43,8 @@ const NewSetup: React.VFC = () => {
           return { ...acc, ...data };
         }, {});
         setWarframeData(warframeDataReduced as WarframeData);
-      } catch ({ response }) {
-        setWarframeDataError(response.data.message);
+      } catch (error) {
+        setWarframeDataError(error);
       } finally {
         setWarframeDataLoading(false);
       }

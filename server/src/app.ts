@@ -6,8 +6,8 @@ import config from './config';
 import errorMiddleware from './middleware/errorMiddleware';
 import helmet from 'helmet';
 import path from 'path';
-import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 import csrf from 'csurf';
 
 const app = express();
@@ -23,7 +23,6 @@ app.use(
     contentSecurityPolicy: false,
   })
 );
-app.use(cors());
 app.use(cookieParser());
 app.use(
   csrf({
@@ -40,7 +39,7 @@ if (config.mode === 'production') {
 }
 
 app.use('/api/users', users);
-app.use('/api/data', warframeData);
+app.use('/api/data', cors(), warframeData);
 app.use('/api/setups', setups);
 
 // serve the sitemap

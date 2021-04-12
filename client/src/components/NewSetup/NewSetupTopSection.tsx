@@ -16,9 +16,6 @@ const NewSetupTopSection: React.VFC = () => {
 
   const { screenshotImage: currentScreenshot } = watch();
 
-  console.log('Errors: ', errors);
-  console.log(watch());
-
   return (
     <>
       <Grid container item md={4} direction="column">

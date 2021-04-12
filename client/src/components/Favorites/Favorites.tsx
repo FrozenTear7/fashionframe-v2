@@ -18,7 +18,7 @@ const Favorites: React.VFC = () => {
   }, []);
 
   if (setupsLoading) return <Loading />;
-  if (setupsError) return <Error error={setupsError.message} />;
+  if (setupsError) return <Error error={setupsError} />;
   if (!setups) return <Error error="Something went wrong" />;
   return (
     <Container component="main" maxWidth="lg">

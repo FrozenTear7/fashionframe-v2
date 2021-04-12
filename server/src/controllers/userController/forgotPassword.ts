@@ -13,13 +13,9 @@ const forgotPassword = async (
   const { email } = req.body;
   const { host } = req.headers;
 
-  console.log(email, host);
-
   try {
     const token = crypto.randomBytes(20).toString('hex');
-    console.log(token);
     const user = await User.findOne({ email: email });
-    console.log(user);
 
     if (!user) return next(new HttpException(400, 'User does not exist'));
 
