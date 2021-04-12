@@ -9,6 +9,7 @@ export interface IAttachments extends Document {
   leftLeg?: string;
   rightLeg?: string;
   ephemera?: string;
+  frameSpecific?: string;
 }
 
 const AttachmentsSchema: Schema = new Schema({
@@ -23,6 +24,7 @@ const AttachmentsSchema: Schema = new Schema({
   leftLeg: { type: String },
   rightLeg: { type: String },
   ephemera: { type: String },
+  frameSpecific: { type: String },
 });
 
 AttachmentsSchema.pre('remove', async function () {

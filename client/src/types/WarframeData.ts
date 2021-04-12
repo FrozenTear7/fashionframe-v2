@@ -10,6 +10,10 @@ interface Skins {
   [frame: string]: string[];
 }
 
+interface FrameSpecific {
+  [frame: string]: string[];
+}
+
 export interface WarframeData {
   armAttachments: string[];
   chestAttachments: string[];
@@ -20,4 +24,5 @@ export interface WarframeData {
   legAttachments: string[];
   skins: Skins;
   syandanas: string[];
+  frameSpecific: FrameSpecific;
 }

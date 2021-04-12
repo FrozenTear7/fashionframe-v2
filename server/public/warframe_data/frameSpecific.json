@@ -1,5 +1,5 @@
 {
-  "helmets": {
+  "frameSpecific": {
     "Chroma": ["Dynasty Wings"],
     "Gara": ["Starglaze Shards"],
     "Khora": ["Khora's Spikes"],

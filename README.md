@@ -95,6 +95,7 @@ The rest of the data is served as a simple **json** array of values:
 | /api/data/armAttachments   | [ArmAttachments](https://fashionframe.herokuapp.com/api/data/armAttachments)     |
 | /api/data/legAttachments   | [LegAttachments](https://fashionframe.herokuapp.com/api/data/legAttachments)     |
 | /api/data/syandanas        | [Syandanas](https://fashionframe.herokuapp.com/api/data/syandanas)               |
+| /api/data/frameSpecific    | [Warframe specific](https://fashionframe.herokuapp.com/api/data/frameSpecific)   |
 
 ## License
 

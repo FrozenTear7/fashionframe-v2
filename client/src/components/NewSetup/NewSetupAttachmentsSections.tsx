@@ -8,12 +8,20 @@ import SelectField from '../Utils/SelectField';
 const NewSetupAttachmentsSection: React.VFC<
   Pick<
     WarframeData,
-    'armAttachments' | 'chestAttachments' | 'ephemeras' | 'legAttachments'
+    | 'armAttachments'
+    | 'chestAttachments'
+    | 'ephemeras'
+    | 'legAttachments'
+    | 'frameSpecific'
   >
-> = ({ armAttachments, chestAttachments, ephemeras, legAttachments }) => {
-  const {
-    formState: { errors },
-  } = useFormContext();
+> = ({
+  armAttachments,
+  chestAttachments,
+  ephemeras,
+  legAttachments,
+  frameSpecific,
+}) => {
+  const { watch } = useFormContext();
 
   return (
     <Grid container spacing={3} direction="column" alignContent="center">
@@ -23,7 +31,6 @@ const NewSetupAttachmentsSection: React.VFC<
           name="attachments.chest"
           label="Chest"
         />
-        <>{errors.attachments?.chest?.message}</>
       </Grid>
 
       <Grid item>
@@ -32,7 +39,6 @@ const NewSetupAttachmentsSection: React.VFC<
           name="attachments.leftArm"
           label="Left arm"
         />
-        <>{errors.attachments?.leftArm?.message}</>
       </Grid>
 
       <Grid item>
@@ -41,7 +47,6 @@ const NewSetupAttachmentsSection: React.VFC<
           name="attachments.rightArm"
           label="Right arm"
         />
-        <>{errors.attachments?.rightArm?.message}</>
       </Grid>
 
       <Grid item>
@@ -50,7 +55,6 @@ const NewSetupAttachmentsSection: React.VFC<
           name="attachments.leftLeg"
           label="Left leg"
         />
-        <>{errors.attachments?.leftLeg?.message}</>
       </Grid>
 
       <Grid item>
@@ -59,7 +63,6 @@ const NewSetupAttachmentsSection: React.VFC<
           name="attachments.rightLeg"
           label="Right leg"
         />
-        <>{errors.attachments?.rightLeg?.message}</>
       </Grid>
 
       <Grid item>
@@ -68,8 +71,17 @@ const NewSetupAttachmentsSection: React.VFC<
           name="attachments.ephemera"
           label="Ephemera"
         />
-        <>{errors.attachments?.ephemera?.message}</>
       </Grid>
+
+      {frameSpecific[watch('frame')] && (
+        <Grid item>
+          <SelectField
+            optionValuesToMap={frameSpecific[watch('frame')]}
+            name="attachments.frameSpecific"
+            label="Frame specific"
+          />
+        </Grid>
+      )}
     </Grid>
   );
 };

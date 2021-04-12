@@ -16,6 +16,7 @@ const warframeDataTypes = [
   'legAttachments',
   'skins',
   'syandanas',
+  'frameSpecific',
 ];
 
 const NewSetup: React.VFC = () => {
@@ -65,7 +66,7 @@ const NewSetup: React.VFC = () => {
   if (warframeDataError) return <Error error={warframeDataError} />;
   if (!warframeData) return <Error error="Something went wrong" />;
   return (
-    <div className="Setup">
+    <>
       <Helmet>
         <title>Create new setup | Fashionframe</title>
         <meta
@@ -78,7 +79,7 @@ const NewSetup: React.VFC = () => {
         />
       </Helmet>
       <NewSetupForm warframeData={warframeData} />
-    </div>
+    </>
   );
 };
 

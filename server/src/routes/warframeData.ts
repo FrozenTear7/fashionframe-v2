@@ -8,6 +8,7 @@ import chestAttachments from '../../public/warframe_data/chestAttachments.json';
 import armAttachments from '../../public/warframe_data/armAttachments.json';
 import legAttachments from '../../public/warframe_data/legAttachments.json';
 import syandanas from '../../public/warframe_data/syandanas.json';
+import frameSpecific from '../../public/warframe_data/frameSpecific.json';
 
 const router = express.Router();
 
@@ -45,6 +46,10 @@ router.get('/legAttachments', (_req, res) => {
 
 router.get('/syandanas', (_req, res) => {
   res.json(syandanas);
+});
+
+router.get('/frameSpecific', (_req, res) => {
+  res.json(frameSpecific);
 });
 
 export default router;

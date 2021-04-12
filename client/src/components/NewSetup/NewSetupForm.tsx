@@ -35,6 +35,7 @@ const newSetupFormDefaultValues = {
     leftLeg: 'None',
     rightLeg: 'None',
     ephemera: 'None',
+    frameSpecific: 'None',
   },
   syandana: {
     name: 'None',
@@ -61,6 +62,7 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
     ephemeras,
     syandanas,
     colorPickers,
+    frameSpecific,
   } = warframeData;
 
   const methods = useForm<NewSetupFormData>({
@@ -176,6 +178,7 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
                       chestAttachments={chestAttachments}
                       ephemeras={ephemeras}
                       legAttachments={legAttachments}
+                      frameSpecific={frameSpecific}
                     />
                   </Grid>
 

@@ -29,7 +29,7 @@ const Homepage: React.VFC = () => {
           muted
           preload="auto"
         >
-          <source src="FashionframeHomepage.mp4" type="video/mp4" />
+          <source src="FashionframeHomepage.mp4#t=0.1" type="video/mp4" />
         </video>
         <Container component="main" maxWidth="xl">
           <Grid container>
