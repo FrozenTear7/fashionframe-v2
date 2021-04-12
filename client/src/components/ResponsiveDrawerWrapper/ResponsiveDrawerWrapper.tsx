@@ -51,10 +51,7 @@ const ResponsiveDrawerWrapper: React.VFC = (props: ResponsiveDrawerProps) => {
                   <MenuIcon />
                 </IconButton>
                 <Button component={Link} to="/">
-                  <img
-                    src={`${process.env.PUBLIC_URL}/favicon-32x32.png`}
-                    alt="Logo"
-                  />
+                  <img src="favicon-32x32.png" alt="Logo" />
                 </Button>
               </Toolbar>
             </AppBar>

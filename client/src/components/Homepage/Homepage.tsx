@@ -3,10 +3,12 @@ import { Button, Container, Grid, Typography } from '@material-ui/core';
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
+import useWidth from '../../utils/useWidth';
 import useHomepageStyles from './useHomepageStyles';
 
 const Homepage: React.VFC = () => {
   const classes = useHomepageStyles();
+  const width = useWidth();
 
   return (
     <>
@@ -22,15 +24,23 @@ const Homepage: React.VFC = () => {
         />
       </Helmet>
       <div className={classes.videoContainer}>
-        <video
-          className={classes.backgroundVideo}
-          autoPlay
-          loop
-          muted
-          preload="auto"
-        >
-          <source src="FashionframeHomepage.mp4#t=0.1" type="video/mp4" />
-        </video>
+        {width === 'xl' || width === 'lg' ? (
+          <video
+            className={classes.backgroundVideo}
+            autoPlay
+            loop
+            muted
+            preload="auto"
+          >
+            <source src="FashionframeHomepage.mp4#t=0.1" type="video/mp4" />
+          </video>
+        ) : (
+          <img
+            className={classes.backgroundVideo}
+            src="FashionframeHomepage.png"
+            alt="Homepage"
+          />
+        )}
         <Container component="main" maxWidth="xl">
           <Grid container>
             <Grid
