@@ -9,6 +9,10 @@ const ForgotPassword: React.VFC = () => {
       <Helmet>
         <title>Recover Password | Fashionframe</title>
         <meta name="description" content="Recover your password." />
+        <meta
+          name="keywords"
+          content="fashionframe, warframe, fashion, forgot, password, recover, recovery, email, social, hub, sharing"
+        />
       </Helmet>
       <ForgotPasswordForm />
     </Container>

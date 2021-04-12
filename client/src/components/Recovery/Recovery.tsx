@@ -14,6 +14,10 @@ const Recovery: React.VFC<RouteComponentProps<{ token: string }>> = ({
       <Helmet>
         <title>Recover password | Fashionframe</title>
         <meta name="description" content="Recover your password." />
+        <meta
+          name="keywords"
+          content="fashionframe, warframe, fashion, forgot, password, recover, recovery, email, social, hub, sharing"
+        />
       </Helmet>
       <RecoveryForm token={token} />
     </Container>

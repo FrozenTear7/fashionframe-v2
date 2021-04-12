@@ -37,7 +37,8 @@ const Setups: React.VFC = () => {
 
   const [
     { data: frames, loading: framesLoading, error: framesError },
-  ] = useAxios<{ frames: string[] }, string>('/api/data/frames');
+    fetchFrames,
+  ] = useAxios<{ frames: string[] }>('/api/data/frames');
 
   const constructSetupsQueryConfig = (): AxiosRequestConfig => {
     const { frameFilter, sortByFilter, pageFilter } = filters;
@@ -63,7 +64,7 @@ const Setups: React.VFC = () => {
   const [
     { data: setupsData, loading: setupsLoading, error: setupsError },
     fetchSetups,
-  ] = useAxios<{ setups: SetupItem[]; pages: number }, string>(
+  ] = useAxios<{ setups: SetupItem[]; pages: number }>(
     constructSetupsQueryConfig()
   );
 
@@ -78,7 +79,11 @@ const Setups: React.VFC = () => {
   }, [filters.frameFilter]);
 
   React.useEffect(() => {
-    void fetchSetups();
+    void fetchFrames().catch((_e) => {});
+  }, []);
+
+  React.useEffect(() => {
+    void fetchSetups().catch((_e) => {});
   }, [filters]);
 
   const helmetTitle = (): string => {
@@ -100,6 +105,10 @@ const Setups: React.VFC = () => {
         <meta
           name="description"
           content="Search for fashion setups created by other players, filter by frames or popularity."
+        />
+        <meta
+          name="keywords"
+          content="fashionframe, warframe, fashion, setup, setups, showcase, list, view, social, hub, sharing"
         />
       </Helmet>
       <Grid container spacing={3}>

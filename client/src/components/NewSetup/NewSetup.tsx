@@ -62,7 +62,11 @@ const NewSetup: React.VFC = () => {
         <title>Create new setup | Fashionframe</title>
         <meta
           name="description"
-          content="Create a new fashion setup to share it with others."
+          content="Create a new fashion setup to share it with others. Choose your attachments and colors using a custom simulated in-game color picker."
+        />
+        <meta
+          name="keywords"
+          content="fashionframe, warframe, fashion, setup, setups, create, color, colors, colorpicker, picker, social, hub, sharing"
         />
       </Helmet>
       <NewSetupForm warframeData={warframeData} />

@@ -91,7 +91,7 @@ UserSchema.post(
 UserSchema.methods.generateAuthToken = async function (): Promise<string> {
   const user = this as IUser;
 
-  const token = jwt.sign({ _id: user._id }, config.jwtKey, { expiresIn: 3 });
+  const token = jwt.sign({ _id: user._id }, config.jwtKey, { expiresIn: '7d' });
   user.tokens = [...user.tokens, { token }];
 
   await user.save();

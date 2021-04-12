@@ -12,6 +12,10 @@ const SignUp: React.VFC = () => {
           name="description"
           content="Sign up to join the Fashionframe community and add your own fashion setups or save setups created by others."
         />
+        <meta
+          name="keywords"
+          content="fashionframe, warframe, fashion, signup, register, join, social, hub, sharing"
+        />
       </Helmet>
       <SignUpForm />
     </Container>

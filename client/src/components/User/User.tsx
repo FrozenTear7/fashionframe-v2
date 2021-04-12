@@ -18,7 +18,7 @@ const User: React.VFC<RouteComponentProps<{ id: string }>> = ({ match }) => {
   >(`/api/users/${userId}`);
   const [
     { data: userSetups, loading: userSetupsLoading, error: userSetupsError },
-  ] = useAxios<SetupItem[], string>(`/api/setups/user/${userId}`);
+  ] = useAxios<SetupItem[]>(`/api/setups/user/${userId}`);
 
   if (userLoading || userSetupsLoading) return <Loading />;
   if (userError) return <Error error={userError.message} />;
@@ -33,6 +33,10 @@ const User: React.VFC<RouteComponentProps<{ id: string }>> = ({ match }) => {
           content={`Check out fashion setups by user ${String(
             userData.username
           )}`}
+        />
+        <meta
+          name="keywords"
+          content={`fashionframe, warframe, fashion, users, user, ${userData.username}, setup, setups, social, hub, sharing`}
         />
       </Helmet>
       <UserPage user={userData} userSetups={userSetups} />

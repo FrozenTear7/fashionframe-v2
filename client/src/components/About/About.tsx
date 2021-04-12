@@ -14,6 +14,10 @@ const About: React.VFC = () => {
           name="description"
           content="Learn more about Fashionframe, how it was made and how you can contribute to the project."
         />
+        <meta
+          name="keywords"
+          content="fashionframe, warframe, fashion, about, social, hub, sharing"
+        />
       </Helmet>
       <Container component="main" maxWidth="md">
         <Typography className={classes.title} component="h1">

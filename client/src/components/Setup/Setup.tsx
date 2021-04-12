@@ -14,19 +14,26 @@ const Setup: React.VFC<RouteComponentProps<{ id: string }>> = ({ match }) => {
   const [
     { data: setup, loading: setupLoading, error: setupError },
     fetchSetup,
-  ] = useAxios<SetupDetails, string>(`/api/setups/${setupId}`);
+    cancelSetup,
+  ] = useAxios<SetupDetails>(`/api/setups/${setupId}`);
   const [
     {
       data: colorPickers,
       loading: colorPickersLoading,
       error: colorPickersError,
     },
-  ] = useAxios<{ colorPickers: ColorPickers }, string>(
-    '/api/data/colorPickers'
-  );
+    fetchColorPickers,
+    cancelColorPickers,
+  ] = useAxios<{ colorPickers: ColorPickers }>('/api/data/colorPickers');
 
   React.useEffect(() => {
     void fetchSetup();
+    void fetchColorPickers();
+
+    return (): void => {
+      cancelSetup();
+      cancelColorPickers();
+    };
   }, []);
 
   if (setupLoading || colorPickersLoading) return <Loading />;
@@ -44,6 +51,10 @@ const Setup: React.VFC<RouteComponentProps<{ id: string }>> = ({ match }) => {
             : 'Fashionframe'}
         </title>
         <meta name="description" content={setup.description} />
+        <meta
+          name="keywords"
+          content={`fashionframe, warframe, fashion, setup, ${setup.frame}, ${setup.skin}, ${setup.helmet}, social, hub, sharing`}
+        />
       </Helmet>
       <SetupPage setup={setup} colorPickers={colorPickers.colorPickers} />
     </>

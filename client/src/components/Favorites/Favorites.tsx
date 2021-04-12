@@ -11,10 +11,10 @@ const Favorites: React.VFC = () => {
   const [
     { data: setups, loading: setupsLoading, error: setupsError },
     fetchSetups,
-  ] = useAxios<SetupItem[], string>('/api/setups/favorites');
+  ] = useAxios<SetupItem[]>('/api/setups/favorites');
 
   React.useEffect(() => {
-    void fetchSetups();
+    void fetchSetups().catch((_e) => {});
   }, []);
 
   if (setupsLoading) return <Loading />;
@@ -24,7 +24,11 @@ const Favorites: React.VFC = () => {
     <Container component="main" maxWidth="lg">
       <Helmet>
         <title>Favorites | Fashionframe</title>
-        <meta name="description" content="Your favorited fashion setups" />
+        <meta name="description" content="Your favorited fashion setups." />
+        <meta
+          name="keywords"
+          content="fashionframe, warframe, fashion, favorites, setups, user, users, social, hub, sharing"
+        />
       </Helmet>
       <Grid container justify="center">
         <Typography variant="h4" component="p">

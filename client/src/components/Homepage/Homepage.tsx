@@ -16,6 +16,10 @@ const Homepage: React.VFC = () => {
           name="description"
           content="Fashionframe is a social hub for Warframe players, where they can share their fashion setups and use those, created by others. These fashion setups include attachments, syandanas, colors and skins for all available frames in the game."
         />
+        <meta
+          name="keywords"
+          content="fashionframe, warframe, fashion, homepage, start, visual, video, social, hub, sharing"
+        />
       </Helmet>
       <div className={classes.videoContainer}>
         <video

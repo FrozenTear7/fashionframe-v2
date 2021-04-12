@@ -67,6 +67,10 @@ const APIPage: React.VFC = () => {
           name="description"
           content="Check out Fashionframe's API, available endpoints and the type of data you can use for free."
         />
+        <meta
+          name="keywords"
+          content="fashionframe, warframe, fashion, api, data, endpoints, free, social, hub, sharing"
+        />
       </Helmet>
       <Container component="main" maxWidth="md">
         <Typography className={classes.title} component="h1">
