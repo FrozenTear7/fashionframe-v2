@@ -9,6 +9,7 @@ import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 import Typography from '@material-ui/core/Typography';
 import { useSnackbar } from 'notistack';
 import axios from 'axios';
+import { Paper } from '@material-ui/core';
 import { LocationState } from '../../types';
 import Error from '../Utils/Error';
 import useRecoveryFormStyles from './useRecoveryFormStyles';
@@ -73,10 +74,8 @@ const RecoveryForm: React.VFC<RecoveryFormProps> = ({ token }) => {
     }
   };
 
-  console.log(errors);
-
   return (
-    <div className={classes.paper}>
+    <Paper className={classes.paper}>
       <Avatar className={classes.avatar}>
         <ContactSupportIcon />
       </Avatar>
@@ -140,7 +139,7 @@ const RecoveryForm: React.VFC<RecoveryFormProps> = ({ token }) => {
           Change password
         </Button>
       </form>
-    </div>
+    </Paper>
   );
 };
 

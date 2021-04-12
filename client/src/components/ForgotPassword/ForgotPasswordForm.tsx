@@ -9,6 +9,7 @@ import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 import Typography from '@material-ui/core/Typography';
 import { useSnackbar } from 'notistack';
 import axios from 'axios';
+import { Paper } from '@material-ui/core';
 import { LocationState } from '../../types';
 import Error from '../Utils/Error';
 import forgotPasswordSchema from '../../validation/forgotPasswordSchema';
@@ -72,7 +73,7 @@ const ForgotPasswordForm: React.VFC = () => {
   };
 
   return (
-    <div className={classes.paper}>
+    <Paper className={classes.paper}>
       <Avatar className={classes.avatar}>
         <ContactSupportIcon />
       </Avatar>
@@ -114,7 +115,7 @@ const ForgotPasswordForm: React.VFC = () => {
           Recover password
         </Button>
       </form>
-    </div>
+    </Paper>
   );
 };
 

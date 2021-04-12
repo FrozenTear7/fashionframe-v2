@@ -9,6 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import PersonAddOutlinedIcon from '@material-ui/icons/PersonAdd';
 import { useSnackbar } from 'notistack';
+import { Paper } from '@material-ui/core';
 import { SignUpFormData } from '../../types/SignUp';
 import signUpSchema from '../../validation/signUpSchema';
 import Error from '../Utils/Error';
@@ -66,7 +67,7 @@ const SignUpForm: React.VFC = () => {
   };
 
   return (
-    <div className={classes.paper}>
+    <Paper className={classes.paper}>
       <Avatar className={classes.avatar}>
         <PersonAddOutlinedIcon />
       </Avatar>
@@ -173,7 +174,7 @@ const SignUpForm: React.VFC = () => {
           </Grid>
         </Grid>
       </form>
-    </div>
+    </Paper>
   );
 };
 

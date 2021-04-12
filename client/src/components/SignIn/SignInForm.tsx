@@ -9,6 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { useSnackbar } from 'notistack';
+import { Paper } from '@material-ui/core';
 import { LocationState } from '../../types';
 import { SignInFormData } from '../../types/SignIn';
 import signInSchema from '../../validation/signInSchema';
@@ -71,7 +72,7 @@ const SignInForm: React.VFC = () => {
   };
 
   return (
-    <div className={classes.paper}>
+    <Paper className={classes.paper}>
       <Avatar className={classes.avatar}>
         <LockOutlinedIcon />
       </Avatar>
@@ -143,7 +144,7 @@ const SignInForm: React.VFC = () => {
           </Grid>
         </Grid>
       </form>
-    </div>
+    </Paper>
   );
 };
 

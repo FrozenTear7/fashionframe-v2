@@ -9,4 +9,5 @@ export interface Attachments {
   leftLeg?: string;
   rightLeg?: string;
   ephemera?: string;
+  frameSpecific?: string;
 }

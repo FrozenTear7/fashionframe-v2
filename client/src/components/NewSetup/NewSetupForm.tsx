@@ -153,8 +153,8 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
                 </Tabs>
               </AppBar>
               <NewSetupTabPanel value={currentTab} index={0}>
-                <Grid container spacing={2}>
-                  <Grid item lg={4}>
+                <Grid container spacing={4}>
+                  <Grid container item md={4}>
                     <NewSetupMainSection
                       frames={frames}
                       helmets={helmets}
@@ -162,7 +162,7 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
                     />
                   </Grid>
 
-                  <Grid item lg={8}>
+                  <Grid container item md={8}>
                     <ColorSchemeSubsection
                       dataPrefix="colorScheme"
                       colorPickers={colorPickers}
@@ -171,8 +171,8 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
                 </Grid>
               </NewSetupTabPanel>
               <NewSetupTabPanel value={currentTab} index={1}>
-                <Grid container spacing={2}>
-                  <Grid item md={4}>
+                <Grid container spacing={4}>
+                  <Grid container item md={4}>
                     <NewSetupAttachmentsSection
                       armAttachments={armAttachments}
                       chestAttachments={chestAttachments}
@@ -186,13 +186,14 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
                     <ColorSchemeSubsection
                       dataPrefix="attachments.colorScheme"
                       colorPickers={colorPickers}
+                      withCopyMain
                     />
                   </Grid>
                 </Grid>
               </NewSetupTabPanel>
               <NewSetupTabPanel value={currentTab} index={2}>
-                <Grid container spacing={2}>
-                  <Grid item md={4}>
+                <Grid container spacing={4}>
+                  <Grid container item md={4}>
                     <NewSetupSyandanaSection syandanas={syandanas} />
                   </Grid>
 
@@ -200,6 +201,7 @@ const NewSetupForm: React.VFC<{ warframeData: WarframeData }> = ({
                     <ColorSchemeSubsection
                       dataPrefix="syandana.colorScheme"
                       colorPickers={colorPickers}
+                      withCopyMain
                     />
                   </Grid>
                 </Grid>

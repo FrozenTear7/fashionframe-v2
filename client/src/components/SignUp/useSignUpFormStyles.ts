@@ -2,6 +2,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 
 const useSignUpFormStyles = makeStyles<Theme>((theme) => ({
   paper: {
+    padding: theme.spacing(4),
     marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',

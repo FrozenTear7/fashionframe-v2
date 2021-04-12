@@ -241,6 +241,11 @@ const SetupPage: React.VFC<SetupDetailsProps> = ({ setup, colorPickers }) => {
               {genericInfoGridItem('Left leg', attachments.leftLeg)}
               {genericInfoGridItem('Right leg', attachments.rightLeg)}
               {genericInfoGridItem('Ephemera', attachments.ephemera)}
+              {attachments.frameSpecific &&
+                genericInfoGridItem(
+                  'Frame specific',
+                  attachments.frameSpecific
+                )}
             </Grid>
             <Grid item lg={6}>
               <SetupColorScheme
